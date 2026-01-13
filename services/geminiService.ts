@@ -20,16 +20,24 @@ Always keep responses under 150 words unless asked for a detailed report.
 `;
 
 class GeminiService {
-  private ai: GoogleGenAI;
-  private modelId: string = "gemini-3-flash-preview";
+  private ai: GoogleGenAI | null = null;
+  private modelId: string = "gemini-1.5-flash";
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+    if (apiKey && apiKey !== 'undefined') {
+      this.ai = new GoogleGenAI({ apiKey });
+    } else {
+      console.warn("Gemini API Key is missing. Chat features will be disabled.");
+    }
   }
 
   async *streamChat(history: ChatMessage[], newMessage: string, language: string) {
+    if (!this.ai) {
+      throw new Error("AI Service not initialized. Check API Key.");
+    }
     try {
-      const chat = this.ai.chats.create({
+      const chat = (this.ai as any).chats.create({
         model: this.modelId,
         config: {
           systemInstruction: getSystemInstruction(language),
