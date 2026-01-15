@@ -6,6 +6,7 @@ export interface Translations {
     about: string;
     services: string;
     insights: string;
+    cases: string;
     contact: string;
   };
   hero: {
@@ -77,6 +78,7 @@ export const translations: Record<Language, Translations> = {
       about: "About Us",
       services: "Services",
       insights: "Insights",
+      cases: "Case Studies",
       contact: "Contact Us"
     },
     hero: {
@@ -173,6 +175,7 @@ export const translations: Record<Language, Translations> = {
       about: "À propos",
       services: "Services",
       insights: "Insights",
+      cases: "Études de cas",
       contact: "Contactez-nous"
     },
     hero: {
@@ -269,6 +272,7 @@ export const translations: Record<Language, Translations> = {
       about: "关于我们",
       services: "业务服务",
       insights: "行业洞察",
+      cases: "客户案例",
       contact: "联系我们"
     },
     hero: {

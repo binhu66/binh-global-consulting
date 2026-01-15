@@ -6,7 +6,7 @@ export const WhyUs: React.FC = () => {
     const { t } = useLanguage();
 
     return (
-        <section className="py-24 px-6 bg-background">
+        <section id="about" className="py-24 px-6 bg-background">
             <div className="max-w-7xl mx-auto text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
                     {t.why.title}

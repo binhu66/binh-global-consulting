@@ -30,7 +30,7 @@ export const Team: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 px-6 bg-surface border-y border-white/5">
+    <section id="insights" className="py-24 px-6 bg-surface border-y border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-12">
           <h2 className="text-3xl font-bold text-white">{t.team.title}</h2>

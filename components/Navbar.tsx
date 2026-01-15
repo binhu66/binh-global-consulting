@@ -6,11 +6,20 @@ import { Language } from '../translations';
 export const Navbar: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const languages: { code: Language; label: string }[] = [
     { code: 'en', label: 'English' },
     { code: 'fr', label: 'Français' },
     { code: 'zh', label: '简体中文' }
+  ];
+
+  const navLinks = [
+    { href: "#", label: t.nav.home },
+    { href: "#about", label: t.nav.about },
+    { href: "#services", label: t.nav.services },
+    { href: "#partners", label: t.nav.cases },
+    { href: "#insights", label: t.nav.insights },
   ];
 
   return (
@@ -28,10 +37,11 @@ export const Navbar: React.FC = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-10">
-          <a href="#" className="text-sm font-medium text-white hover:text-primary transition-colors">{t.nav.home}</a>
-          <a href="#about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t.nav.about}</a>
-          <a href="#services" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t.nav.services}</a>
-          <a href="#insights" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t.nav.insights}</a>
+          {navLinks.map((link) => (
+            <a key={link.href + link.label} href={link.href} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+              {link.label}
+            </a>
+          ))}
         </nav>
 
         {/* Actions */}
@@ -71,14 +81,57 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
-          <button className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20">
+          <button className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20 hidden md:block">
             {t.nav.contact}
           </button>
-          <button className="md:hidden text-white">
-            <Menu />
+
+          <button
+            className="md:hidden text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <Menu size={24} />
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden border-t border-white/10 bg-background/95 backdrop-blur-xl animate-in slide-in-from-top duration-300">
+          <nav className="flex flex-col p-6 gap-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.href + link.label}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-lg font-semibold text-slate-300 hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="h-px bg-white/10 my-2"></div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-slate-400 capitalize">{language === 'zh' ? '语言' : language === 'fr' ? 'Langue' : 'Language'}</span>
+              <div className="flex gap-4">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLanguage(lang.code);
+                      setIsMenuOpen(false);
+                    }}
+                    className={`text-sm font-bold ${language === lang.code ? 'text-primary' : 'text-slate-400'}`}
+                  >
+                    {lang.code.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <button className="w-full bg-primary hover:bg-primary-dark text-white py-4 rounded-xl text-lg font-bold transition-all shadow-lg shadow-primary/20 mt-4">
+              {t.nav.contact}
+            </button>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
