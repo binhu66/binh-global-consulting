@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
   <meta charset="utf-8" />
@@ -10,17 +10,16 @@
     rel="stylesheet">
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
             sans: ['Manrope', 'sans-serif'],
           },
           colors: {
-            primary: "#137fec",
-            "primary-dark": "#0e62b8",
-            background: "#101922",
-            surface: "#16222c",
+            primary: "#059669", // Professional Forest Green
+            "primary-dark": "#047857",
+            background: "#ffffff",
+            surface: "#f8fafc",
           },
           animation: {
             'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -31,15 +30,15 @@
   </script>
   <style>
     body {
-      background-color: #101922;
-      color: white;
+      background-color: #ffffff;
+      color: #0f172a;
     }
 
     .glass-panel {
-      background: rgba(22, 34, 44, 0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     /* Custom scrollbar for chat */
@@ -52,11 +51,11 @@
     }
 
     .scrollbar-thin::-webkit-scrollbar-thumb {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(0, 0, 0, 0.1);
       border-radius: 20px;
     }
   </style>
-  <link rel="stylesheet" href="./index.css">
+  <!-- Removing global index.css if not present, keeping inline styles for reliability -->
 </head>
 
 <body>

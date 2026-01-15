@@ -5,17 +5,22 @@ interface LanguageContextType {
     language: Language;
     setLanguage: (lang: Language) => void;
     t: Translations;
+    isContactOpen: boolean;
+    setContactOpen: (open: boolean) => void;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [language, setLanguage] = useState<Language>('en');
+    const [isContactOpen, setContactOpen] = useState(false);
 
     const value = {
         language,
         setLanguage,
-        t: translations[language]
+        t: translations[language],
+        isContactOpen,
+        setContactOpen
     };
 
     return (
