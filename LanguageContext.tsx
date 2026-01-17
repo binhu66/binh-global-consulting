@@ -15,6 +15,10 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     const [language, setLanguage] = useState<Language>('en');
     const [isContactOpen, setContactOpen] = useState(false);
 
+    React.useEffect(() => {
+        document.documentElement.lang = language;
+    }, [language]);
+
     const value = {
         language,
         setLanguage,
