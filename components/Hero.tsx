@@ -15,7 +15,7 @@ export const Hero: React.FC = () => {
 
     let animationFrameId: number;
     let particles: Particle[] = [];
-    const particleCount = 60;
+    const particleCount = 120;
 
     class Particle {
       x: number;
@@ -28,10 +28,10 @@ export const Hero: React.FC = () => {
       constructor() {
         this.x = Math.random() * (canvas?.width || 0);
         this.y = Math.random() * (canvas?.height || 0);
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = Math.random() * 0.4 - 0.2;
-        this.speedY = Math.random() * 0.4 - 0.2;
-        this.opacity = Math.random() * 0.5 + 0.2;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.opacity = Math.random() * 0.6 + 0.3;
       }
 
       update() {
@@ -52,6 +52,10 @@ export const Hero: React.FC = () => {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
+
+        // Add subtle glow to particles
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = 'rgba(5, 150, 105, 0.4)';
       }
     }
 
@@ -70,6 +74,7 @@ export const Hero: React.FC = () => {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.shadowBlur = 0; // Reset shadow for lines
 
       // Draw lines between nearby particles
       for (let a = 0; a < particles.length; a++) {
@@ -78,10 +83,10 @@ export const Hero: React.FC = () => {
           const dy = particles[a].y - particles[b].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 150) {
-            const opacity = 1 - (distance / 150);
-            ctx.strokeStyle = `rgba(5, 150, 105, ${opacity * 0.15})`;
-            ctx.lineWidth = 0.5;
+          if (distance < 180) {
+            const opacity = 1 - (distance / 180);
+            ctx.strokeStyle = `rgba(5, 150, 105, ${opacity * 0.25})`;
+            ctx.lineWidth = 0.8;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
