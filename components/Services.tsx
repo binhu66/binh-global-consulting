@@ -46,9 +46,6 @@ export const Services: React.FC = () => {
               {t.services.description}
             </p>
           </div>
-          <button className="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all">
-            {t.services.viewAll} <ArrowIcon />
-          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

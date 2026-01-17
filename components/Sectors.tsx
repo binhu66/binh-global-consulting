@@ -80,13 +80,9 @@ export const Sectors: React.FC = () => {
                                 <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-primary transition-colors">
                                     {sector.title}
                                 </h4>
-                                <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">
+                                <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-grow">
                                     {sector.desc}
                                 </p>
-
-                                <button className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary hover:gap-3 transition-all mt-auto border-t border-slate-100 pt-6 w-full">
-                                    Learn More <ArrowRight size={14} />
-                                </button>
                             </div>
                         </div>
                     ))}

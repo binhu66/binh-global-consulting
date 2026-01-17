@@ -22,7 +22,6 @@ export interface Translations {
     badge: string;
     title: string;
     description: string;
-    viewAll: string;
     items: {
       marketAnalysis: { title: string; desc: string };
       logistics: { title: string; desc: string };
@@ -208,7 +207,6 @@ export const translations: Record<Language, Translations> = {
       badge: "Technological Edge",
       title: "AI Expansion",
       description: "We leverage proprietary AI frameworks to navigate regulatory landscapes, analyze market sentiment, and optimize international operations.",
-      viewAll: "View All Services",
       items: {
         marketAnalysis: {
           title: "Market Analysis",
@@ -439,7 +437,6 @@ export const translations: Record<Language, Translations> = {
       badge: "Avance Technologique",
       title: "Expansion IA",
       description: "Nous exploitons des cadres d'IA exclusifs pour naviguer dans les paysages réglementaires, analyser le sentiment du marché et optimiser les opérations internationales.",
-      viewAll: "Voir tous les services",
       items: {
         marketAnalysis: {
           title: "Analyse de Marché",
@@ -670,7 +667,6 @@ export const translations: Record<Language, Translations> = {
       badge: "技术领先优势",
       title: "AI 驱动出海",
       description: "我们利用专有 AI 框架协助应对监管环境、分析市场情绪并优化国际化运营流程。",
-      viewAll: "查看所有服务",
       items: {
         marketAnalysis: {
           title: "市场分析",
@@ -901,7 +897,6 @@ export const translations: Record<Language, Translations> = {
       badge: "Lợi thế Công nghệ",
       title: "Mở rộng AI",
       description: "Chúng tôi tận dụng các khung AI độc quyền để điều hướng bối cảnh pháp lý, phân tích tâm lý thị trường và tối ưu hóa các hoạt động quốc tế.",
-      viewAll: "Xem tất cả dịch vụ",
       items: {
         marketAnalysis: {
           title: "Phân tích Thị trường",
