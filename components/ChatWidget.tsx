@@ -165,12 +165,12 @@ export const ChatWidget: React.FC = () => {
       <div className={`fixed bottom-8 right-8 z-[100] ${isOpen ? 'hidden' : 'block'}`}>
         <div className="relative">
           {/* Outer Pulse Rings */}
-          <div className="absolute inset-0 bg-primary rounded-full ai-ring opacity-50"></div>
-          <div className="absolute inset-0 bg-primary rounded-full ai-ring opacity-30 [animation-delay:0.7s]"></div>
+          <div className="absolute inset-0 bg-sky-500 rounded-full ai-ring opacity-50"></div>
+          <div className="absolute inset-0 bg-sky-400 rounded-full ai-ring opacity-30 [animation-delay:0.7s]"></div>
 
           <button
             onClick={() => setIsOpen(true)}
-            className="relative group flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary via-primary-dark to-black text-white rounded-[2rem] shadow-2xl shadow-primary/40 transition-all hover:scale-105 active:scale-95 overflow-hidden border border-white/20"
+            className="relative group flex items-center justify-center w-20 h-20 bg-gradient-to-br from-sky-400 via-blue-500 to-blue-600 text-white rounded-[2rem] shadow-2xl shadow-blue-500/40 transition-all hover:scale-105 active:scale-95 overflow-hidden border border-white/20"
           >
             {/* Glossy Glint */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-full h-full ai-glint pointer-events-none"></div>
