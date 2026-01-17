@@ -16,6 +16,13 @@ export const Hero: React.FC = () => {
     let animationFrameId: number;
     let particles: Particle[] = [];
     const particleCount = 120;
+    const colors = [
+      'rgba(5, 150, 105, ',  // Primary Green
+      'rgba(16, 185, 129, ', // Emerald
+      'rgba(14, 165, 233, ', // Sky Blue
+      'rgba(20, 184, 166, ', // Teal
+      'rgba(99, 102, 241, '  // Indigo
+    ];
 
     class Particle {
       x: number;
@@ -24,6 +31,7 @@ export const Hero: React.FC = () => {
       speedX: number;
       speedY: number;
       opacity: number;
+      color: string;
 
       constructor() {
         this.x = Math.random() * (canvas?.width || 0);
@@ -31,7 +39,8 @@ export const Hero: React.FC = () => {
         this.size = Math.random() * 3 + 1;
         this.speedX = Math.random() * 0.5 - 0.25;
         this.speedY = Math.random() * 0.5 - 0.25;
-        this.opacity = Math.random() * 0.6 + 0.3;
+        this.opacity = Math.random() * 0.7 + 0.3;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
       }
 
       update() {
@@ -48,14 +57,14 @@ export const Hero: React.FC = () => {
 
       draw() {
         if (!ctx) return;
-        ctx.fillStyle = `rgba(5, 150, 105, ${this.opacity})`;
+        ctx.fillStyle = this.color + this.opacity + ')';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Add subtle glow to particles
-        ctx.shadowBlur = 4;
-        ctx.shadowColor = 'rgba(5, 150, 105, 0.4)';
+        // Add colorful glow to particles
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = this.color + '0.5)';
       }
     }
 
