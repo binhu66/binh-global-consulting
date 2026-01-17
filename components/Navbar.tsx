@@ -27,11 +27,9 @@ export const Navbar: React.FC = () => {
     <header className="sticky top-0 z-50 glass-panel border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <div className="size-10 text-primary">
-            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-              <path clipRule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fillRule="evenodd"></path>
-            </svg>
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="size-12 overflow-hidden rounded-lg">
+            <img src="/logo.png" alt="Binh Global Logo" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
           </div>
           <h2 className="text-xl font-extrabold tracking-tight text-slate-900">Binh Global</h2>
         </Link>

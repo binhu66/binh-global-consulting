@@ -248,7 +248,7 @@ export const translations: Record<Language, Translations> = {
       }
     },
     footer: {
-      desc: "Helping Canadian excellence go global. Providing expert strategic consulting across e-commerce, tech, food, and manufacturing.",
+      desc: "Empowering Chinese enterprises for global strategic expansion. Providing expert strategic consulting across e-commerce, tech, food, and manufacturing.",
       sectors: "Sectors",
       company: "Company",
       contact: "Contact",
@@ -480,7 +480,7 @@ export const translations: Record<Language, Translations> = {
       }
     },
     footer: {
-      desc: "Aider l'excellence canadienne à s'internationaliser. Conseil stratégique expert en e-commerce, technologie, agroalimentaire et industrie.",
+      desc: "Accompagner les entreprises chinoises dans leur expansion stratégique mondiale. Conseil stratégique expert en e-commerce, technologie, agroalimentaire et industrie.",
       sectors: "Secteurs",
       company: "Entreprise",
       contact: "Contact",
@@ -712,7 +712,7 @@ export const translations: Record<Language, Translations> = {
       }
     },
     footer: {
-      desc: "助力加拿大卓越企业走向全球。在电子商务、科技、食品和制造业领域提供专业的战略咨询服务。",
+      desc: "助力中国企业出海全球布局。在电子商务、科技、食品和制造业领域提供专业的战略咨询服务。",
       sectors: "业务板块",
       company: "公司信息",
       contact: "联系方式",
@@ -944,7 +944,7 @@ export const translations: Record<Language, Translations> = {
       }
     },
     footer: {
-      desc: "Giúp sự xuất sắc của Canada vươn ra toàn cầu. Cung cấp tư vấn chiến lược chuyên gia về thương mại điện tử, công nghệ, thực phẩm và sản xuất.",
+      desc: "Hỗ trợ các doanh nghiệp Trung Quốc vươn ra thị trường chiến lược toàn cầu. Cung cấp tư vấn chiến lược chuyên gia về thương mại điện tử, công nghệ, thực phẩm và sản xuất.",
       sectors: "Lĩnh vực",
       company: "Công ty",
       contact: "Liên hệ",

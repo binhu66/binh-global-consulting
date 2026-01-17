@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { Link } from 'react-router-dom';
 
@@ -11,16 +11,25 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
         <div className="col-span-1">
           <div className="flex items-center gap-3 text-primary mb-6">
-            <div className="size-6 text-primary">
-              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                <path clipRule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fillRule="evenodd"></path>
-              </svg>
+            <div className="size-8 overflow-hidden rounded-lg">
+              <img src="/logo.png" alt="Binh Global Logo" className="w-full h-full object-contain" />
             </div>
             <span className="text-xl font-black text-slate-900">Binh Global</span>
           </div>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-slate-600 leading-relaxed mb-6">
             {t.footer.desc}
           </p>
+          <div className="flex gap-4">
+            <a href="#" className="p-2 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-primary hover:border-primary transition-all shadow-sm">
+              <Facebook size={18} />
+            </a>
+            <a href="#" className="p-2 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-primary hover:border-primary transition-all shadow-sm">
+              <Twitter size={18} />
+            </a>
+            <a href="#" className="p-2 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-primary hover:border-primary transition-all shadow-sm">
+              <Instagram size={18} />
+            </a>
+          </div>
         </div>
 
         <div>
