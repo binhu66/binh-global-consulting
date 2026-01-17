@@ -17,7 +17,6 @@ export interface Translations {
     title2: string;
     description: string;
     cta1: string;
-    cta2: string;
   };
   services: {
     badge: string;
@@ -203,8 +202,7 @@ export const translations: Record<Language, Translations> = {
       title1: "Bridging Markets,",
       title2: "Powering Growth.",
       description: "Senior Canadian strategy for enterprises expanding across Canada, USA, and Southeast Asia. Innovation-driven consulting for a borderless world.",
-      cta1: "Get Started",
-      cta2: "Watch Showreel"
+      cta1: "Get Started"
     },
     services: {
       badge: "Technological Edge",
@@ -435,8 +433,7 @@ export const translations: Record<Language, Translations> = {
       title1: "Relier les Marchés,",
       title2: "Propulser la Croissance.",
       description: "Stratégie canadienne de haut niveau pour les entreprises en expansion au Canada, aux États-Unis et en Asie du Sud-Est. Conseil axé sur l'innovation pour un monde sans frontières.",
-      cta1: "Commencer",
-      cta2: "Voir la démo"
+      cta1: "Commencer"
     },
     services: {
       badge: "Avance Technologique",
@@ -667,8 +664,7 @@ export const translations: Record<Language, Translations> = {
       title1: "桥接全球市场，",
       title2: "驱动业务增长。",
       description: "为在加拿大、美国和东南亚扩张的企业提供资深加拿大专家级战略咨询。在无界世界中，以创新驱动咨询。",
-      cta1: "立即开始",
-      cta2: "观看视频"
+      cta1: "立即开始"
     },
     services: {
       badge: "技术领先优势",
@@ -899,8 +895,7 @@ export const translations: Record<Language, Translations> = {
       title1: "Kết nối Thị trường,",
       title2: "Thúc đẩy Tăng trưởng.",
       description: "Chiến lược tư vấn cao cấp từ Canada cho các doanh nghiệp mở rộng sang Canada, Mỹ và Đông Nam Á. Tư vấn hướng tới đổi mới cho một thế giới không biên giới.",
-      cta1: "Bắt đầu ngay",
-      cta2: "Xem Video"
+      cta1: "Bắt đầu ngay"
     },
     services: {
       badge: "Lợi thế Công nghệ",

@@ -38,9 +38,6 @@ export const Hero: React.FC = () => {
           >
             {t.hero.cta1} <ArrowRight size={18} />
           </button>
-          <button className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 px-8 py-4 rounded-xl text-base font-bold backdrop-blur-sm transition-all">
-            <PlayCircle size={18} /> {t.hero.cta2}
-          </button>
         </div>
       </div>
     </div>
