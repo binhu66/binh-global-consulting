@@ -31,7 +31,7 @@ export const Navbar: React.FC = () => {
           <div className="size-12 overflow-hidden rounded-lg">
             <img src="/logo.png" alt="Binh Global Logo" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
           </div>
-          <h2 className="text-xl font-extrabold tracking-tight text-slate-900">Binh Global</h2>
+          <h2 className="text-xl font-extrabold tracking-tight text-slate-900">{t.nav.brandName}</h2>
         </Link>
 
         {/* Desktop Nav */}

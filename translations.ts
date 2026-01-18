@@ -10,6 +10,7 @@ export interface Translations {
     contact: string;
     moreLanguages: string;
     languageLabel: string;
+    brandName: string;
   };
   hero: {
     badge: string;
@@ -194,7 +195,8 @@ export const translations: Record<Language, Translations> = {
       careers: "Careers",
       contact: "Contact Us",
       moreLanguages: "More Languages",
-      languageLabel: "Language"
+      languageLabel: "Language",
+      brandName: "Binh Global"
     },
     hero: {
       badge: "Global Consulting Excellence",
@@ -228,7 +230,7 @@ export const translations: Record<Language, Translations> = {
       members: {
         leadership: {
           name: "Strategic Leadership Team",
-          role: "Huawei Ex-Executives",
+          role: "Global Tech Ex-Executives",
           desc: "Global strategy veterans with deep experience in scaling multinational operations."
         },
         ops: {
@@ -350,7 +352,7 @@ export const translations: Record<Language, Translations> = {
       whyJoin: "Why Join Binh Global?",
       benefits: [
         { title: "Global Perspective", desc: "Work on international projects and gain insights into top overseas markets." },
-        { title: "Rapid Growth", desc: "Coached by former Huawei executives to accumulate practical industry experience." },
+        { title: "Rapid Growth", desc: "Coached by former Global Tech executives to accumulate practical industry experience." },
         { title: "Flexible Work", desc: "Support for global collaborative work with a results-oriented flexible schedule." }
       ],
       openings: [
@@ -405,12 +407,12 @@ export const translations: Record<Language, Translations> = {
       stats: {
         strategy: "Strategy First",
         reach: "Global Reach",
-        tech: "Ex-Huawei Tech",
+        tech: "Global Tech Exp",
         experts: "Local Experts"
       },
       philosophyTitle: "Our Philosophy",
       philosophyDesc1: "We believe that international expansion isn't just about moving capital; it's about navigating cultures, regulations, and technologies. Our team combines high-level corporate experience with deep local insights to ensure our clients don't just enter markets—they thrive in them.",
-      philosophyDesc2: "Our background in global tech giants like Huawei gives us a unique perspective on scaling operations and implementing AI-driven frameworks that minimize risks and maximize conversion.",
+      philosophyDesc2: "Our background in global tech giants gives us a unique perspective on scaling operations and implementing AI-driven frameworks that minimize risks and maximize conversion.",
       ctaTitle: "Ready to expand your horizon?",
       ctaDesc: "Our consultants are ready to discuss your next strategic move in the international arena."
     }
@@ -424,7 +426,8 @@ export const translations: Record<Language, Translations> = {
       careers: "Carrières",
       contact: "Contactez-nous",
       moreLanguages: "Plus de langues",
-      languageLabel: "Langue"
+      languageLabel: "Langue",
+      brandName: "Binh Global"
     },
     hero: {
       badge: "Excellence du Conseil Mondial",
@@ -458,7 +461,7 @@ export const translations: Record<Language, Translations> = {
       members: {
         leadership: {
           name: "Équipe de Direction Stratégique",
-          role: "Ex-cadres de Huawei",
+          role: "Ex-cadres de la Tech Mondiale",
           desc: "Vétérans de la stratégie mondiale avec une expérience approfondie dans le passage à l'échelle des opérations multinationales."
         },
         ops: {
@@ -580,7 +583,7 @@ export const translations: Record<Language, Translations> = {
       whyJoin: "Pourquoi rejoindre Binh Global ?",
       benefits: [
         { title: "Perspective Mondiale", desc: "Travaillez sur des projets internationaux et découvrez les marchés étrangers." },
-        { title: "Croissance Rapide", desc: "Encadré par d'anciens cadres de Huawei pour acquérir une expérience pratique." },
+        { title: "Croissance Rapide", desc: "Encadré par d'anciens cadres de la tech mondiale pour acquérir une expérience pratique." },
         { title: "Travail Flexible", desc: "Soutien au travail collaboratif mondial avec un horaire flexible axé sur les résultats." }
       ],
       openings: [
@@ -635,12 +638,12 @@ export const translations: Record<Language, Translations> = {
       stats: {
         strategy: "La stratégie d'abord",
         reach: "Portée mondiale",
-        tech: "Ex-Huawei Tech",
+        tech: "Ex-Tech Mondiale",
         experts: "Experts locaux"
       },
       philosophyTitle: "Notre Philosophie",
       philosophyDesc1: "Nous pensons que l'expansion internationale n'est pas seulement une question de capital ; il s'agit de naviguer entre les cultures, les réglementations et les technologies. Notre équipe combine une expérience en entreprise de haut niveau avec des connaissances locales approfondies pour garantir que nos clients ne se contentent pas d'entrer sur les marchés, mais qu'ils y prospèrent.",
-      philosophyDesc2: "Notre expérience au sein de géants mondiaux de la technologie comme Huawei nous donne une perspective unique sur la mise à l'échelle des opérations et la mise en œuvre de cadres basés sur l'IA qui minimisent les risques et maximisent la conversion.",
+      philosophyDesc2: "Notre expérience au sein de géants mondiaux de la technologie nous donne une perspective unique sur la mise à l'échelle des opérations et la mise en œuvre de cadres basés sur l'IA qui minimisent les risques et maximisent la conversion.",
       ctaTitle: "Prêt à élargir votre horizon ?",
       ctaDesc: "Nos consultants sont prêts à discuter de votre prochaine décision stratégique sur la scène internationale."
     }
@@ -654,7 +657,8 @@ export const translations: Record<Language, Translations> = {
       careers: "人才招聘",
       contact: "联系我们",
       moreLanguages: "更多语种",
-      languageLabel: "语言"
+      languageLabel: "语言",
+      brandName: "宾海国际咨询"
     },
     hero: {
       badge: "全球咨询卓越成就",
@@ -688,7 +692,7 @@ export const translations: Record<Language, Translations> = {
       members: {
         leadership: {
           name: "战略领导团队",
-          role: "华为前高管团队",
+          role: "全球科技巨头前高管团队",
           desc: "拥有多年全球化战略布局背景，在跨国业务规模化运营方面具备极深造诣。"
         },
         ops: {
@@ -708,12 +712,12 @@ export const translations: Record<Language, Translations> = {
       sectors: "业务板块",
       company: "公司信息",
       contact: "联系方式",
-      rights: "© 2024 Binh Global Services。保留所有权利。加拿大制造。",
+      rights: "© 2024 宾海国际咨询。保留所有权利。加拿大制造。",
       privacyPolicy: "隐私政策",
       termsOfService: "服务条款"
     },
     why: {
-      title: "为什么选择 Binh Global？",
+      title: "为什么选择宾海国际咨询？",
       subtitle: "凭借专业的专业知识，战略性地定位于应对复杂的国际环境。",
       localDepth: {
         title: "本地深度",
@@ -730,13 +734,13 @@ export const translations: Record<Language, Translations> = {
       viewCaseStudies: "查看案例研究"
     },
     chat: {
-      welcome: "您好！我是您的 Binh Global 出海助手。我可以为您提供市场准入战略、税务合规或物流规划方面的咨询。\n\n今天我该如何协助您拓展国际市场？",
+      welcome: "您好！我是您的宾海国际咨询出海助手。我可以为您提供市场准入战略、税务合规或物流规划方面的咨询。\n\n今天我该如何协助您拓展国际市场？",
       placeholder: "咨询关于市场进入、合规规则等...",
       typing: "Binh AI 正在思考...",
       error: "抱歉，目前连接全球网络时出现问题，请稍后重试。",
-      aiName: "Binh Global AI",
+      aiName: "宾海国际咨询 AI",
       aiRole: "全球扩张特别助理 • 在线",
-      tooltip: "咨询 Binh Global AI 助手",
+      tooltip: "咨询宾海国际咨询 AI 助手",
       poweredBy: "由 Gemini 3 提供支持 • 专业翻译",
       you: "您",
       visitor: "访客",
@@ -807,10 +811,10 @@ export const translations: Record<Language, Translations> = {
       title: "加入我们",
       subtitle: "与全球顶尖专家并肩，共创跨境咨询的未来。",
       badge: "人才招募",
-      whyJoin: "为什么加入 Binh Global?",
+      whyJoin: "为什么加入宾海国际咨询?",
       benefits: [
         { title: "全球视野", desc: "参与跨国项目，接触顶尖海外市场动态。" },
-        { title: "快速成长", desc: "由华为前高管导师亲自指导，快速积累行业实战经验。" },
+        { title: "快速成长", desc: "由全球科技巨头前高管导师亲自指导，快速积累行业实战经验。" },
         { title: "弹性办公", desc: "支持全球协同办公，结果导向的弹性工作制。" }
       ],
       openings: [
@@ -861,16 +865,16 @@ export const translations: Record<Language, Translations> = {
     aboutPage: {
       heroTitle1: "助推全球",
       heroTitle2: "远大抱负。",
-      heroDesc: "Binh Global 是一家顶尖的战略咨询公司，致力于弥合北美市场与快速扩张的全球科技景观之间的鸿沟。",
+      heroDesc: "宾海国际咨询 是一家顶尖的战略咨询公司，致力于弥合北美市场与快速扩张的全球科技景观之间的鸿沟。",
       stats: {
         strategy: "战略先行",
         reach: "全球触达",
-        tech: "华为前高管背景",
+        tech: "丰富的企业出海经验",
         experts: "本地专家"
       },
       philosophyTitle: "我们的理念",
       philosophyDesc1: "我们相信，国际化扩张不仅仅是资本的流动；更是对文化、监管和技术的驾驭。我们的团队将高水平的企业经验与深厚的本地洞察相结合，确保我们的客户不仅是进入市场，而是在市场中蓬勃发展。",
-      philosophyDesc2: "我们在华为等全球科技巨头的背景，使我们在扩大运营规模和实施 AI 驱动框架方面拥有独特视角，从而最大程度降低风险并提高转化率。",
+      philosophyDesc2: "我们在全球科技巨头的背景，使我们在扩大运营规模和实施 AI 驱动框架方面拥有独特视角，从而最大程度降低风险并提高转化率。",
       ctaTitle: "准备好拓展业务版图了吗？",
       ctaDesc: "我们的顾问随时为您提供国际化扩张战略建议。"
     }
@@ -884,7 +888,8 @@ export const translations: Record<Language, Translations> = {
       careers: "Tuyển dụng",
       contact: "Liên hệ",
       moreLanguages: "Thêm ngôn ngữ",
-      languageLabel: "Ngôn ngữ"
+      languageLabel: "Ngôn ngữ",
+      brandName: "Binh Global"
     },
     hero: {
       badge: "Tư vấn Toàn cầu Xuất sắc",
@@ -918,7 +923,7 @@ export const translations: Record<Language, Translations> = {
       members: {
         leadership: {
           name: "Đội ngũ Lãnh đạo Chiến lược",
-          role: "Cựu Lãnh đạo Huawei",
+          role: "Cựu Lãnh đạo Công nghệ Toàn cầu",
           desc: "Những chuyên gia chiến lược toàn cầu với kinh nghiệm sâu rộng trong việc mở rộng quy mô hoạt động đa quốc gia."
         },
         ops: {
@@ -1040,7 +1045,7 @@ export const translations: Record<Language, Translations> = {
       whyJoin: "Tại sao nên gia nhập Binh Global?",
       benefits: [
         { title: "Tầm nhìn Toàn cầu", desc: "Làm việc trong các dự án quốc tế và hiểu rõ hơn về các thị trường hàng đầu nước ngoài." },
-        { title: "Tăng trưởng Nhanh chóng", desc: "Được huấn luyện bởi các cựu lãnh đạo Huawei để tích lũy kinh nghiệm thực tế trong ngành." },
+        { title: "Tăng trưởng Nhanh chóng", desc: "Được huấn luyện bởi các cựu lãnh đạo công nghệ toàn cầu để tích lũy kinh nghiệm thực tế trong ngành." },
         { title: "Làm việc Linh hoạt", desc: "Hỗ trợ làm việc cộng tác toàn cầu với lịch trình linh hoạt theo kết quả." }
       ],
       openings: [
@@ -1095,12 +1100,12 @@ export const translations: Record<Language, Translations> = {
       stats: {
         strategy: "Chiến lược Ưu tiên",
         reach: "Tiếp cận Toàn cầu",
-        tech: "Cựu Lãnh đạo Huawei",
+        tech: "Kinh nghiệm Công nghệ Toàn cầu",
         experts: "Chuyên gia Địa phương"
       },
       philosophyTitle: "Triết lý của Chúng tôi",
       philosophyDesc1: "Chúng tôi tin rằng việc mở rộng quốc tế không chỉ là về việc chuyển vốn; đó là về việc điều hướng các nền văn hóa, quy định và công nghệ. Đội ngũ của chúng tôi kết hợp kinh nghiệm doanh nghiệp cấp cao với những hiểu biết sâu sắc về địa phương để đảm bảo khách hàng không chỉ thâm nhập thị trường mà còn phát triển mạnh mẽ trong đó.",
-      philosophyDesc2: "Nền tảng của chúng tôi tại các tập đoàn công nghệ toàn cầu như Huawei mang lại cho chúng tôi góc nhìn độc đáo về việc mở rộng quy mô hoạt động và triển khai các khung xử lý bằng AI giúp giảm thiểu rủi ro và tối ưu hóa việc chuyển đổi.",
+      philosophyDesc2: "Nền tảng của chúng tôi tại các tập đoàn công nghệ toàn cầu mang lại cho chúng tôi góc nhìn độc đáo về việc mở rộng quy mô hoạt động và triển khai các khung xử lý bằng AI giúp giảm thiểu rủi ro và tối ưu hóa việc chuyển đổi.",
       ctaTitle: "Sẵn sàng mở rộng tầm nhìn của bạn?",
       ctaDesc: "Các tư vấn viên của chúng tôi đã sẵn sàng để thảo luận về bước đi chiến lược tiếp theo của bạn trên đấu trường quốc tế."
     }

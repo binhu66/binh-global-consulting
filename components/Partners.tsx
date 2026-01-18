@@ -6,7 +6,7 @@ export const Partners: React.FC = () => {
     const { t } = useLanguage();
 
     const partners = [
-        { name: 'Huawei', color: 'text-white' },
+
         { name: 'Dicos', color: 'text-white' },
         { name: 'TikTok', color: 'text-white' },
         { name: 'Temu', color: 'text-white' },

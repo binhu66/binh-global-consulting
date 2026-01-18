@@ -20,7 +20,7 @@ export const CaseStudies: React.FC = () => {
         },
         {
             ...t.caseStudies.items.catering,
-            image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop",
+            image: "/images/food_processing.png",
             color: "orange"
         }
     ];

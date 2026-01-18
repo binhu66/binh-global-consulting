@@ -37,7 +37,15 @@ const ScrollToHash = () => {
 };
 
 const AppContent = () => {
-  const { isContactOpen, setContactOpen } = useLanguage();
+  const { isContactOpen, setContactOpen, language } = useLanguage();
+
+  useEffect(() => {
+    if (language === 'zh') {
+      document.title = "宾海国际咨询 - 专业战略咨询与市场准入";
+    } else {
+      document.title = "Binh Global - Professional Strategic Consulting & Market Entry";
+    }
+  }, [language]);
 
   return (
     <div className="min-h-screen bg-background text-white selection:bg-primary selection:text-white">

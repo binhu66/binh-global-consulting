@@ -68,8 +68,8 @@ export const AboutPage: React.FC = () => {
                         </div>
                         <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 group">
                             <img
-                                src="https://images.unsplash.com/photo-1522071820081-003f01730b17?q=80&w=1000&auto=format&fit=crop"
-                                alt="Our Team Collaboration"
+                                src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop"
+                                alt="AI Technology Visualization"
                                 className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
                             />
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent pointer-events-none"></div>
