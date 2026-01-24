@@ -11,21 +11,21 @@ export const Team: React.FC = () => {
       name: t.team.members.leadership.name,
       role: t.team.members.leadership.role,
       description: t.team.members.leadership.desc,
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop'
+      image: '/images/team-leader.jpg'
     },
     {
       id: '2',
       name: t.team.members.ops.name,
       role: t.team.members.ops.role,
       description: t.team.members.ops.desc,
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop'
+      image: '/images/team-ops.jpg'
     },
     {
       id: '3',
       name: t.team.members.finance.name,
       role: t.team.members.finance.role,
       description: t.team.members.finance.desc,
-      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop'
+      image: '/images/team-finance.png'
     }
   ];
 
