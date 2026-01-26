@@ -15,7 +15,7 @@ export const CaseStudies: React.FC = () => {
         },
         {
             ...t.caseStudies.items.robotics,
-            image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1000&auto=format&fit=crop",
+            image: "/images/aeon-robot.jpg",
             color: "purple"
         },
         {

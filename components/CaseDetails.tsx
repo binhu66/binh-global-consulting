@@ -18,7 +18,7 @@ export const CaseDetails: React.FC = () => {
 
     const images: Record<string, string> = {
         ecommerce: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop",
-        robotics: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1000&auto=format&fit=crop",
+        robotics: "/images/aeon-robot.jpg",
         catering: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop"
     };
 
