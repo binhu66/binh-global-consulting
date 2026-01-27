@@ -3,7 +3,7 @@ import { useLanguage } from '../LanguageContext';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Filter } from 'lucide-react';
 
-export const CaseList: React.FC = () => {
+export const TestimonialList: React.FC = () => {
     const { t, setContactOpen } = useLanguage();
 
     useEffect(() => {
@@ -13,19 +13,19 @@ export const CaseList: React.FC = () => {
     const cases = [
         {
             id: 'ecommerce',
-            ...t.caseStudies.items.ecommerce,
+            ...t.testimonials.items.ecommerce,
             image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop",
             category: "E-commerce"
         },
         {
             id: 'robotics',
-            ...t.caseStudies.items.robotics,
+            ...t.testimonials.items.robotics,
             image: "/images/aeon-robot.jpg",
             category: "Robotics"
         },
         {
             id: 'catering',
-            ...t.caseStudies.items.catering,
+            ...t.testimonials.items.catering,
             image: "/images/food_processing.png",
             category: "Catering"
         }
@@ -37,13 +37,13 @@ export const CaseList: React.FC = () => {
             <div className="max-w-7xl mx-auto px-6 mb-20 text-center">
                 <div className="inline-flex items-center gap-2 text-primary mb-6">
                     <span className="w-8 h-[2px] bg-primary"></span>
-                    <span className="text-sm font-bold uppercase tracking-[0.2em]">{t.caseStudies.badge}</span>
+                    <span className="text-sm font-bold uppercase tracking-[0.2em]">{t.testimonials.badge}</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tight">
-                    {t.caseStudies.title1} <br /><span className="text-primary italic">{t.caseStudies.title2}</span>
+                    {t.testimonials.title1} <br /><span className="text-primary italic">{t.testimonials.title2}</span>
                 </h1>
                 <p className="text-slate-600 text-xl max-w-3xl mx-auto leading-relaxed">
-                    {t.caseStudies.description}
+                    {t.testimonials.description}
                 </p>
             </div>
 
@@ -96,13 +96,13 @@ export const CaseList: React.FC = () => {
 
                 {/* CTA at Bottom */}
                 <div className="mt-24 p-12 rounded-[3rem] bg-gradient-to-r from-primary/5 to-transparent border border-primary/10 text-center shadow-sm">
-                    <h3 className="text-3xl font-bold text-slate-900 mb-6">{t.caseStudies.ctaTitle}</h3>
-                    <p className="text-slate-600 mb-10 max-w-xl mx-auto">{t.caseStudies.ctaSubtitle}</p>
+                    <h3 className="text-3xl font-bold text-slate-900 mb-6">{t.testimonials.ctaTitle}</h3>
+                    <p className="text-slate-600 mb-10 max-w-xl mx-auto">{t.testimonials.ctaSubtitle}</p>
                     <button
                         onClick={() => setContactOpen(true)}
                         className="bg-primary hover:bg-primary-dark text-white px-10 py-4 rounded-2xl font-bold transition-all shadow-xl shadow-primary/20"
                     >
-                        {t.caseDetails.cta}
+                        {t.testimonialDetails.cta}
                     </button>
                 </div>
             </div>

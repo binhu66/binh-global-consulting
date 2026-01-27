@@ -3,23 +3,23 @@ import { useLanguage } from '../LanguageContext';
 import { ExternalLink, Tag, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export const CaseStudies: React.FC = () => {
+export const Testimonials: React.FC = () => {
     const { t } = useLanguage();
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     const cases = [
         {
-            ...t.caseStudies.items.ecommerce,
+            ...t.testimonials.items.ecommerce,
             image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop",
             color: "blue"
         },
         {
-            ...t.caseStudies.items.robotics,
+            ...t.testimonials.items.robotics,
             image: "/images/aeon-robot.jpg",
             color: "purple"
         },
         {
-            ...t.caseStudies.items.catering,
+            ...t.testimonials.items.catering,
             image: "/images/food_processing.png",
             color: "orange"
         }
@@ -35,13 +35,13 @@ export const CaseStudies: React.FC = () => {
                     <div className="max-w-2xl">
                         <div className="flex items-center gap-2 text-primary mb-4">
                             <span className="w-8 h-[2px] bg-primary"></span>
-                            <span className="text-sm font-bold uppercase tracking-[0.2em]">{t.caseStudies.badge}</span>
+                            <span className="text-sm font-bold uppercase tracking-[0.2em]">{t.testimonials.badge}</span>
                         </div>
                         <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
-                            {t.caseStudies.title}
+                            {t.testimonials.title}
                         </h2>
                         <p className="text-slate-600 text-lg leading-relaxed">
-                            {t.caseStudies.subtitle}
+                            {t.testimonials.subtitle}
                         </p>
                     </div>
                 </div>
@@ -97,7 +97,7 @@ export const CaseStudies: React.FC = () => {
                                     <div className="flex items-start gap-3">
                                         <CheckCircle2 size={18} className="text-primary shrink-0 mt-0.5" />
                                         <div>
-                                            <p className="text-[10px] uppercase font-black text-primary tracking-widest mb-1">{t.caseStudies.impactResults}</p>
+                                            <p className="text-[10px] uppercase font-black text-primary tracking-widest mb-1">{t.testimonials.impactResults}</p>
                                             <p className="text-sm font-medium text-slate-900 leading-snug">{item.result}</p>
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@ export const CaseStudies: React.FC = () => {
 
                                 <button className="flex items-center justify-between w-full group/btn py-4 border-t border-slate-100 mt-auto">
                                     <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 group-hover/btn:text-primary transition-colors">
-                                        {t.caseStudies.viewProject}
+                                        {t.testimonials.viewProject}
                                     </span>
                                     <div className="size-8 rounded-full border border-slate-200 flex items-center justify-center group-hover/btn:bg-primary group-hover/btn:border-primary group-hover/btn:text-white transition-all">
                                         <ArrowRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />

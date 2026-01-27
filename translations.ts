@@ -84,8 +84,10 @@ export interface Translations {
     internet: { title: string; desc: string };
     catering: { title: string; desc: string };
     manufacturing: { title: string; desc: string };
+    web3: { title: string; desc: string };
+    blockchain: { title: string; desc: string };
   };
-  caseStudies: {
+  testimonials: {
     badge: string;
     title: string;
     subtitle: string;
@@ -151,7 +153,7 @@ export interface Translations {
       message: string;
     };
   };
-  caseDetails: {
+  testimonialDetails: {
     back: string;
     challenge: string;
     challengeDesc: string;
@@ -250,7 +252,7 @@ export const translations: Record<Language, Translations> = {
       sectors: "Sectors",
       company: "Company",
       contact: "Contact",
-      rights: "© 2024 Binh Global Services. All rights reserved. Made in Canada.",
+      rights: "© 2026 Binh Global Services. All rights reserved. AI is the future",
       privacyPolicy: "Privacy Policy",
       termsOfService: "Terms of Service"
     },
@@ -269,7 +271,7 @@ export const translations: Record<Language, Translations> = {
     partners: {
       title: "Our Strategic Partners",
       subtitle: "Trusted by global leaders in E-commerce, Tech, and Robotics.",
-      viewCaseStudies: "View Case Studies"
+      viewCaseStudies: "View Testimonials"
     },
     chat: {
       welcome: "Hello! I'm your Binh Global expansion assistant. I can help you with market entry strategies, tax compliance, or logistics planning.\n\nHow can I help you navigate international markets today?",
@@ -290,9 +292,9 @@ export const translations: Record<Language, Translations> = {
         logistics: "Logistics"
       }
     },
-    caseStudies: {
-      badge: "Success Stories",
-      title: "Client Case Studies",
+    testimonials: {
+      badge: "Testimonials",
+      title: "Testimonials",
       subtitle: "Helping global leaders navigate complex markets and achieve sustainable growth.",
       title1: "Innovating for",
       title2: "Global impact.",
@@ -343,6 +345,14 @@ export const translations: Record<Language, Translations> = {
       manufacturing: {
         title: "Advanced Manufacturing",
         desc: "Strategic advisory for global production and supply chain optimization."
+      },
+      web3: {
+        title: "Web3 & Decentralization",
+        desc: "Consulting on decentralized protocols, DAO governance, and digital asset integration."
+      },
+      blockchain: {
+        title: "Blockchain Solutions",
+        desc: "Enterprise blockchain implementation, smart contract auditing, and supply chain transparency."
       }
     },
     careersPage: {
@@ -384,7 +394,7 @@ export const translations: Record<Language, Translations> = {
         message: "How can we help you?"
       }
     },
-    caseDetails: {
+    testimonialDetails: {
       back: "Back to Overview",
       challenge: "Project Challenge",
       challengeDesc: "Our engagement focused on identifying critical bottlenecks in international scaling, specifically addressing regulatory silos and operational inefficiencies that often hinder rapid growth in",
@@ -481,7 +491,7 @@ export const translations: Record<Language, Translations> = {
       sectors: "Secteurs",
       company: "Entreprise",
       contact: "Contact",
-      rights: "© 2024 Services Binh Global. Tous droits réservés. Fait au Canada.",
+      rights: "© 2026 Services Binh Global. Tous droits réservés. L'IA est l'avenir",
       privacyPolicy: "Politique de confidentialité",
       termsOfService: "Conditions d'utilisation"
     },
@@ -500,7 +510,7 @@ export const translations: Record<Language, Translations> = {
     partners: {
       title: "Nos Partenaires Stratégiques",
       subtitle: "Approuvé par des leaders mondiaux du e-commerce, de la technologie et de la robotique.",
-      viewCaseStudies: "Voir les Études de Cas"
+      viewCaseStudies: "Voir les Témoignages"
     },
     chat: {
       welcome: "Bonjour ! Je suis votre assistant d'expansion Binh Global. Je peux vous aider avec les stratégies d'entrée sur le marché, la conformité fiscale ou la planification logistique.\n\nComment puis-je vous aider à naviguer sur les marchés internationaux aujourd'hui ?",
@@ -521,9 +531,9 @@ export const translations: Record<Language, Translations> = {
         logistics: "Logistics"
       }
     },
-    caseStudies: {
-      badge: "Histoires de Réussite",
-      title: "Études de Cas Clients",
+    testimonials: {
+      badge: "Témoignages",
+      title: "Témoignages",
       subtitle: "Aider les leaders mondiaux à naviguer sur des marchés complexes.",
       title1: "Innover pour un",
       title2: "impact mondial.",
@@ -574,6 +584,14 @@ export const translations: Record<Language, Translations> = {
       manufacturing: {
         title: "Industrie Manufacturière",
         desc: "Conseil stratégique pour la production mondiale et l'optimisation de la chaîne d'approvisionnement."
+      },
+      web3: {
+        title: "Web3 & Décentralisation",
+        desc: "Conseil sur les protocoles décentralisés, la gouvernance DAO et l'intégration des actifs numériques."
+      },
+      blockchain: {
+        title: "Solutions Blockchain",
+        desc: "Mise en œuvre de la blockchain en entreprise, audit de contrats intelligents et transparence de la chaîne d'approvisionnement."
       }
     },
     careersPage: {
@@ -615,7 +633,7 @@ export const translations: Record<Language, Translations> = {
         message: "Comment pouvons-nous vous aider ?"
       }
     },
-    caseDetails: {
+    testimonialDetails: {
       back: "Retour à l'aperçu",
       challenge: "Défi du projet",
       challengeDesc: "Notre engagement s'est concentré sur l'identification des goulots d'étranglement critiques dans la mise à l'échelle internationale, en traitant spécifiquement les silos réglementaires et les inefficacités opérationnelles qui entravent souvent la croissance rapide dans",
@@ -653,7 +671,7 @@ export const translations: Record<Language, Translations> = {
       home: "主页",
       about: "关于我们",
       services: "业务服务",
-      cases: "客户案例",
+      cases: "客户证言",
       careers: "人才招聘",
       contact: "联系我们",
       moreLanguages: "更多语种",
@@ -712,7 +730,7 @@ export const translations: Record<Language, Translations> = {
       sectors: "业务板块",
       company: "公司信息",
       contact: "联系方式",
-      rights: "© 2024 宾海国际咨询。保留所有权利。加拿大制造。",
+      rights: "© 2026 宾海国际咨询。保留所有权利。AI 即未来",
       privacyPolicy: "隐私政策",
       termsOfService: "服务条款"
     },
@@ -731,7 +749,7 @@ export const translations: Record<Language, Translations> = {
     partners: {
       title: "我们的战略合作伙伴",
       subtitle: "深受电子商务、科技和机器人领域全球领导者的信任。",
-      viewCaseStudies: "查看案例研究"
+      viewCaseStudies: "查看客户证言"
     },
     chat: {
       welcome: "您好！我是您的宾海国际咨询出海助手。我可以为您提供市场准入战略、税务合规或物流规划方面的咨询。\n\n今天我该如何协助您拓展国际市场？",
@@ -752,9 +770,9 @@ export const translations: Record<Language, Translations> = {
         logistics: "物流规划"
       }
     },
-    caseStudies: {
-      badge: "标杆案例",
-      title: "客户成功案例",
+    testimonials: {
+      badge: "客户感言",
+      title: "客户证言",
       subtitle: "助力全球领军企业应对复杂市场挑战，实现跨越式增长。",
       title1: "创新赋能，",
       title2: "智领全球。",
@@ -789,7 +807,7 @@ export const translations: Record<Language, Translations> = {
     },
     businessSectors: {
       title: "核心业务板块",
-      subtitle: "在全球关键行业推动创新与卓越表现。",
+      subtitle: "在全球关键行业推动 innovation 与卓越表现。",
       ecommerce: {
         title: "跨境电商",
         desc: "深耕北美与东南亚市场，提供专业物流选筹与全链路市场分析咨询。"
@@ -805,6 +823,14 @@ export const translations: Record<Language, Translations> = {
       manufacturing: {
         title: "智能制造",
         desc: "提供全球产能布局方案，助力制造业企业实现跨境生产与供应链优化。"
+      },
+      web3: {
+        title: "Web3 与去中心化",
+        desc: "提供去中心化协议、DAO 治理以及数字资产集成方面的专业咨询。"
+      },
+      blockchain: {
+        title: "区块链解决方案",
+        desc: "企业级区块链落地实施、智能合约审计以及供应链透明度提升。"
       }
     },
     careersPage: {
@@ -846,7 +872,7 @@ export const translations: Record<Language, Translations> = {
         message: "我们能为您做些什么？"
       }
     },
-    caseDetails: {
+    testimonialDetails: {
       back: "回到概览",
       challenge: "项目挑战",
       challengeDesc: "我们的工作重点是识别国际化规模扩展中的关键瓶颈，特别是处理监管孤岛和运营低效问题，这些问题通常会阻碍业务在",
@@ -943,7 +969,7 @@ export const translations: Record<Language, Translations> = {
       sectors: "Lĩnh vực",
       company: "Công ty",
       contact: "Liên hệ",
-      rights: "© 2024 Binh Global Services. Bảo lưu mọi quyền. Sản xuất tại Canada.",
+      rights: "© 2026 Binh Global Services. Bảo lưu mọi quyền. AI là tương lai",
       privacyPolicy: "Chính sách Bảo mật",
       termsOfService: "Điều khoản Dịch vụ"
     },
@@ -962,7 +988,7 @@ export const translations: Record<Language, Translations> = {
     partners: {
       title: "Đối tác Chiến lược",
       subtitle: "Được tin tưởng bởi các nhà lãnh đạo toàn cầu về Thương mại điện tử, Công nghệ và Robot.",
-      viewCaseStudies: "Xem Case Study"
+      viewCaseStudies: "Xem Lời chứng thực"
     },
     chat: {
       welcome: "Xin chào! Tôi là trợ lý mở rộng Binh Global. Tôi có thể giúp bạn về chiến lược thâm nhập thị trường, tuân thủ thuế hoặc lập kế hoạch logistics.\n\nLàm thế nào tôi có thể giúp bạn điều hướng thị trường quốc tế hôm nay?",
@@ -983,9 +1009,9 @@ export const translations: Record<Language, Translations> = {
         logistics: "Logistics"
       }
     },
-    caseStudies: {
-      badge: "Câu chuyện Thành công",
-      title: "Case Study Khách hàng",
+    testimonials: {
+      badge: "Lời chứng thực",
+      title: "Lời chứng thực",
       subtitle: "Giúp các nhà lãnh đạo toàn cầu điều hướng thị trường phức tạp và đạt tăng trưởng bền vững.",
       title1: "Đổi mới vì",
       title2: "Tác động Toàn cầu.",
@@ -1036,6 +1062,14 @@ export const translations: Record<Language, Translations> = {
       manufacturing: {
         title: "Sản xuất Tiên tiến",
         desc: "Tư vấn chiến lược cho sản xuất toàn cầu và tối ưu hóa chuỗi cung ứng."
+      },
+      web3: {
+        title: "Web3 & Phi tập trung",
+        desc: "Tư vấn về các giao thức phi tập trung, quản trị DAO và tích hợp tài sản kỹ thuật số."
+      },
+      blockchain: {
+        title: "Giải pháp Blockchain",
+        desc: "Triển khai blockchain cho doanh nghiệp, kiểm tra hợp đồng thông minh và minh bạch chuỗi cung ứng."
       }
     },
     careersPage: {
@@ -1077,7 +1111,7 @@ export const translations: Record<Language, Translations> = {
         message: "Chúng tôi có thể giúp gì cho bạn?"
       }
     },
-    caseDetails: {
+    testimonialDetails: {
       back: "Quay lại",
       challenge: "Thách thức Dự án",
       challengeDesc: "Sự hợp tác của chúng tôi tập trung vào việc xác định các điểm nghẽn quan trọng trong việc mở rộng quy mô quốc tế, cụ thể là giải quyết các rào cản pháp lý và sự kém hiệu quả trong vận hành thường cản trở sự tăng trưởng nhanh chóng trong",

@@ -6,11 +6,11 @@ import { Services } from './components/Services';
 import { Sectors } from './components/Sectors';
 import { WhyUs } from './components/WhyUs';
 import { Team } from './components/Team';
-import { CaseStudies } from './components/CaseStudies';
-import { CaseList } from './components/CaseList';
+import { Testimonials } from './components/Testimonials';
+import { TestimonialList } from './components/TestimonialList';
 import { AboutPage } from './components/AboutPage';
 import { CareersPage } from './components/CareersPage';
-import { CaseDetails } from './components/CaseDetails';
+import { TestimonialDetails } from './components/TestimonialDetails';
 import { ContactModal } from './components/ContactModal';
 import { Footer } from './components/Footer';
 import { ChatWidget } from './components/ChatWidget';
@@ -59,13 +59,13 @@ const AppContent = () => {
             <Sectors />
             <WhyUs />
             <Team />
-            <CaseStudies />
+            <Testimonials />
           </main>
         } />
-        <Route path="/cases" element={<CaseList />} />
+        <Route path="/cases" element={<TestimonialList />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/careers" element={<CareersPage />} />
-        <Route path="/cases/:id" element={<CaseDetails />} />
+        <Route path="/cases/:id" element={<TestimonialDetails />} />
       </Routes>
       <Footer />
       <ChatWidget />

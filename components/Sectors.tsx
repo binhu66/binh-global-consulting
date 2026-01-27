@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Globe, Coffee, Factory, ArrowRight } from 'lucide-react';
+import { ShoppingBag, Globe, Coffee, Factory, Cpu, Link as LinkIcon } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 
 export const Sectors: React.FC = () => {
@@ -33,6 +33,20 @@ export const Sectors: React.FC = () => {
             icon: <Factory className="w-6 h-6" />,
             image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop",
             color: "from-emerald-500/20 to-teal-500/20"
+        },
+        {
+            title: t.businessSectors.web3.title,
+            desc: t.businessSectors.web3.desc,
+            icon: <Cpu className="w-6 h-6" />,
+            image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000&auto=format&fit=crop",
+            color: "from-indigo-500/20 to-purple-500/20"
+        },
+        {
+            title: t.businessSectors.blockchain.title,
+            desc: t.businessSectors.blockchain.desc,
+            icon: <LinkIcon className="w-6 h-6" />,
+            image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1000&auto=format&fit=crop",
+            color: "from-slate-500/20 to-slate-700/20"
         }
     ];
 
@@ -55,7 +69,7 @@ export const Sectors: React.FC = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {sectorList.map((sector, index) => (
                         <div
                             key={index}

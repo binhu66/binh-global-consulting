@@ -39,6 +39,8 @@ export const Footer: React.FC = () => {
             <li><a href="#sectors" className="text-sm text-slate-600 hover:text-primary transition-colors">{t.businessSectors.internet.title}</a></li>
             <li><a href="#sectors" className="text-sm text-slate-600 hover:text-primary transition-colors">{t.businessSectors.catering.title}</a></li>
             <li><a href="#sectors" className="text-sm text-slate-600 hover:text-primary transition-colors">{t.businessSectors.manufacturing.title}</a></li>
+            <li><a href="#sectors" className="text-sm text-slate-600 hover:text-primary transition-colors">{t.businessSectors.web3.title}</a></li>
+            <li><a href="#sectors" className="text-sm text-slate-600 hover:text-primary transition-colors">{t.businessSectors.blockchain.title}</a></li>
           </ul>
         </div>
 

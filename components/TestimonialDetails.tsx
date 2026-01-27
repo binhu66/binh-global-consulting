@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../LanguageContext';
 import { ArrowLeft, CheckCircle2, Globe, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 
-export const CaseDetails: React.FC = () => {
+export const TestimonialDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { t, setContactOpen } = useLanguage();
 
@@ -12,9 +12,9 @@ export const CaseDetails: React.FC = () => {
     }, []);
 
     // Determine which case to show based on URL param
-    const caseData = id === 'ecommerce' ? t.caseStudies.items.ecommerce :
-        id === 'robotics' ? t.caseStudies.items.robotics :
-            t.caseStudies.items.catering;
+    const caseData = id === 'ecommerce' ? t.testimonials.items.ecommerce :
+        id === 'robotics' ? t.testimonials.items.robotics :
+            t.testimonials.items.catering;
 
     const images: Record<string, string> = {
         ecommerce: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop",
@@ -35,7 +35,7 @@ export const CaseDetails: React.FC = () => {
                     <div className="size-8 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-primary/30">
                         <ArrowLeft size={16} />
                     </div>
-                    <span className="text-sm font-bold uppercase tracking-widest">{t.caseDetails.back}</span>
+                    <span className="text-sm font-bold uppercase tracking-widest">{t.testimonialDetails.back}</span>
                 </Link>
 
                 {/* Hero Section */}
@@ -62,34 +62,34 @@ export const CaseDetails: React.FC = () => {
                         <section>
                             <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                                 <Globe className="text-primary" size={24} />
-                                {t.caseDetails.challenge}
+                                {t.testimonialDetails.challenge}
                             </h2>
                             <p className="text-slate-600 text-lg leading-relaxed">
                                 {caseData.desc}
                                 <br /><br />
-                                {t.caseDetails.challengeDesc} {id === 'robotics' ? t.caseDetails.roboticsField : t.caseDetails.globalMarkets}
+                                {t.testimonialDetails.challengeDesc} {id === 'robotics' ? t.testimonialDetails.roboticsField : t.testimonialDetails.globalMarkets}
                             </p>
                         </section>
 
                         <section className="bg-slate-50 border border-slate-100 rounded-3xl p-8 shadow-sm">
                             <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
                                 <ShieldCheck className="text-primary" size={24} />
-                                {t.caseDetails.strategy}
+                                {t.testimonialDetails.strategy}
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                 <div className="space-y-3">
                                     <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                                         <TrendingUp size={20} />
                                     </div>
-                                    <h3 className="font-bold text-slate-900">{t.caseDetails.marketIntel}</h3>
-                                    <p className="text-sm text-slate-600">{t.caseDetails.marketIntelDesc}</p>
+                                    <h3 className="font-bold text-slate-900">{t.testimonialDetails.marketIntel}</h3>
+                                    <p className="text-sm text-slate-600">{t.testimonialDetails.marketIntelDesc}</p>
                                 </div>
                                 <div className="space-y-3">
                                     <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                                         <Zap size={20} />
                                     </div>
-                                    <h3 className="font-bold text-slate-900">{t.caseDetails.opsAgility}</h3>
-                                    <p className="text-sm text-slate-600">{t.caseDetails.opsAgilityDesc}</p>
+                                    <h3 className="font-bold text-slate-900">{t.testimonialDetails.opsAgility}</h3>
+                                    <p className="text-sm text-slate-600">{t.testimonialDetails.opsAgilityDesc}</p>
                                 </div>
                             </div>
                         </section>
@@ -98,19 +98,19 @@ export const CaseDetails: React.FC = () => {
                     {/* Sidebar */}
                     <div className="space-y-8">
                         <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8 sticky top-32 shadow-sm">
-                            <h3 className="text-sm font-bold uppercase tracking-widest text-primary mb-6">{t.caseDetails.outcomes}</h3>
+                            <h3 className="text-sm font-bold uppercase tracking-widest text-primary mb-6">{t.testimonialDetails.outcomes}</h3>
 
                             <div className="space-y-6">
                                 <div className="flex items-start gap-4">
                                     <CheckCircle2 size={20} className="text-primary shrink-0 mt-1" />
                                     <div>
                                         <p className="text-slate-900 font-bold">{caseData.result}</p>
-                                        <p className="text-[11px] text-slate-500 mt-1 font-medium">{t.caseDetails.impact}</p>
+                                        <p className="text-[11px] text-slate-500 mt-1 font-medium">{t.testimonialDetails.impact}</p>
                                     </div>
                                 </div>
 
                                 <div className="pt-6 border-t border-slate-200">
-                                    <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">{t.caseDetails.competencies}</p>
+                                    <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">{t.testimonialDetails.competencies}</p>
                                     <div className="flex flex-wrap gap-2">
                                         {caseData.tags.map(tag => (
                                             <span key={tag} className="px-3 py-1 bg-white border border-slate-100 rounded-lg text-[10px] font-bold text-slate-600 uppercase tracking-wider shadow-sm">
@@ -125,7 +125,7 @@ export const CaseDetails: React.FC = () => {
                                         onClick={() => setContactOpen(true)}
                                         className="w-full bg-primary hover:bg-primary-dark text-white py-4 rounded-xl text-sm font-bold transition-all shadow-lg shadow-primary/20 active:scale-95"
                                     >
-                                        {t.caseDetails.cta}
+                                        {t.testimonialDetails.cta}
                                     </button>
                                 </div>
                             </div>
