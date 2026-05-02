@@ -10,10 +10,12 @@ import { Testimonials } from './components/Testimonials';
 import { TestimonialList } from './components/TestimonialList';
 import { AboutPage } from './components/AboutPage';
 import { CareersPage } from './components/CareersPage';
+import { ExhibitionsPage } from './components/ExhibitionsPage';
 import { TestimonialDetails } from './components/TestimonialDetails';
 import { ContactModal } from './components/ContactModal';
 import { Footer } from './components/Footer';
 import { ChatWidget } from './components/ChatWidget';
+import { StockTicker } from './components/StockTicker';
 import { LanguageProvider, useLanguage } from './LanguageContext';
 
 const ScrollToHash = () => {
@@ -51,6 +53,7 @@ const AppContent = () => {
     <div className="min-h-screen bg-background text-white selection:bg-primary selection:text-white">
       <ScrollToHash />
       <Navbar />
+      <StockTicker />
       <Routes>
         <Route path="/" element={
           <main>
@@ -66,6 +69,7 @@ const AppContent = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/cases/:id" element={<TestimonialDetails />} />
+        <Route path="/exhibitions" element={<ExhibitionsPage />} />
       </Routes>
       <Footer />
       <ChatWidget />

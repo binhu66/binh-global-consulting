@@ -6,6 +6,7 @@ export interface Translations {
     about: string;
     services: string;
     cases: string;
+    exhibitions: string;
     careers: string;
     contact: string;
     moreLanguages: string;
@@ -194,6 +195,7 @@ export const translations: Record<Language, Translations> = {
       about: "About Us",
       services: "Services",
       cases: "Testimonials",
+      exhibitions: "Exhibitions",
       careers: "Careers",
       contact: "Contact Us",
       moreLanguages: "More Languages",
@@ -433,6 +435,7 @@ export const translations: Record<Language, Translations> = {
       about: "À propos",
       services: "Services",
       cases: "Témoignages",
+      exhibitions: "Expositions",
       careers: "Carrières",
       contact: "Contactez-nous",
       moreLanguages: "Plus de langues",
@@ -672,6 +675,7 @@ export const translations: Record<Language, Translations> = {
       about: "关于我们",
       services: "业务服务",
       cases: "客户证言",
+      exhibitions: "展会动态",
       careers: "人才招聘",
       contact: "联系我们",
       moreLanguages: "更多语种",
@@ -911,6 +915,7 @@ export const translations: Record<Language, Translations> = {
       about: "Về chúng tôi",
       services: "Dịch vụ",
       cases: "Lời chứng thực",
+      exhibitions: "Triển lãm",
       careers: "Tuyển dụng",
       contact: "Liên hệ",
       moreLanguages: "Thêm ngôn ngữ",
