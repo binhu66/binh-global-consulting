@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { Link } from 'react-router-dom';
 
@@ -29,6 +29,9 @@ export const Footer: React.FC = () => {
             <a href="#" className="p-2 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-primary hover:border-primary transition-all shadow-sm">
               <Instagram size={18} />
             </a>
+            <a href="https://www.linkedin.com/company/binhglobal" target="_blank" rel="noopener noreferrer" className="p-2 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-primary hover:border-primary transition-all shadow-sm">
+              <Linkedin size={18} />
+            </a>
           </div>
         </div>
 
@@ -50,6 +53,7 @@ export const Footer: React.FC = () => {
             <li><Link to="/about" className="text-sm text-slate-600 hover:text-primary transition-colors">{t.nav.about}</Link></li>
             <li><Link to="/cases" className="text-sm text-slate-600 hover:text-primary transition-colors">{t.nav.cases}</Link></li>
             <li><Link to="/careers" className="text-sm text-slate-600 hover:text-primary transition-colors">{t.nav.careers}</Link></li>
+            <li><Link to="/exhibitions" className="text-sm text-slate-600 hover:text-primary transition-colors">{t.nav.exhibitions}</Link></li>
           </ul>
         </div>
 
@@ -66,7 +70,7 @@ export const Footer: React.FC = () => {
             </div>
             <div className="flex gap-3 text-slate-600">
               <Mail size={18} className="text-primary shrink-0" />
-              <p className="text-sm">contact@binhglobal.com</p>
+              <p className="text-sm">info@binhglobal.com</p>
             </div>
           </div>
         </div>

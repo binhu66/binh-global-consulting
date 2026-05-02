@@ -16,6 +16,7 @@ import { ContactModal } from './components/ContactModal';
 import { Footer } from './components/Footer';
 import { ChatWidget } from './components/ChatWidget';
 import { StockTicker } from './components/StockTicker';
+import { Partners } from './components/Partners';
 import { LanguageProvider, useLanguage } from './LanguageContext';
 
 const ScrollToHash = () => {
@@ -61,6 +62,7 @@ const AppContent = () => {
             <Services />
             <Sectors />
             <WhyUs />
+            <Partners />
             <Team />
             <Testimonials />
           </main>

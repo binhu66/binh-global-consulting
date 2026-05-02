@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
   <url>
     <loc>https://binhglobal.com/</loc>
-    <lastmod>2026-01-17</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://binhglobal.com/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://binhglobal.com/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://binhglobal.com/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://binhglobal.com/"/>
   </url>
+
   <url>
     <loc>https://binhglobal.com/about</loc>
-    <lastmod>2026-01-17</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://binhglobal.com/cases</loc>
-    <lastmod>2026-01-17</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://binhglobal.com/exhibitions</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <url>
     <loc>https://binhglobal.com/careers</loc>
-    <lastmod>2026-01-17</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
+
 </urlset>
