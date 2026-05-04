@@ -227,7 +227,7 @@ function renderTable(rows){
     return;
   }
   tbody.innerHTML = rows.map(r => {
-    const code = 'BG-' + String(r.id).padStart(4,'0');
+    const code = String(r.id).padStart(4,'0');
     const name = r.name_cn || r.name_en || '—';
     const contact = [r.email, r.phone].filter(Boolean).join(' / ') || '—';
     const roles = (r.roles||[]).slice(0,3).map(role=>`<span class="role-pill">${role}</span>`).join('') + ((r.roles||[]).length>3?`<span class="role-pill">+${r.roles.length-3}</span>`:'');
@@ -259,7 +259,7 @@ function filterTable(){
 // ── Detail ────────────────────────────────────────────────────
 function showDetail(id){
   const r = allRows.find(x=>x.id===id); if(!r) return;
-  const code = 'BG-' + String(r.id).padStart(4,'0');
+  const code = String(r.id).padStart(4,'0');
   document.getElementById('detail-title').textContent = (r.name_cn||r.name_en||'成员') + ' · ' + code;
   let html = '';
 
