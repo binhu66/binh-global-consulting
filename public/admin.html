@@ -387,7 +387,7 @@ function exportCSV(){
   const headers = ['恢复码','中文姓名','英文姓名','邮箱','电话','城市','微信','角色','学校','学历','证书','语言','LinkedIn','案例数','项目参与数','提交时间'];
   const lines = [headers.join(',')];
   rows.forEach(r=>{
-    const code = 'BG-'+String(r.id).padStart(4,'0');
+    const code = String(r.id).padStart(4,'0');
     const esc = v => `"${(v||'').toString().replace(/"/g,'""')}"`;
     lines.push([
       code, esc(r.name_cn), esc(r.name_en), esc(r.email), esc(r.phone), esc(r.city), esc(r.wechat),
