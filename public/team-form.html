@@ -547,8 +547,8 @@ async function submitForm(){
             const code='BG-'+String(currentDbId).padStart(4,'0');
             document.getElementById('mod-code-val').textContent=code;
             document.getElementById('mod-code-box').style.display='block';
-            // also store in localStorage for convenience
-            try{ localStorage.setItem('binh_last_code', code); }catch(e){}
+            // 永久保存到 localStorage，下次打开自动识别
+            try{ localStorage.setItem('binh_record', JSON.stringify({dbId:currentDbId, code})); }catch(e){}
           }
           savedToDB=true;
         }
@@ -712,26 +712,37 @@ function clearDraft(){
 }
 
 // ─── 恢复码 ───────────────────────────────────────────────────────────────────
-async function loadByCode(){
-  const raw=document.getElementById('restore-input').value.trim().toUpperCase();
+async function loadByCode(autoDbId){
   const status=document.getElementById('restore-status');
-  if(!raw){ status.textContent='请输入恢复码'; return; }
-  // Accept "BG-42", "BG-0042", or just "42"
-  const num=parseInt(raw.replace(/^BG-?/i,''),10);
-  if(!num||isNaN(num)){ status.textContent='格式不对，例如 BG-0042'; return; }
+  let num=autoDbId||null;
+  if(!num){
+    const raw=document.getElementById('restore-input').value.trim().toUpperCase();
+    if(!raw){ status.textContent='请输入恢复码'; return; }
+    num=parseInt(raw.replace(/^BG-?/i,''),10);
+    if(!num||isNaN(num)){ status.textContent='格式不对，例如 BG-0042'; return; }
+  }
   if(!SUPABASE_URL||!SUPABASE_ANON){ status.textContent='数据库未配置'; return; }
-  status.textContent='加载中…';
+  if(!autoDbId) status.textContent='加载中…';
   try{
     const res=await fetch(`${SUPABASE_URL}/rest/v1/team_members?id=eq.${num}&select=*`,{
       headers:{'apikey':SUPABASE_ANON,'Authorization':`Bearer ${SUPABASE_ANON}`}
     });
     const rows=await res.json();
-    if(!rows||!rows.length){ status.textContent='找不到记录，请检查恢复码'; return; }
-    populateFromRow(rows[0]);
-    currentDbId=rows[0].id;
-    status.textContent='✅ 已加载！可继续编辑后重新提交';
-    document.getElementById('restore-input').value='';
-  }catch(e){ status.textContent='加载失败，请重试'; console.warn(e); }
+    if(!rows||!rows.length){
+      if(!autoDbId) status.textContent='找不到记录，请检查恢复码';
+      return;
+    }
+    const row=rows[0];
+    populateFromRow(row);
+    currentDbId=row.id;
+    // 保存到本浏览器，以后自动加载
+    const code='BG-'+String(currentDbId).padStart(4,'0');
+    try{ localStorage.setItem('binh_record', JSON.stringify({dbId:currentDbId, code})); }catch(e){}
+    if(!autoDbId){
+      status.textContent='✅ 已加载，可编辑后重新提交';
+      document.getElementById('restore-input').value='';
+    }
+  }catch(e){ if(!autoDbId) status.textContent='加载失败，请重试'; console.warn(e); }
 }
 
 function populateFromRow(row){
@@ -756,9 +767,11 @@ function populateFromRow(row){
   document.getElementById('ref-list').innerHTML=''; refCount=0;
   addExp(); addCase(); addRef(); // defaults
   restoreDraft();
-  // Show banner indicating edit mode
+  // 顶部横幅显示恢复码 + 编辑提示
+  const code='BG-'+String(row.id).padStart(4,'0');
   const bt=document.getElementById('draft-banner-txt');
-  if(bt) bt.textContent='✏️ 编辑模式 — 修改后点提交将更新记录';
+  if(bt) bt.innerHTML=`你的恢复码：<strong style="font-family:monospace;letter-spacing:.1em">${code}</strong> &nbsp;·&nbsp; 修改后点提交将更新记录`;
+  const cb=document.getElementById('draft-clear-btn'); if(cb) cb.style.display='none';
   const b=document.getElementById('draft-banner'); if(b) b.style.display='flex';
 }
 
@@ -788,8 +801,18 @@ applyTranslations();
 addExp();
 addCase();
 addRef();
-restoreDraft();
-bindAutoSave();
+
+// 优先从数据库加载（有记录码）；否则从草稿恢复
+(async()=>{
+  let savedRecord=null;
+  try{ savedRecord=JSON.parse(localStorage.getItem('binh_record')); }catch(e){}
+  if(savedRecord && savedRecord.dbId && SUPABASE_URL && SUPABASE_ANON){
+    await loadByCode(savedRecord.dbId);  // 静默自动加载
+  } else {
+    restoreDraft();  // 未提交过的草稿恢复
+  }
+  bindAutoSave();
+})();
 </script>
 </body>
 </html>
