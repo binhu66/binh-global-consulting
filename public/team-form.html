@@ -295,7 +295,8 @@ const T = {
     photoTips:'✅ 建议正式商务照<br>✅ 面部清晰，背景简洁<br>✅ 仅供内部使用',
     basic:'基本信息', lCn:'姓名（中文）', lEn:'英文名', lEmail:'邮箱', lPhone:'电话 / WhatsApp',
     lCity:'现居城市', lWechat:'微信号', lBio:'一句话介绍',
-    phCn:'张三', phCity:'多伦多 / Toronto', phBio:'核心专长或背景简介...',
+    phCn:'张三', phEmail:'请输入邮箱', phPhone:'+1 647 000 0000', phWechat:'请输入微信号',
+    phCity:'多伦多 / Toronto', phBio:'核心专长或背景简介...',
     phSkills:'例：拥有加拿大政府采购资质，有华人商会资源...',
     roles:'团队角色（可多选）', rolesSub:'请选择所有适用的角色',
     edu:'教育背景', lSchool:'毕业院校', lMajor:'专业', lDegree:'学位',
@@ -323,7 +324,8 @@ const T = {
     photoTips:'✅ Professional headshot preferred<br>✅ Clear face, clean background<br>✅ Internal use only',
     basic:'Basic Information', lCn:'Chinese Name', lEn:'English Name', lEmail:'Email', lPhone:'Phone / WhatsApp',
     lCity:'City of Residence', lWechat:'WeChat ID', lBio:'One-line Bio',
-    phCn:'Zhang San', phCity:'Toronto / Vancouver', phBio:'Core expertise or background...',
+    phCn:'Zhang San', phEmail:'you@email.com', phPhone:'+1 647 ...', phWechat:'WeChat ID',
+    phCity:'Toronto / Vancouver', phBio:'Core expertise or background...',
     phSkills:'e.g. Canadian procurement qualification, chamber of commerce network...',
     roles:'Team Roles (multi-select)', rolesSub:'Select all that apply',
     edu:'Education', lSchool:'University / Institution', lMajor:'Field of Study', lDegree:'Degree',
@@ -370,8 +372,9 @@ function applyTranslations(){
   set('c-basic',t.basic);
   set('l-cn',t.lCn); set('l-en',t.lEn); set('l-email',t.lEmail); set('l-phone',t.lPhone);
   set('l-city',t.lCity); set('l-wechat',t.lWechat); set('l-bio',t.lBio);
-  setPH('name_cn',t.phCn); setPH('name_en','Sam Zhang'); setPH('city',t.phCity);
-  setPH('bio',t.phBio); setPH('skills',t.phSkills);
+  setPH('name_cn',t.phCn); setPH('name_en','Sam Zhang');
+  setPH('email',t.phEmail); setPH('phone',t.phPhone); setPH('wechat',t.phWechat);
+  setPH('city',t.phCity); setPH('bio',t.phBio); setPH('skills',t.phSkills);
   // Roles
   set('c-roles',t.roles); set('c-roles-sub',t.rolesSub);
   // Education
@@ -719,12 +722,7 @@ function restoreDraft(){
     setVal('skills',draft.extra.skills); setVal('linkedin',draft.extra.linkedin);
   }
 
-  // Show banner
-  const b=document.getElementById('draft-banner'); if(b) b.style.display='flex';
-  const bt=document.getElementById('draft-banner-txt');
-  if(bt) bt.textContent = lang==='zh' ? '已恢复上次填写的草稿' : lang==='en' ? 'Draft restored from last session' : lang==='fr' ? 'Brouillon restauré' : 'Đã khôi phục bản nháp';
-  const cb=document.getElementById('draft-clear-btn');
-  if(cb) cb.textContent = lang==='zh' ? '清除草稿' : lang==='en' ? 'Clear draft' : lang==='fr' ? 'Effacer' : 'Xóa nháp';
+  // 草稿静默恢复，不显示横幅（横幅只在成功加载数据库记录时显示）
 }
 
 function clearDraft(){
