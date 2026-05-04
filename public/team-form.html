@@ -539,23 +539,35 @@ async function submitForm(){
         });
         if(res.ok) savedToDB=true;
       } else {
-        // INSERT new record, get back the ID
+        // INSERT new record — 用 return=minimal + Location 头获取 ID
         const res=await fetch(`${SUPABASE_URL}/rest/v1/team_members`,{
           method:'POST',
-          headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON,'Authorization':`Bearer ${SUPABASE_ANON}`,'Prefer':'return=representation'},
+          headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON,'Authorization':`Bearer ${SUPABASE_ANON}`,'Prefer':'return=minimal'},
           body:JSON.stringify(payload)
         });
         if(res.ok||res.status===201){
-          const rows=await res.json();
-          if(rows && rows[0] && rows[0].id){
-            currentDbId=rows[0].id;
+          savedToDB=true;
+          // Supabase 在 Location 头返回 "/team_members?id=eq.42"
+          const loc=res.headers.get('Location')||'';
+          const m=loc.match(/id=eq\.(\d+)/);
+          if(m){
+            currentDbId=parseInt(m[1],10);
+          } else {
+            // fallback：查最新一条自己提交的（按 created_at 倒序取第一）
+            try{
+              const qr=await fetch(`${SUPABASE_URL}/rest/v1/team_members?select=id&order=id.desc&limit=1`,{
+                headers:{'apikey':SUPABASE_ANON,'Authorization':`Bearer ${SUPABASE_ANON}`}
+              });
+              const rows=await qr.json();
+              if(rows&&rows[0]) currentDbId=rows[0].id;
+            }catch(e){}
+          }
+          if(currentDbId){
             const code='BG-'+String(currentDbId).padStart(4,'0');
             document.getElementById('mod-code-val').textContent=code;
             document.getElementById('mod-code-box').style.display='block';
-            // 永久保存到 localStorage，下次打开自动识别
             try{ localStorage.setItem('binh_record', JSON.stringify({dbId:currentDbId, code})); }catch(e){}
           }
-          savedToDB=true;
         }
       }
     }catch(err){console.warn('Supabase error:',err)}
