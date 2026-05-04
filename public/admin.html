@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin — Binh Global Team</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--p:#059669;--pd:#047857;--pl:#d1fae5;--s50:#f8fafc;--s100:#f1f5f9;--s200:#e2e8f0;--s400:#94a3b8;--s600:#475569;--s700:#334155;--s900:#0f172a}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--s50);color:var(--s900);min-height:100vh}
+
+/* ── Login ── */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.login-box{background:#fff;border-radius:20px;border:1px solid var(--s200);box-shadow:0 8px 32px rgba(0,0,0,.08);padding:44px 40px;width:100%;max-width:380px;text-align:center}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px}
+.login-logo img{width:36px;height:36px;border-radius:8px;object-fit:contain}
+.login-logo span{font-size:18px;font-weight:900;color:var(--s900)}
+.login-box h2{font-size:20px;font-weight:800;margin-bottom:6px}
+.login-box p{font-size:13px;color:var(--s400);margin-bottom:28px}
+.login-field{margin-bottom:14px;text-align:left}
+.login-field label{display:block;font-size:12px;font-weight:600;color:var(--s700);margin-bottom:5px}
+.login-field input{width:100%;border:1.5px solid var(--s200);border-radius:10px;padding:11px 14px;font-size:14px;outline:none;transition:border-color .2s}
+.login-field input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(5,150,105,.1)}
+.login-btn{width:100%;background:var(--p);color:#fff;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;font-family:inherit;transition:background .2s}
+.login-btn:hover{background:var(--pd)}
+.login-err{color:#ef4444;font-size:13px;margin-top:12px;display:none}
+
+/* ── Dashboard shell ── */
+#app{display:none;flex-direction:column;min-height:100vh}
+.topbar{background:var(--s900);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.topbar-left img{width:30px;height:30px;border-radius:7px;object-fit:contain}
+.topbar-left span{font-size:15px;font-weight:800;color:#fff}
+.topbar-badge{background:var(--p);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.05em}
+.logout-btn{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:none;border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit}
+.logout-btn:hover{background:rgba(255,255,255,.2);color:#fff}
+
+.main{flex:1;padding:24px;max-width:1200px;margin:0 auto;width:100%}
+
+/* ── Stats ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
+.stat-card{background:#fff;border:1px solid var(--s200);border-radius:14px;padding:18px 20px}
+.stat-num{font-size:28px;font-weight:900;color:var(--p)}
+.stat-label{font-size:12px;color:var(--s400);margin-top:2px}
+
+/* ── Toolbar ── */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.search-input{border:1.5px solid var(--s200);border-radius:10px;padding:9px 14px;font-size:13px;outline:none;width:260px;font-family:inherit}
+.search-input:focus{border-color:var(--p)}
+.toolbar-btn{background:var(--p);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.toolbar-btn.secondary{background:#fff;color:var(--s700);border:1.5px solid var(--s200)}
+.toolbar-btn:hover{opacity:.85}
+.record-count{font-size:13px;color:var(--s400);margin-left:auto}
+
+/* ── Table ── */
+.table-wrap{background:#fff;border:1px solid var(--s200);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--s50)}
+th{padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--s400);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--s200);white-space:nowrap}
+td{padding:13px 16px;font-size:13px;border-bottom:1px solid var(--s100);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--s50);cursor:pointer}
+.code-badge{font-family:monospace;font-size:12px;font-weight:700;color:var(--pd);background:var(--pl);padding:2px 8px;border-radius:6px}
+.role-pill{display:inline-block;background:var(--s100);color:var(--s700);font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;margin:1px}
+.empty-row td{text-align:center;color:var(--s400);padding:48px;font-size:14px}
+.loading-row td{text-align:center;padding:40px;color:var(--s400)}
+
+/* ── Detail Modal ── */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;backdrop-filter:blur(4px)}
+.ov.show{display:flex}
+.detail-box{background:#fff;border-radius:20px;width:100%;max-width:680px;box-shadow:0 24px 64px rgba(0,0,0,.15);overflow:hidden}
+.detail-header{background:var(--s900);padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
+.detail-header h3{color:#fff;font-size:16px;font-weight:800}
+.detail-close{background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:16px;line-height:30px;text-align:center}
+.detail-body{padding:24px;max-height:70vh;overflow-y:auto}
+.detail-section{margin-bottom:20px}
+.detail-section h4{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--p);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--pl)}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.detail-item{display:flex;flex-direction:column;gap:2px}
+.detail-item .lbl{font-size:10px;color:var(--s400);font-weight:600;text-transform:uppercase}
+.detail-item .val{font-size:13px;color:var(--s900)}
+.del-btn{background:#fee2e2;color:#dc2626;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.del-btn:hover{background:#fecaca}
+@media(max-width:600px){
+  .detail-grid{grid-template-columns:1fr}
+  th:nth-child(4),td:nth-child(4),th:nth-child(5),td:nth-child(5){display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-wrap" id="login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <img src="/logo.png" alt=""/>
+      <span>Binh Global</span>
+    </div>
+    <h2>后台管理</h2>
+    <p>Admin Dashboard</p>
+    <div class="login-field">
+      <label>用户名</label>
+      <input type="text" id="u" placeholder="admin" onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input type="password" id="p" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <button class="login-btn" onclick="doLogin()">登录</button>
+    <div class="login-err" id="login-err">用户名或密码错误</div>
+  </div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/logo.png" alt=""/>
+      <span>Binh Global</span>
+      <span class="topbar-badge">ADMIN</span>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">退出登录</button>
+  </div>
+
+  <div class="main">
+    <div class="stats">
+      <div class="stat-card"><div class="stat-num" id="st-total">—</div><div class="stat-label">📋 总提交数</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-today">—</div><div class="stat-label">🗓 今日新增</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-photo">—</div><div class="stat-label">📸 有照片</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-roles">—</div><div class="stat-label">🎯 覆盖角色</div></div>
+    </div>
+
+    <div class="toolbar">
+      <input class="search-input" id="search" type="text" placeholder="搜索姓名、邮箱、角色…" oninput="filterTable()"/>
+      <button class="toolbar-btn secondary" onclick="loadData()">🔄 刷新</button>
+      <button class="toolbar-btn" onclick="exportCSV()">⬇ 导出 CSV</button>
+      <span class="record-count" id="rec-count"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>恢复码</th>
+            <th>姓名</th>
+            <th>联系方式</th>
+            <th>角色</th>
+            <th>城市</th>
+            <th>提交时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="ov" id="modal">
+  <div class="detail-box">
+    <div class="detail-header">
+      <h3 id="detail-title">成员详情</h3>
+      <button class="detail-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="detail-body" id="detail-body"></div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL  = 'https://cqhpkcohkcwyrkwedsvn.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxaHBrY29oa2N3eXJrd2Vkc3ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0NDk0NzMsImV4cCI6MjA5MTAyNTQ3M30.w7xushJMDd3x7v2ia_ravNCmsfNClLocCkCZhzUSNhY';
+
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'admin123';
+
+let allRows = [];
+
+// ── Auth ──────────────────────────────────────────────────────
+function doLogin(){
+  const u = document.getElementById('u').value.trim();
+  const p = document.getElementById('p').value;
+  if(u === ADMIN_USER && p === ADMIN_PASS){
+    sessionStorage.setItem('bg_admin','1');
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('app').style.display='flex';
+    loadData();
+  } else {
+    document.getElementById('login-err').style.display='block';
+  }
+}
+function doLogout(){
+  sessionStorage.removeItem('bg_admin');
+  location.reload();
+}
+
+// ── Load Data ─────────────────────────────────────────────────
+async function loadData(){
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '<tr class="loading-row"><td colspan="7">加载中…</td></tr>';
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/team_members?select=*&order=id.desc`, {
+      headers:{ 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` }
+    });
+    allRows = await res.json();
+    renderTable(allRows);
+    renderStats(allRows);
+  }catch(e){
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">加载失败，请刷新重试</td></tr>';
+  }
+}
+
+function renderStats(rows){
+  document.getElementById('st-total').textContent = rows.length;
+  const today = new Date().toISOString().slice(0,10);
+  document.getElementById('st-today').textContent = rows.filter(r=>r.created_at?.startsWith(today)).length;
+  document.getElementById('st-photo').textContent = rows.filter(r=>r.photo).length;
+  const allRoles = new Set(rows.flatMap(r=>r.roles||[]));
+  document.getElementById('st-roles').textContent = allRoles.size;
+}
+
+function renderTable(rows){
+  const tbody = document.getElementById('tbody');
+  document.getElementById('rec-count').textContent = `共 ${rows.length} 条`;
+  if(!rows.length){
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">暂无数据</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => {
+    const code = 'BG-' + String(r.id).padStart(4,'0');
+    const name = r.name_cn || r.name_en || '—';
+    const contact = [r.email, r.phone].filter(Boolean).join(' / ') || '—';
+    const roles = (r.roles||[]).slice(0,3).map(role=>`<span class="role-pill">${role}</span>`).join('') + ((r.roles||[]).length>3?`<span class="role-pill">+${r.roles.length-3}</span>`:'');
+    const city = r.city || '—';
+    const time = r.created_at ? new Date(r.created_at).toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—';
+    return `<tr onclick="showDetail(${r.id})">
+      <td><span class="code-badge">${code}</span></td>
+      <td><strong>${name}</strong>${r.name_en&&r.name_cn?`<br><span style="color:var(--s400);font-size:11px">${r.name_en}</span>`:''}</td>
+      <td style="font-size:12px">${contact}</td>
+      <td>${roles||'—'}</td>
+      <td>${city}</td>
+      <td style="color:var(--s400);white-space:nowrap">${time}</td>
+      <td><button class="del-btn" onclick="event.stopPropagation();deleteRow(${r.id},'${name}')">删除</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Search ────────────────────────────────────────────────────
+function filterTable(){
+  const q = document.getElementById('search').value.toLowerCase();
+  if(!q){ renderTable(allRows); return; }
+  const filtered = allRows.filter(r=>{
+    const text = [r.name_cn,r.name_en,r.email,r.phone,r.city,r.wechat,...(r.roles||[])].join(' ').toLowerCase();
+    return text.includes(q);
+  });
+  renderTable(filtered);
+}
+
+// ── Detail ────────────────────────────────────────────────────
+function showDetail(id){
+  const r = allRows.find(x=>x.id===id); if(!r) return;
+  const code = 'BG-' + String(r.id).padStart(4,'0');
+  document.getElementById('detail-title').textContent = (r.name_cn||r.name_en||'成员') + ' · ' + code;
+  let html = '';
+
+  // 基本信息
+  html += `<div class="detail-section"><h4>📋 基本信息</h4><div class="detail-grid">
+    ${field('中文姓名', r.name_cn)}
+    ${field('英文姓名', r.name_en)}
+    ${field('邮箱', r.email)}
+    ${field('电话', r.phone)}
+    ${field('城市', r.city)}
+    ${field('微信', r.wechat)}
+  </div>
+  ${r.bio ? `<div style="margin-top:10px"><div class="lbl">简介</div><div style="font-size:13px;color:var(--s700);margin-top:3px;line-height:1.6">${r.bio}</div></div>` : ''}
+  </div>`;
+
+  // 照片
+  if(r.photo){
+    html += `<div class="detail-section"><h4>📸 照片</h4>
+      <img src="${r.photo}" style="width:100px;height:100px;object-fit:cover;border-radius:12px;border:2px solid var(--pl)"/>
+    </div>`;
+  }
+
+  // 角色
+  if(r.roles?.length){
+    html += `<div class="detail-section"><h4>🎯 团队角色</h4>
+      <div>${r.roles.map(x=>`<span class="role-pill" style="font-size:12px;padding:4px 10px">${x}</span>`).join('')}</div>
+    </div>`;
+  }
+
+  // 教育
+  if(r.school||r.major){
+    html += `<div class="detail-section"><h4>🎓 教育背景</h4><div class="detail-grid">
+      ${field('学校', r.school)}
+      ${field('专业', r.major)}
+      ${field('学历', r.degree)}
+      ${field('毕业年份', r.grad_year)}
+    </div></div>`;
+  }
+
+  // 工作经历
+  if(r.experience?.length){
+    html += `<div class="detail-section"><h4>💼 工作经历</h4>`;
+    r.experience.forEach(e=>{
+      html += `<div style="background:var(--s50);border-radius:10px;padding:12px;margin-bottom:8px">
+        <strong>${e.company||''}</strong> · ${e.title||''}<br>
+        <span style="color:var(--s400);font-size:12px">${e.period||''} ${e.location?'· '+e.location:''}</span>
+        ${e.desc?`<p style="font-size:12px;margin-top:6px;color:var(--s600)">${e.desc}</p>`:''}
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  // 商业案例
+  if(r.cases?.length){
+    html += `<div class="detail-section"><h4>🏆 商业案例</h4>`;
+    r.cases.forEach(c=>{
+      html += `<div style="background:var(--s50);border-radius:10px;padding:12px;margin-bottom:8px">
+        <strong>${c.title||''}</strong>${c.industry?' · '+c.industry:''}<br>
+        ${c.desc?`<p style="font-size:12px;margin-top:6px;color:var(--s600)">${c.desc}</p>`:''}
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  // 项目参与
+  if(r.project_refs?.length){
+    html += `<div class="detail-section"><h4>📋 项目参与记录</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        ${r.project_refs.map(x=>`<div style="background:var(--pl);color:var(--pd);border-radius:8px;padding:5px 12px;font-size:12px"><strong>${x.year}</strong> ${x.name}</div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  // 补充信息
+  if(r.certs||r.languages||r.skills||r.linkedin){
+    html += `<div class="detail-section"><h4>✨ 补充信息</h4><div class="detail-grid">
+      ${field('证书', r.certs)}
+      ${field('语言', r.languages)}
+      ${field('LinkedIn', r.linkedin)}
+    </div>
+    ${r.skills?`<div style="margin-top:8px"><div class="lbl">特殊技能</div><div style="font-size:13px;margin-top:3px">${r.skills}</div></div>`:''}
+    </div>`;
+  }
+
+  // 提交信息
+  html += `<div class="detail-section"><h4>ℹ️ 提交信息</h4><div class="detail-grid">
+    ${field('恢复码', code)}
+    ${field('提交时间', r.created_at?new Date(r.created_at).toLocaleString('zh-CN'):'')}
+    ${field('语言', r.lang)}
+  </div>
+  <div style="margin-top:16px">
+    <button class="del-btn" onclick="deleteRow(${r.id},'${(r.name_cn||r.name_en||'该记录').replace(/'/g,'')}');closeDetail()">🗑 删除此记录</button>
+  </div></div>`;
+
+  document.getElementById('detail-body').innerHTML = html;
+  document.getElementById('modal').classList.add('show');
+}
+
+function field(label, val){
+  if(!val) return '';
+  return `<div class="detail-item"><span class="lbl">${label}</span><span class="val">${val}</span></div>`;
+}
+
+function closeDetail(){ document.getElementById('modal').classList.remove('show'); }
+
+// ── Delete ────────────────────────────────────────────────────
+async function deleteRow(id, name){
+  if(!confirm(`确定删除 "${name}" 的记录吗？此操作不可撤销。`)) return;
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/team_members?id=eq.${id}`,{
+      method:'DELETE',
+      headers:{ 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` }
+    });
+    if(res.ok){
+      allRows = allRows.filter(r=>r.id!==id);
+      renderTable(allRows);
+      renderStats(allRows);
+    }
+  }catch(e){ alert('删除失败，请重试'); }
+}
+
+// ── Export CSV ────────────────────────────────────────────────
+function exportCSV(){
+  const rows = allRows;
+  const headers = ['恢复码','中文姓名','英文姓名','邮箱','电话','城市','微信','角色','学校','学历','证书','语言','LinkedIn','案例数','项目参与数','提交时间'];
+  const lines = [headers.join(',')];
+  rows.forEach(r=>{
+    const code = 'BG-'+String(r.id).padStart(4,'0');
+    const esc = v => `"${(v||'').toString().replace(/"/g,'""')}"`;
+    lines.push([
+      code, esc(r.name_cn), esc(r.name_en), esc(r.email), esc(r.phone), esc(r.city), esc(r.wechat),
+      esc((r.roles||[]).join('|')), esc(r.school), esc(r.degree), esc(r.certs), esc(r.languages), esc(r.linkedin),
+      (r.cases||[]).length, (r.project_refs||[]).length,
+      r.created_at ? new Date(r.created_at).toLocaleString('zh-CN') : ''
+    ].join(','));
+  });
+  const blob = new Blob(['﻿'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `binh-team_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+// ── Init ──────────────────────────────────────────────────────
+if(sessionStorage.getItem('bg_admin')==='1'){
+  document.getElementById('login-page').style.display='none';
+  document.getElementById('app').style.display='flex';
+  loadData();
+}
+document.getElementById('modal').addEventListener('click', function(e){ if(e.target===this) closeDetail(); });
+</script>
+</body>
+</html>

@@ -584,10 +584,11 @@ async function submitForm(){
     document.getElementById('mod-icon').textContent='🎉';
     document.getElementById('mod-title').textContent='提交成功！';
     document.getElementById('mod-desc').textContent='档案已保存至数据库。';
-    // 首次提交（新记录）：mod-code-box 已在POST成功时显示
-    // 再次提交（更新记录）：显示更新提示
-    if(currentDbId && document.getElementById('mod-code-box').style.display==='none'){
-      document.getElementById('mod-update-box').style.display='block';
+    // 每次提交成功都显示恢复码
+    if(currentDbId){
+      const code='BG-'+String(currentDbId).padStart(4,'0');
+      document.getElementById('mod-code-val').textContent=code;
+      document.getElementById('mod-code-box').style.display='block';
     }
   }else{
     document.getElementById('mod-icon').textContent='⚠️';
