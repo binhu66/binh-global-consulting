@@ -227,17 +227,22 @@ textarea{resize:vertical;min-height:76px}
   <div class="mod">
     <div class="mod-icon" id="mod-icon">🎉</div>
     <h2 id="mod-title">提交成功！</h2>
-    <p id="mod-desc">你的档案已成功保存至数据库。</p>
-    <div id="mod-code-box" style="display:none;background:#f0fdf4;border:2px solid #6ee7b7;border-radius:14px;padding:16px;margin-bottom:18px">
-      <p id="mod-code-label" style="font-size:11px;font-weight:700;color:#065f46;letter-spacing:.05em;margin-bottom:8px">🔑 你的恢复码（请保存）</p>
-      <div style="display:flex;align-items:center;justify-content:center;gap:10px">
-        <span id="mod-code-val" style="font-size:28px;font-weight:900;color:#047857;letter-spacing:.15em;font-family:monospace"></span>
-        <button onclick="copyCode()" id="mod-copy-btn" style="background:var(--p);color:#fff;border:none;border-radius:8px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit">复制</button>
-      </div>
-      <p id="mod-code-hint" style="font-size:11px;color:#6b7280;margin-top:8px">下次打开表单，输入此码即可继续编辑</p>
+    <p id="mod-desc" style="margin-bottom:16px">你的档案已成功保存至数据库。</p>
+
+    <!-- 第一次提交：显示恢复码 -->
+    <div id="mod-code-box" style="display:none;background:#f0fdf4;border:2px solid #6ee7b7;border-radius:16px;padding:20px;margin-bottom:18px;text-align:center">
+      <p style="font-size:12px;font-weight:700;color:#065f46;margin-bottom:12px">🔑 你的专属恢复码，请截图或记下来</p>
+      <div style="font-size:40px;font-weight:900;color:#047857;letter-spacing:.2em;font-family:monospace;margin-bottom:12px" id="mod-code-val"></div>
+      <button onclick="copyCode()" id="mod-copy-btn" style="background:var(--p);color:#fff;border:none;border-radius:10px;padding:8px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%">📋 复制恢复码</button>
+      <p style="font-size:11px;color:#6b7280;margin-top:10px">下次打开表单 → 输入此码 → 继续编辑</p>
     </div>
-    <button class="btn-dl" id="dl-btn">⬇️ <span id="dl-txt">下载备份（JSON）</span></button>
-    <button class="btn-cls" onclick="closeModal()" id="mod-close">关闭</button>
+
+    <!-- 再次提交：提示已更新 -->
+    <div id="mod-update-box" style="display:none;background:#f0fdf4;border:1px solid #6ee7b7;border-radius:12px;padding:12px;margin-bottom:18px;font-size:13px;color:#065f46;text-align:center">
+      ✅ 记录已更新，你的恢复码不变
+    </div>
+
+    <button class="btn-cls" onclick="closeModal()" id="mod-close" style="display:block;margin:0 auto;background:none;border:1px solid var(--s200);border-radius:10px;padding:8px 32px;font-size:13px;color:var(--s600);cursor:pointer;font-family:inherit">关闭</button>
   </div>
 </div>
 
@@ -556,26 +561,26 @@ async function submitForm(){
     }catch(err){console.warn('Supabase error:',err)}
   }
 
-  // Set up download button (always available as backup)
-  const name=(v('name_en')||v('name_cn')||'member').replace(/\s+/g,'_');
-  const fname=`binh-team_${name}_${new Date().toISOString().slice(0,10)}.json`;
-  document.getElementById('dl-btn').onclick=()=>{
-    const blob=new Blob([JSON.stringify(formData,null,2)],{type:'application/json'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; a.click();
-  };
-
   // Clear draft on success
   if(savedToDB) clearDraft();
 
-  // Show modal
+  // 重置弹窗状态
+  document.getElementById('mod-code-box').style.display='none';
+  document.getElementById('mod-update-box').style.display='none';
+
   if(savedToDB){
-    document.getElementById('mod-title').textContent=t.modTitle;
-    document.getElementById('mod-desc').textContent=t.modDesc;
     document.getElementById('mod-icon').textContent='🎉';
+    document.getElementById('mod-title').textContent='提交成功！';
+    document.getElementById('mod-desc').textContent='档案已保存至数据库。';
+    // 首次提交（新记录）：mod-code-box 已在POST成功时显示
+    // 再次提交（更新记录）：显示更新提示
+    if(currentDbId && document.getElementById('mod-code-box').style.display==='none'){
+      document.getElementById('mod-update-box').style.display='block';
+    }
   }else{
-    document.getElementById('mod-title').textContent=t.modTitleOffline;
-    document.getElementById('mod-desc').textContent=t.modDescOffline;
-    document.getElementById('mod-icon').textContent='📄';
+    document.getElementById('mod-icon').textContent='⚠️';
+    document.getElementById('mod-title').textContent='提交失败';
+    document.getElementById('mod-desc').textContent='数据库连接出错，请重试或联系负责人。';
   }
   document.getElementById('modal').classList.add('show');
   btn.disabled=false;
