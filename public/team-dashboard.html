@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Binh Global · 团队档案汇总</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--primary:#059669;--primary-dark:#047857;--primary-light:#d1fae5;--s50:#f8fafc;--s100:#f1f5f9;--s200:#e2e8f0;--s400:#94a3b8;--s500:#64748b;--s600:#475569;--s700:#334155;--s900:#0f172a}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--s50);color:var(--s900);min-height:100vh}
+
+  .header{background:linear-gradient(135deg,#0f172a 0%,#064e3b 100%);padding:20px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:50;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+  .header-left{display:flex;align-items:center;gap:14px}
+  .logo{display:flex;align-items:center;gap:10px}
+  .logo img{width:36px;height:36px;border-radius:8px;object-fit:contain}
+  .logo-name{font-size:17px;font-weight:900;color:#fff}
+  .header-sub{color:rgba(255,255,255,.45);font-size:12px;margin-top:1px}
+  .header-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+  .btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+  .btn-ghost:hover{background:rgba(255,255,255,.2)}
+  .btn-primary{background:var(--primary);color:#fff;box-shadow:0 2px 12px rgba(5,150,105,.4)}
+  .btn-primary:hover{background:var(--primary-dark)}
+  .btn-red{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
+  .btn-red:hover{background:rgba(239,68,68,.3)}
+
+  .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px 32px}
+  @media(max-width:700px){.stats-bar{grid-template-columns:1fr 1fr}}
+  .stat-card{background:#fff;border:1px solid var(--s200);border-radius:16px;padding:20px}
+  .stat-num{font-size:32px;font-weight:900;color:var(--primary);line-height:1;margin-bottom:4px}
+  .stat-label{font-size:11px;font-weight:700;color:var(--s500);text-transform:uppercase;letter-spacing:.05em}
+
+  .upload-zone{margin:0 32px 24px;border:2px dashed var(--s200);border-radius:16px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:#fff}
+  .upload-zone:hover,.upload-zone.drag{border-color:var(--primary);background:var(--primary-light)}
+  .upload-zone input{display:none}
+  .upload-icon{font-size:32px;margin-bottom:8px}
+  .upload-zone h3{font-size:15px;font-weight:700;color:var(--s700);margin-bottom:4px}
+  .upload-zone p{font-size:12px;color:var(--s400)}
+
+  .members-section{padding:0 32px 60px}
+  .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .section-title{font-size:13px;font-weight:700;color:var(--s500);text-transform:uppercase;letter-spacing:.1em}
+  .members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
+
+  .member-card{background:#fff;border:1px solid var(--s200);border-radius:18px;overflow:hidden;cursor:pointer;transition:all .2s}
+  .member-card:hover{border-color:var(--primary);box-shadow:0 8px 30px rgba(5,150,105,.12);transform:translateY(-2px)}
+  .member-card-top{padding:20px 20px 14px;display:flex;align-items:flex-start;gap:14px}
+  .avatar{width:56px;height:56px;border-radius:14px;flex-shrink:0;object-fit:cover;background:linear-gradient(135deg,var(--primary),#10b981);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;overflow:hidden}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .member-info{flex:1;min-width:0}
+  .member-name{font-size:16px;font-weight:800;color:var(--s900)}
+  .member-name-en{font-size:12px;color:var(--s400);margin-bottom:5px}
+  .member-bio{font-size:12px;color:var(--s600);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .member-card-mid{padding:0 20px 14px}
+  .roles-row{display:flex;flex-wrap:wrap;gap:6px}
+  .role-tag{background:var(--primary-light);color:var(--primary-dark);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px}
+  .member-card-bot{padding:12px 20px;border-top:1px solid var(--s100);display:flex;justify-content:space-between;align-items:center}
+  .member-meta{font-size:11px;color:var(--s400)}
+  .mini-stats{display:flex;gap:10px}
+  .mini-stat{font-size:11px;font-weight:700;color:var(--s500);display:flex;align-items:center;gap:3px}
+  .mini-stat b{color:var(--primary);font-size:14px}
+
+  .empty-state{grid-column:1/-1;text-align:center;padding:80px 32px}
+  .empty-icon{font-size:60px;margin-bottom:16px}
+  .empty-state h2{font-size:18px;font-weight:800;color:var(--s700);margin-bottom:8px}
+  .empty-state p{color:var(--s400);font-size:13px;line-height:1.7}
+
+  /* Detail Modal */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:flex-start;justify-content:center;backdrop-filter:blur(6px);overflow-y:auto;padding:40px 16px}
+  .modal-overlay.show{display:flex}
+  .modal{background:#fff;border-radius:24px;width:100%;max-width:700px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.25);margin:auto}
+  .modal-hero{background:linear-gradient(135deg,#0f172a 0%,#064e3b 100%);padding:32px;display:flex;align-items:center;gap:24px}
+  .modal-photo{width:80px;height:80px;border-radius:18px;object-fit:cover;border:3px solid rgba(255,255,255,.2);flex-shrink:0;background:linear-gradient(135deg,var(--primary),#10b981);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff;overflow:hidden}
+  .modal-photo img{width:100%;height:100%;object-fit:cover}
+  .modal-name{color:#fff;font-size:22px;font-weight:900}
+  .modal-name-en{color:rgba(255,255,255,.5);font-size:13px;margin-bottom:10px}
+  .modal-contacts{display:flex;flex-wrap:wrap;gap:12px}
+  .contact-chip{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.7);font-size:12px;background:rgba(255,255,255,.08);padding:4px 12px;border-radius:999px}
+  .modal-body{padding:28px}
+  .dsec{margin-bottom:28px}
+  .dsec h3{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--primary);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--primary-light)}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}
+  .di label{font-size:10px;font-weight:700;color:var(--s400);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px}
+  .di p{font-size:14px;color:var(--s800,#1e293b);font-weight:500}
+  .exp-card,.case-card{background:var(--s50);border-radius:12px;padding:16px;margin-bottom:10px;border-left:3px solid var(--primary)}
+  .exp-company{font-weight:800;font-size:15px;color:var(--s900)}
+  .exp-meta{font-size:12px;color:var(--s500);margin:3px 0 8px}
+  .exp-desc{font-size:13px;color:var(--s600);line-height:1.6}
+  .modal-footer{padding:18px 28px;border-top:1px solid var(--s100);display:flex;gap:10px;justify-content:flex-end}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">
+      <img src="logo.png" alt="" onerror="this.style.display='none'">
+      <div><div class="logo-name">Binh Global</div><div class="header-sub">出海团队档案汇总</div></div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-ghost" onclick="exportCSV()">📊 导出 CSV</button>
+    <button class="btn btn-ghost" onclick="exportAllJSON()">💾 导出 JSON</button>
+    <button class="btn btn-red" onclick="clearAll()">🗑 清空</button>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-card"><div class="stat-num" id="s-members">0</div><div class="stat-label">团队成员</div></div>
+  <div class="stat-card"><div class="stat-num" id="s-roles">0</div><div class="stat-label">不同角色</div></div>
+  <div class="stat-card"><div class="stat-num" id="s-cases">0</div><div class="stat-label">商业案例</div></div>
+  <div class="stat-card"><div class="stat-num" id="s-cities">0</div><div class="stat-label">覆盖城市</div></div>
+</div>
+
+<label class="upload-zone" id="upload-zone">
+  <input type="file" id="file-input" accept=".json" multiple onchange="handleFiles(this.files)">
+  <div class="upload-icon">📂</div>
+  <h3>导入团队成员档案</h3>
+  <p>点击选择 JSON 文件，或拖拽到此处（支持批量导入）</p>
+</label>
+
+<div class="members-section">
+  <div class="section-header">
+    <div class="section-title" id="count-label">成员列表</div>
+  </div>
+  <div class="members-grid" id="members-grid">
+    <div class="empty-state">
+      <div class="empty-icon">👥</div>
+      <h2>暂无成员档案</h2>
+      <p>让团队成员填写表单并下载 JSON<br>然后在上方导入即可查看</p>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="detail-modal" onclick="bgClose(event)">
+  <div class="modal">
+    <div class="modal-hero">
+      <div class="modal-photo" id="m-photo">?</div>
+      <div>
+        <div class="modal-name" id="m-name">-</div>
+        <div class="modal-name-en" id="m-name-en"></div>
+        <div class="modal-contacts" id="m-contacts"></div>
+      </div>
+    </div>
+    <div class="modal-body" id="m-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" style="color:var(--s600);background:var(--s100);border:none" onclick="closeModal()">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let members=JSON.parse(localStorage.getItem('binh_team_v2')||'[]');
+function save(){localStorage.setItem('binh_team_v2',JSON.stringify(members))}
+
+function handleFiles(files){
+  Array.from(files).forEach(file=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      try{
+        const d=JSON.parse(e.target.result);
+        if(d.basic||d.meta){
+          const idx=members.findIndex(m=>m.basic?.email&&m.basic.email===d.basic?.email);
+          if(idx>=0)members[idx]=d; else members.push(d);
+          save();render();
+        }
+      }catch(err){alert('文件格式有误：'+file.name)}
+    };
+    r.readAsText(file);
+  });
+  document.getElementById('file-input').value='';
+}
+
+const zone=document.getElementById('upload-zone');
+zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag')});
+zone.addEventListener('dragleave',()=>zone.classList.remove('drag'));
+zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag');handleFiles(e.dataTransfer.files)});
+
+function initials(n){
+  if(!n)return'?';
+  const p=n.trim().split(/\s+/);
+  return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():n[0].toUpperCase();
+}
+
+function avatarHTML(member,size='56px',radius='14px'){
+  const name=member.basic?.name_en||member.basic?.name_cn||'';
+  if(member.photo){
+    return`<div style="width:${size};height:${size};border-radius:${radius};overflow:hidden;flex-shrink:0"><img src="${member.photo}" style="width:100%;height:100%;object-fit:cover"/></div>`;
+  }
+  return`<div style="width:${size};height:${size};border-radius:${radius};background:linear-gradient(135deg,#059669,#10b981);display:flex;align-items:center;justify-content:center;font-size:calc(${size} * 0.38);font-weight:800;color:#fff;flex-shrink:0">${initials(name)}</div>`;
+}
+
+function render(){
+  const allRoles=new Set(members.flatMap(m=>m.roles||[]));
+  const allCases=members.reduce((s,m)=>s+(m.cases?.length||0),0);
+  const allCities=new Set(members.map(m=>m.basic?.city).filter(Boolean));
+  document.getElementById('s-members').textContent=members.length;
+  document.getElementById('s-roles').textContent=allRoles.size;
+  document.getElementById('s-cases').textContent=allCases;
+  document.getElementById('s-cities').textContent=allCities.size;
+  document.getElementById('count-label').textContent=`成员列表（共 ${members.length} 人）`;
+
+  const grid=document.getElementById('members-grid');
+  if(!members.length){
+    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">👥</div><h2>暂无成员档案</h2><p>让团队成员填写表单并下载 JSON<br>然后在上方导入即可查看</p></div>`;
+    return;
+  }
+  grid.innerHTML=members.map((m,i)=>{
+    const b=m.basic||{};
+    const roles=(m.roles||[]).slice(0,3);
+    const more=(m.roles||[]).length-3;
+    const date=m.meta?.submitted_at?new Date(m.meta.submitted_at).toLocaleDateString('zh-CN'):'-';
+    return`<div class="member-card" onclick="openDetail(${i})">
+      <div class="member-card-top">
+        ${avatarHTML(m)}
+        <div class="member-info">
+          <div class="member-name">${b.name_cn||b.name_en||'未填写'}</div>
+          <div class="member-name-en">${b.name_en||''}</div>
+          <div class="member-bio">${b.bio||''}</div>
+        </div>
+      </div>
+      ${roles.length?`<div class="member-card-mid"><div class="roles-row">${roles.map(r=>`<span class="role-tag">${r}</span>`).join('')}${more>0?`<span class="role-tag">+${more}</span>`:''}</div></div>`:''}
+      <div class="member-card-bot">
+        <div class="member-meta">${date}</div>
+        <div class="mini-stats">
+          <div class="mini-stat">💼 <b>${m.experience?.length||0}</b></div>
+          <div class="mini-stat">🏆 <b>${m.cases?.length||0}</b></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openDetail(idx){
+  const m=members[idx];
+  const b=m.basic||{},ed=m.education||{},ex=m.extra||{};
+
+  // photo
+  const ph=document.getElementById('m-photo');
+  if(m.photo){ph.innerHTML=`<img src="${m.photo}" style="width:100%;height:100%;object-fit:cover"/>`;}
+  else{ph.innerHTML=initials(b.name_en||b.name_cn);ph.style.display='flex';}
+
+  document.getElementById('m-name').textContent=b.name_cn||b.name_en||'-';
+  document.getElementById('m-name-en').textContent=b.name_en||'';
+
+  const contacts=[];
+  if(b.email)contacts.push(`📧 ${b.email}`);
+  if(b.phone)contacts.push(`📱 ${b.phone}`);
+  if(b.wechat)contacts.push(`💬 ${b.wechat}`);
+  if(b.city)contacts.push(`📍 ${b.city}`);
+  document.getElementById('m-contacts').innerHTML=contacts.map(c=>`<div class="contact-chip">${c}</div>`).join('');
+
+  let html='';
+  if(b.bio)html+=`<div class="dsec"><h3>个人简介</h3><p style="font-size:14px;color:var(--s600);line-height:1.7">${b.bio}</p></div>`;
+  if((m.roles||[]).length)html+=`<div class="dsec"><h3>团队角色</h3><div style="display:flex;flex-wrap:wrap;gap:8px">${m.roles.map(r=>`<span class="role-tag" style="font-size:13px;padding:5px 14px">${r}</span>`).join('')}</div></div>`;
+  if(ed.school||ed.major)html+=`<div class="dsec"><h3>教育背景</h3><div class="detail-grid"><div class="di"><label>院校</label><p>${ed.school||'-'}</p></div><div class="di"><label>专业</label><p>${ed.major||'-'}</p></div><div class="di"><label>学位</label><p>${ed.degree||'-'}</p></div><div class="di"><label>毕业</label><p>${ed.grad_year||'-'}</p></div></div></div>`;
+  if((m.experience||[]).length){
+    html+=`<div class="dsec"><h3>职业经历</h3>`;
+    m.experience.forEach(e=>{html+=`<div class="exp-card"><div class="exp-company">${e.company||'—'}</div><div class="exp-meta">${[e.title,e.period,e.location].filter(Boolean).join(' · ')}</div>${e.desc?`<div class="exp-desc">${e.desc}</div>`:''}</div>`});
+    html+=`</div>`;
+  }
+  if((m.cases||[]).length){
+    html+=`<div class="dsec"><h3>商业案例</h3>`;
+    m.cases.forEach(c=>{html+=`<div class="case-card"><div class="exp-company">${c.title||'—'}</div>${c.industry?`<div class="exp-meta">${c.industry}</div>`:''} ${c.desc?`<div class="exp-desc">${c.desc}</div>`:''}</div>`});
+    html+=`</div>`;
+  }
+  if(ex.certs||ex.languages||ex.skills||ex.linkedin){
+    html+=`<div class="dsec"><h3>补充信息</h3><div class="detail-grid">`;
+    if(ex.certs)html+=`<div class="di"><label>证书</label><p>${ex.certs}</p></div>`;
+    if(ex.languages)html+=`<div class="di"><label>语言</label><p>${ex.languages}</p></div>`;
+    html+=`</div>`;
+    if(ex.skills)html+=`<p style="font-size:13px;color:var(--s600);line-height:1.6;margin-top:8px">${ex.skills}</p>`;
+    if(ex.linkedin)html+=`<p style="margin-top:8px"><a href="${ex.linkedin}" target="_blank" style="color:var(--primary);font-size:13px">${ex.linkedin}</a></p>`;
+    html+=`</div>`;
+  }
+  document.getElementById('m-body').innerHTML=html;
+  document.getElementById('detail-modal').classList.add('show');
+}
+
+function bgClose(e){if(e.target===document.getElementById('detail-modal'))closeModal()}
+function closeModal(){document.getElementById('detail-modal').classList.remove('show')}
+
+function exportCSV(){
+  if(!members.length){alert('没有数据');return}
+  const rows=[['姓名','英文名','邮箱','电话','城市','微信','角色','院校','专业','学位','证书','语言','LinkedIn','经历数','案例数','有照片','提交时间']];
+  members.forEach(m=>{
+    const b=m.basic||{},ed=m.education||{},ex=m.extra||{};
+    rows.push([b.name_cn,b.name_en,b.email,b.phone,b.city,b.wechat,(m.roles||[]).join('|'),ed.school,ed.major,ed.degree,ex.certs,ex.languages,ex.linkedin,(m.experience||[]).length,(m.cases||[]).length,m.photo?'是':'否',m.meta?.submitted_at]);
+  });
+  const csv=rows.map(r=>r.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`binh-team-${new Date().toISOString().slice(0,10)}.csv`;a.click();
+}
+function exportAllJSON(){
+  if(!members.length){alert('没有数据');return}
+  const blob=new Blob([JSON.stringify(members,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`binh-team-all-${new Date().toISOString().slice(0,10)}.json`;a.click();
+}
+function clearAll(){
+  if(!members.length||!confirm(`确定删除全部 ${members.length} 位成员数据？`))return;
+  members=[];save();render();
+}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Binh Global · 团队信息采集</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--primary:#059669;--primary-dark:#047857;--primary-light:#d1fae5;--s50:#f8fafc;--s100:#f1f5f9;--s200:#e2e8f0;--s400:#94a3b8;--s600:#475569;--s700:#334155;--s900:#0f172a}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--s50);color:var(--s900);min-height:100vh}
+
+  .header{background:linear-gradient(135deg,#0f172a 0%,#064e3b 100%);padding:32px 24px 52px;text-align:center;position:relative;overflow:hidden}
+  .header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(5,150,105,.25),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(5,150,105,.15),transparent 60%)}
+  .header-inner{position:relative;z-index:1}
+  .logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+  .logo img{width:48px;height:48px;object-fit:contain;border-radius:10px}
+  .logo-name{font-size:22px;font-weight:900;color:#fff}
+  .badge{display:inline-block;background:rgba(5,150,105,.3);border:1px solid rgba(5,150,105,.5);color:#6ee7b7;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border-radius:999px;margin-bottom:16px}
+  .header h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:8px}
+  .header p{color:rgba(255,255,255,.6);font-size:14px}
+
+  .container{max-width:760px;margin:-24px auto 60px;padding:0 16px}
+  .card{background:#fff;border-radius:20px;border:1px solid var(--s200);box-shadow:0 4px 24px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
+  .card-header{padding:20px 28px;border-bottom:1px solid var(--s100);display:flex;align-items:center;gap:12px}
+  .card-icon{width:38px;height:38px;border-radius:10px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .card-title{font-size:16px;font-weight:700;color:var(--s900)}
+  .card-sub{font-size:12px;color:var(--s400);margin-top:2px}
+  .card-body{padding:24px 28px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:580px){.grid2{grid-template-columns:1fr}}
+  .field{display:flex;flex-direction:column;gap:6px}
+  label{font-size:13px;font-weight:600;color:var(--s700)}
+  input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{border:1.5px solid var(--s200);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--s900);background:var(--s50);transition:all .2s;outline:none;width:100%;font-family:inherit}
+  input:focus,select:focus,textarea:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(5,150,105,.1)}
+  textarea{resize:vertical;min-height:80px}
+
+  /* Photo upload */
+  .photo-upload-area{border:2px dashed var(--s200);border-radius:16px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;background:var(--s50);position:relative;overflow:hidden}
+  .photo-upload-area:hover{border-color:var(--primary);background:var(--primary-light)}
+  .photo-upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .photo-preview{display:none;position:relative}
+  .photo-preview img{width:120px;height:120px;object-fit:cover;border-radius:16px;border:3px solid var(--primary-light)}
+  .photo-preview .remove-photo{position:absolute;top:-8px;right:calc(50% - 68px);background:#ef4444;color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+  .photo-placeholder{color:var(--s400)}
+  .photo-icon{font-size:40px;margin-bottom:8px}
+  .photo-placeholder p{font-size:13px;font-weight:600;color:var(--s600);margin-bottom:4px}
+  .photo-placeholder small{font-size:11px;color:var(--s400)}
+
+  /* Roles */
+  .roles-grid{display:flex;flex-wrap:wrap;gap:10px}
+  .role-chip{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--s200);cursor:pointer;transition:all .2s;user-select:none;font-size:13px;font-weight:600;color:var(--s600);background:var(--s50)}
+  .role-chip input{display:none}
+  .role-chip.checked{border-color:var(--primary);background:var(--primary-light);color:var(--primary-dark)}
+  .role-dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.4}
+  .role-chip.checked .role-dot{opacity:1}
+
+  /* Dynamic */
+  .dynamic-list{display:flex;flex-direction:column;gap:16px}
+  .dynamic-item{background:var(--s50);border:1px solid var(--s200);border-radius:14px;padding:18px 20px;position:relative}
+  .ditem-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .ditem-title{font-size:12px;font-weight:700;color:var(--s600);text-transform:uppercase;letter-spacing:.05em}
+  .btn-remove{background:none;border:none;cursor:pointer;color:#ef4444;font-size:18px;padding:2px 6px;border-radius:6px;line-height:1}
+  .btn-remove:hover{background:#fee2e2}
+  .btn-add{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:9px 18px;border:1.5px dashed var(--s300,#cbd5e1);border-radius:10px;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--s400);transition:all .2s}
+  .btn-add:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+
+  .submit-area{text-align:center;padding:28px}
+  .btn-submit{display:inline-flex;align-items:center;gap:10px;background:var(--primary);color:#fff;border:none;border-radius:12px;padding:14px 40px;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(5,150,105,.3)}
+  .btn-submit:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:0 6px 24px rgba(5,150,105,.4)}
+  .hint{margin-top:12px;font-size:12px;color:var(--s400)}
+
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+  .modal-overlay.show{display:flex}
+  .modal{background:#fff;border-radius:24px;padding:48px 40px;text-align:center;max-width:440px;width:90%;box-shadow:0 24px 64px rgba(0,0,0,.15)}
+  .modal-icon{font-size:56px;margin-bottom:16px}
+  .modal h2{font-size:24px;font-weight:800;color:var(--s900);margin-bottom:10px}
+  .modal p{color:var(--s600);font-size:14px;line-height:1.7;margin-bottom:24px}
+  .btn-dl{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px}
+  .btn-close-modal{display:block;margin:0 auto;background:none;border:none;color:var(--s400);font-size:13px;cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <img src="logo.png" alt="Binh Global" onerror="this.style.display='none'">
+      <span class="logo-name">Binh Global</span>
+    </div>
+    <div class="badge">出海团队 · Team Profile</div>
+    <h1>团队成员信息采集</h1>
+    <p>所有字段均为选填，填写越完整越好 · All fields optional</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 职业照片 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">📸</div>
+      <div>
+        <div class="card-title">职业照片</div>
+        <div class="card-sub">上传一张清晰的职业头像（JPG / PNG，建议正方形，选填）</div>
+      </div>
+    </div>
+    <div class="card-body" style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <div class="photo-upload-area" id="photo-area" style="width:200px;flex-shrink:0" onclick="document.getElementById('photo-input').click()">
+        <input type="file" id="photo-input" accept="image/*" onchange="handlePhoto(this)">
+        <div class="photo-placeholder" id="photo-placeholder">
+          <div class="photo-icon">🖼️</div>
+          <p>点击上传照片</p>
+          <small>JPG · PNG · 最大 5MB</small>
+        </div>
+        <div class="photo-preview" id="photo-preview">
+          <img id="photo-img" src="" alt="头像" />
+          <button class="remove-photo" onclick="removePhoto(event)">✕</button>
+        </div>
+      </div>
+      <div style="flex:1;min-width:180px">
+        <p style="font-size:14px;color:var(--s600);line-height:1.8">
+          ✅ 建议使用正式证件照或商务照<br>
+          ✅ 背景简洁，面部清晰<br>
+          ✅ 照片仅供内部使用
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 基本信息 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">👤</div>
+      <div><div class="card-title">基本信息</div></div>
+    </div>
+    <div class="card-body">
+      <div class="grid2" style="margin-bottom:16px">
+        <div class="field"><label>姓名（中文）</label><input type="text" id="name_cn" placeholder="例：张三" /></div>
+        <div class="field"><label>英文名</label><input type="text" id="name_en" placeholder="e.g. Sam Zhang" /></div>
+        <div class="field"><label>邮箱</label><input type="email" id="email" placeholder="you@example.com" /></div>
+        <div class="field"><label>电话 / WhatsApp</label><input type="tel" id="phone" placeholder="+1 647 ..." /></div>
+        <div class="field"><label>现居城市</label><input type="text" id="city" placeholder="多伦多 / 上海 / ..." /></div>
+        <div class="field"><label>微信号</label><input type="text" id="wechat" placeholder="WeChat ID" /></div>
+      </div>
+      <div class="field"><label>一句话介绍自己</label><textarea id="bio" placeholder="用一句话描述你的核心专长或背景（中英文均可）"></textarea></div>
+    </div>
+  </div>
+
+  <!-- 团队角色 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🎯</div>
+      <div><div class="card-title">团队角色（可多选）</div></div>
+    </div>
+    <div class="card-body">
+      <div class="roles-grid" id="roles-grid">
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="投资顾问"><span class="role-dot"></span>💼 投资顾问</label>
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="战略咨询"><span class="role-dot"></span>🧭 战略咨询</label>
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="财务法务"><span class="role-dot"></span>📊 财务法务</label>
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="门店拓展"><span class="role-dot"></span>🏪 门店拓展</label>
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="运营管理"><span class="role-dot"></span>⚙️ 运营管理</label>
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="市场营销"><span class="role-dot"></span>📣 市场营销</label>
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="跨境电商"><span class="role-dot"></span>🛒 跨境电商</label>
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="政府关系"><span class="role-dot"></span>🏛️ 政府关系</label>
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="物流供应链"><span class="role-dot"></span>🚢 物流供应链</label>
+        <label class="role-chip" onclick="toggleChip(this)"><input type="checkbox" value="技术研发"><span class="role-dot"></span>💻 技术研发</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- 教育背景 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🎓</div>
+      <div><div class="card-title">教育背景</div></div>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="field"><label>毕业院校</label><input type="text" id="school" placeholder="大学名称" /></div>
+        <div class="field"><label>专业</label><input type="text" id="major" placeholder="专业方向" /></div>
+        <div class="field"><label>学位</label>
+          <select id="degree"><option value="">请选择</option><option>本科 Bachelor</option><option>硕士 Master</option><option>博士 PhD</option><option>MBA</option><option>其他</option></select>
+        </div>
+        <div class="field"><label>毕业年份</label><input type="number" id="grad_year" placeholder="2020" min="1970" max="2035" /></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 职业经历 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">💼</div>
+      <div><div class="card-title">职业经历</div></div>
+    </div>
+    <div class="card-body">
+      <div class="dynamic-list" id="experience-list"></div>
+      <button class="btn-add" onclick="addExperience()">＋ 添加一段工作经历</button>
+    </div>
+  </div>
+
+  <!-- 成功案例 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🏆</div>
+      <div><div class="card-title">商业成就 / 成功案例</div></div>
+    </div>
+    <div class="card-body">
+      <div class="dynamic-list" id="cases-list"></div>
+      <button class="btn-add" onclick="addCase()">＋ 添加一个案例</button>
+    </div>
+  </div>
+
+  <!-- 补充信息 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">✨</div>
+      <div><div class="card-title">补充信息</div></div>
+    </div>
+    <div class="card-body">
+      <div class="grid2" style="margin-bottom:16px">
+        <div class="field"><label>持有证书 / 执照</label><input type="text" id="certs" placeholder="CPA, CFA, PMP ..." /></div>
+        <div class="field"><label>语言能力</label><input type="text" id="languages" placeholder="普通话、英语、法语 ..." /></div>
+      </div>
+      <div class="field" style="margin-bottom:16px"><label>特殊技能 / 资源</label><textarea id="skills" placeholder="例：拥有加拿大政府采购资质，熟悉 EB-5 签证路径，手握华人商会资源..."></textarea></div>
+      <div class="field"><label>LinkedIn / 个人网站</label><input type="text" id="linkedin" placeholder="https://linkedin.com/in/..." /></div>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-area">
+    <button class="btn-submit" onclick="submitForm()">✓ 提交并下载我的档案</button>
+    <p class="hint">提交后生成 JSON 文件，请发送给团队负责人</p>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <h2>提交成功！</h2>
+    <p>你的档案已生成。请点击下载，然后将文件发给团队负责人汇总。</p>
+    <button class="btn-dl" id="download-btn">⬇️ 下载我的档案（JSON）</button>
+    <button class="btn-close-modal" onclick="closeModal()">关闭</button>
+  </div>
+</div>
+
+<script>
+let expCount=0, caseCount=0, photoBase64='', formData=null;
+
+// Photo
+function handlePhoto(input){
+  const file=input.files[0];
+  if(!file)return;
+  if(file.size>5*1024*1024){alert('照片不能超过 5MB');return}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    photoBase64=e.target.result;
+    document.getElementById('photo-img').src=photoBase64;
+    document.getElementById('photo-placeholder').style.display='none';
+    document.getElementById('photo-preview').style.display='block';
+  };
+  reader.readAsDataURL(file);
+}
+function removePhoto(e){
+  e.stopPropagation();
+  photoBase64='';
+  document.getElementById('photo-img').src='';
+  document.getElementById('photo-placeholder').style.display='';
+  document.getElementById('photo-preview').style.display='none';
+  document.getElementById('photo-input').value='';
+}
+
+// Chips
+function toggleChip(label){
+  const cb=label.querySelector('input');
+  // let native checkbox toggle, then sync class
+  setTimeout(()=>label.classList.toggle('checked',cb.checked),0);
+}
+
+// Dynamic
+function addExperience(){
+  expCount++;
+  const list=document.getElementById('experience-list');
+  const div=document.createElement('div');
+  div.className='dynamic-item';div.id=`exp-${expCount}`;
+  div.innerHTML=`<div class="ditem-header"><span class="ditem-title">经历 #${expCount}</span><button class="btn-remove" onclick="removeItem('exp-${expCount}')">✕</button></div>
+  <div class="grid2" style="margin-bottom:12px">
+    <div class="field"><label>公司名称</label><input type="text" name="exp_company" placeholder="公司 / 机构名"/></div>
+    <div class="field"><label>职位</label><input type="text" name="exp_title" placeholder="你的职位"/></div>
+    <div class="field"><label>在职时间</label><input type="text" name="exp_period" placeholder="2020.03 – 2023.06"/></div>
+    <div class="field"><label>城市/国家</label><input type="text" name="exp_location" placeholder="多伦多 / 上海"/></div>
+  </div>
+  <div class="field"><label>主要职责与成就</label><textarea name="exp_desc" placeholder="简要描述核心工作和贡献"></textarea></div>`;
+  list.appendChild(div);
+}
+function addCase(){
+  caseCount++;
+  const list=document.getElementById('cases-list');
+  const div=document.createElement('div');
+  div.className='dynamic-item';div.id=`case-${caseCount}`;
+  div.innerHTML=`<div class="ditem-header"><span class="ditem-title">案例 #${caseCount}</span><button class="btn-remove" onclick="removeItem('case-${caseCount}')">✕</button></div>
+  <div class="grid2" style="margin-bottom:12px">
+    <div class="field"><label>案例标题</label><input type="text" name="case_title" placeholder="例：协助某餐饮品牌进入加拿大"/></div>
+    <div class="field"><label>行业</label><input type="text" name="case_industry" placeholder="餐饮 / 投资 / 电商 ..."/></div>
+  </div>
+  <div class="field"><label>案例详情（成果、数据）</label><textarea name="case_desc" placeholder="具体描述你做了什么，结果如何"></textarea></div>`;
+  list.appendChild(div);
+}
+function removeItem(id){const el=document.getElementById(id);if(el)el.remove()}
+
+function getDynamic(containerId,fields){
+  const items=[];
+  document.querySelectorAll(`#${containerId} .dynamic-item`).forEach(item=>{
+    const obj={};
+    fields.forEach(f=>{const el=item.querySelector(`[name="${f}"]`);if(el)obj[f.replace(/^(exp_|case_)/,'')]=el.value.trim()});
+    if(Object.values(obj).some(v=>v))items.push(obj);
+  });
+  return items;
+}
+function val(id){return(document.getElementById(id)?.value||'').trim()}
+
+function submitForm(){
+  formData={
+    meta:{submitted_at:new Date().toISOString(),version:'1.1'},
+    photo:photoBase64||null,
+    basic:{name_cn:val('name_cn'),name_en:val('name_en'),email:val('email'),phone:val('phone'),city:val('city'),wechat:val('wechat'),bio:val('bio')},
+    roles:Array.from(document.querySelectorAll('#roles-grid input:checked')).map(el=>el.value),
+    education:{school:val('school'),major:val('major'),degree:val('degree'),grad_year:val('grad_year')},
+    experience:getDynamic('experience-list',['exp_company','exp_title','exp_period','exp_location','exp_desc']),
+    cases:getDynamic('cases-list',['case_title','case_industry','case_desc']),
+    extra:{certs:val('certs'),languages:val('languages'),skills:val('skills'),linkedin:val('linkedin')}
+  };
+  const name=(val('name_en')||val('name_cn')||'member').replace(/\s+/g,'_');
+  const filename=`binh-team_${name}_${new Date().toISOString().slice(0,10)}.json`;
+  document.getElementById('download-btn').onclick=()=>{
+    const blob=new Blob([JSON.stringify(formData,null,2)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+  };
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+
+addExperience();addCase();
+</script>
+</body>
+</html>
