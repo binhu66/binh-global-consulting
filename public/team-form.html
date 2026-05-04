@@ -8,8 +8,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--p:#059669;--pd:#047857;--pl:#d1fae5;--s50:#f8fafc;--s100:#f1f5f9;--s200:#e2e8f0;--s400:#94a3b8;--s600:#475569;--s700:#334155;--s900:#0f172a}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--s50);color:var(--s900);min-height:100vh}
-
-/* Header */
 .header{background:linear-gradient(135deg,#0f172a 0%,#064e3b 100%);padding:28px 24px 48px;text-align:center;position:relative;overflow:hidden}
 .header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(5,150,105,.25),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(5,150,105,.15),transparent 60%)}
 .header-inner{position:relative;z-index:1}
@@ -19,13 +17,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .badge{display:inline-block;background:rgba(5,150,105,.3);border:1px solid rgba(5,150,105,.5);color:#6ee7b7;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:4px 14px;border-radius:999px;margin-bottom:14px}
 .header h1{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px}
 .header p{color:rgba(255,255,255,.6);font-size:13px}
-
-/* Lang switcher */
 .lang-bar{position:absolute;top:20px;right:20px;display:flex;gap:6px;z-index:10}
 .lang-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;cursor:pointer;transition:all .2s}
 .lang-btn.active{background:var(--p);border-color:var(--p);color:#fff}
-
-/* Container */
 .container{max-width:760px;margin:-20px auto 60px;padding:0 16px}
 .card{background:#fff;border-radius:20px;border:1px solid var(--s200);box-shadow:0 4px 24px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
 .card-header{padding:18px 28px;border-bottom:1px solid var(--s100);display:flex;align-items:center;gap:12px}
@@ -33,27 +27,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .card-title{font-size:15px;font-weight:700;color:var(--s900)}
 .card-sub{font-size:11px;color:var(--s400);margin-top:1px}
 .card-body{padding:22px 28px}
-
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:560px){.g2{grid-template-columns:1fr}}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
 .field{display:flex;flex-direction:column;gap:5px}
 label.fl{font-size:12px;font-weight:600;color:var(--s700)}
 input,select,textarea{border:1.5px solid var(--s200);border-radius:10px;padding:10px 13px;font-size:14px;color:var(--s900);background:var(--s50);transition:all .2s;outline:none;width:100%;font-family:inherit}
 input:focus,select:focus,textarea:focus{border-color:var(--p);background:#fff;box-shadow:0 0 0 3px rgba(5,150,105,.1)}
 textarea{resize:vertical;min-height:76px}
-
-/* Photo */
 .photo-area{border:2px dashed var(--s200);border-radius:16px;padding:22px;text-align:center;cursor:pointer;transition:all .2s;background:var(--s50)}
 .photo-area:hover{border-color:var(--p);background:var(--pl)}
 .photo-area input{display:none}
-.ph-preview{display:none;position:relative;display:inline-block}
 .ph-preview img{width:110px;height:110px;object-fit:cover;border-radius:14px;border:3px solid var(--pl)}
 .ph-remove{position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:13px;cursor:pointer;line-height:22px;text-align:center}
 .ph-placeholder .ph-icon{font-size:36px;margin-bottom:6px}
 .ph-placeholder p{font-size:13px;font-weight:600;color:var(--s600);margin-bottom:3px}
 .ph-placeholder small{font-size:11px;color:var(--s400)}
-
-/* Roles categories */
 .role-category{margin-bottom:20px}
 .role-cat-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--p);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--pl)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -62,8 +51,6 @@ textarea{resize:vertical;min-height:76px}
 .chip.on{border-color:var(--p);background:var(--pl);color:var(--pd)}
 .chip-dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.35;flex-shrink:0}
 .chip.on .chip-dot{opacity:1}
-
-/* Dynamic */
 .dlist{display:flex;flex-direction:column;gap:14px}
 .ditem{background:var(--s50);border:1px solid var(--s200);border-radius:13px;padding:16px 18px;position:relative}
 .dhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
@@ -72,13 +59,11 @@ textarea{resize:vertical;min-height:76px}
 .drm:hover{background:#fee2e2}
 .btn-add{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:8px 16px;border:1.5px dashed var(--s200);border-radius:9px;background:none;cursor:pointer;font-size:12px;font-weight:600;color:var(--s400);transition:all .2s;font-family:inherit}
 .btn-add:hover{border-color:var(--p);color:var(--p);background:var(--pl)}
-
 .submit-area{text-align:center;padding:24px}
 .btn-sub{display:inline-flex;align-items:center;gap:10px;background:var(--p);color:#fff;border:none;border-radius:12px;padding:13px 38px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(5,150,105,.3);font-family:inherit}
 .btn-sub:hover{background:var(--pd);transform:translateY(-1px)}
+.btn-sub:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .hint{margin-top:10px;font-size:11px;color:var(--s400)}
-
-/* Modal */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .ov.show{display:flex}
 .mod{background:#fff;border-radius:22px;padding:44px 36px;text-align:center;max-width:420px;width:92%;box-shadow:0 24px 64px rgba(0,0,0,.15)}
@@ -87,6 +72,10 @@ textarea{resize:vertical;min-height:76px}
 .mod p{color:var(--s600);font-size:13px;line-height:1.7;margin-bottom:22px}
 .btn-dl{display:inline-flex;align-items:center;gap:7px;background:var(--p);color:#fff;border:none;border-radius:10px;padding:11px 26px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:10px;font-family:inherit}
 .btn-cls{display:block;margin:0 auto;background:none;border:none;color:var(--s400);font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit}
+.ref-row{display:grid;grid-template-columns:100px 1fr auto;gap:10px;align-items:center;margin-bottom:8px}
+.ref-row input{margin:0}
+.ref-rm{background:none;border:none;cursor:pointer;color:#ef4444;font-size:16px;padding:4px 6px;border-radius:5px;line-height:1;flex-shrink:0}
+.ref-rm:hover{background:#fee2e2}
 </style>
 </head>
 <body>
@@ -119,7 +108,7 @@ textarea{resize:vertical;min-height:76px}
       <input type="file" id="fi" accept="image/*" onchange="handlePhoto(this)">
       <div class="ph-placeholder" id="pph"><div class="ph-icon">🖼️</div><p id="ph-cta">点击上传</p><small>JPG · PNG · ≤5MB</small></div>
       <div style="display:none" id="ppv">
-        <div class="ph-preview"><img id="pimg" src="" alt=""/><button class="ph-remove" onclick="rmPhoto(event)">✕</button></div>
+        <div style="position:relative;display:inline-block"><img id="pimg" src="" alt="" style="width:110px;height:110px;object-fit:cover;border-radius:14px;border:3px solid var(--pl)"/><button class="ph-remove" onclick="rmPhoto(event)">✕</button></div>
       </div>
     </div>
     <div style="flex:1;min-width:160px"><p style="font-size:13px;color:var(--s600);line-height:1.9" id="photo-tips">✅ 建议正式商务照<br>✅ 面部清晰，背景简洁<br>✅ 仅供内部使用</p></div>
@@ -145,9 +134,7 @@ textarea{resize:vertical;min-height:76px}
 <!-- 团队角色 -->
 <div class="card">
   <div class="card-header"><div class="card-icon">🎯</div><div><div class="card-title" id="c-roles">团队角色（可多选）</div><div class="card-sub" id="c-roles-sub">请选择所有适用的角色</div></div></div>
-  <div class="card-body" id="roles-body">
-    <!-- injected by JS -->
-  </div>
+  <div class="card-body" id="roles-body"></div>
 </div>
 
 <!-- 教育 -->
@@ -158,7 +145,14 @@ textarea{resize:vertical;min-height:76px}
       <div class="field"><label class="fl" id="l-school">毕业院校</label><input type="text" id="school" placeholder="大学名称"/></div>
       <div class="field"><label class="fl" id="l-major">专业</label><input type="text" id="major" placeholder="专业方向"/></div>
       <div class="field"><label class="fl" id="l-degree">学位</label>
-        <select id="degree"><option value="" id="deg-ph">请选择</option><option id="deg-1">本科 Bachelor</option><option id="deg-2">硕士 Master</option><option id="deg-3">博士 PhD</option><option>MBA</option><option id="deg-5">其他</option></select>
+        <select id="degree">
+          <option value="" id="deg-ph">请选择</option>
+          <option value="Bachelor" id="deg-1">本科 / Bachelor</option>
+          <option value="Master" id="deg-2">硕士 / Master</option>
+          <option value="PhD" id="deg-3">博士 / PhD</option>
+          <option value="MBA">MBA</option>
+          <option value="Other" id="deg-5">其他 / Other</option>
+        </select>
       </div>
       <div class="field"><label class="fl" id="l-year">毕业年份</label><input type="number" id="grad_year" placeholder="2020" min="1970" max="2035"/></div>
     </div>
@@ -171,10 +165,19 @@ textarea{resize:vertical;min-height:76px}
   <div class="card-body"><div class="dlist" id="exp-list"></div><button class="btn-add" onclick="addExp()" id="btn-addexp">＋ 添加工作经历</button></div>
 </div>
 
-<!-- 案例 -->
+<!-- 商业案例 -->
 <div class="card">
-  <div class="card-header"><div class="card-icon">🏆</div><div><div class="card-title" id="c-cases">商业成就 / 案例</div></div></div>
+  <div class="card-header"><div class="card-icon">🏆</div><div><div class="card-title" id="c-cases">商业成就 / 案例</div><div class="card-sub" id="c-cases-sub">主导或深度参与的项目案例</div></div></div>
   <div class="card-body"><div class="dlist" id="case-list"></div><button class="btn-add" onclick="addCase()" id="btn-addcase">＋ 添加案例</button></div>
+</div>
+
+<!-- 项目参与记录 -->
+<div class="card">
+  <div class="card-header"><div class="card-icon">📋</div><div><div class="card-title" id="c-refs">项目参与记录</div><div class="card-sub" id="c-refs-sub">参与即可，无需担任主要成员</div></div></div>
+  <div class="card-body">
+    <div id="ref-list"></div>
+    <button class="btn-add" onclick="addRef()" id="btn-addref">＋ 添加项目</button>
+  </div>
 </div>
 
 <!-- 补充 -->
@@ -191,124 +194,57 @@ textarea{resize:vertical;min-height:76px}
 </div>
 
 <div class="submit-area">
-  <button class="btn-sub" onclick="submitForm()">✓ <span id="btn-sub-txt">提交并下载档案</span></button>
-  <p class="hint" id="hint-sub">提交后生成 JSON 文件，请发送给团队负责人</p>
+  <button class="btn-sub" id="btn-sub" onclick="submitForm()">✓ <span id="btn-sub-txt">提交信息</span></button>
+  <p class="hint" id="hint-sub">信息将提交至后台数据库，同时生成备份文件</p>
 </div>
 </div>
 
 <!-- Modal -->
 <div class="ov" id="modal">
   <div class="mod">
-    <div class="mod-icon">🎉</div>
+    <div class="mod-icon" id="mod-icon">🎉</div>
     <h2 id="mod-title">提交成功！</h2>
-    <p id="mod-desc">你的档案已生成。请点击下载，然后将文件发送给团队负责人。</p>
-    <button class="btn-dl" id="dl-btn">⬇️ <span id="dl-txt">下载档案（JSON）</span></button>
+    <p id="mod-desc">你的档案已成功保存至数据库。</p>
+    <button class="btn-dl" id="dl-btn">⬇️ <span id="dl-txt">下载备份（JSON）</span></button>
     <button class="btn-cls" onclick="closeModal()" id="mod-close">关闭</button>
   </div>
 </div>
 
 <script>
+// ─── SUPABASE CONFIG ──────────────────────────────────────────
+// Paste your anon key here (Settings > API Keys > Legacy > anon public)
+const SUPABASE_URL  = 'https://cqhpkcohkcwyrkwedsvn.supabase.co';
+const SUPABASE_ANON = ''; // ← paste your anon key here
+
 // ─── ROLES DATA ───────────────────────────────────────────────
 const ROLE_CATS = {
-  zh: [
-    {
-      icon:'💰', title:'投资 & 融资',
-      roles:['投资顾问','PE/VC 私募股权','并购顾问','股权融资','债务融资','项目评估','尽职调查','投后管理','家族办公室','融资路演']
-    },
-    {
-      icon:'🏦', title:'专业服务',
-      roles:['律师 / 法务','会计师 CPA','财务审计','税务规划','合规顾问','移民顾问','公证 / 认证','知识产权','劳工法','信托 / 资产规划']
-    },
-    {
-      icon:'🏪', title:'门店 & 零售',
-      roles:['门店拓展选址','装修 / 室内设计','店面采购','收银系统','门店运营','零售管理','加盟管理','连锁扩张','客户服务','保安 / 保洁']
-    },
-    {
-      icon:'🍜', title:'餐饮 & 中央厨房',
-      roles:['餐厅运营','中央厨房管理','菜品研发','食材采购','食品安全合规','堂食 & 外卖运营','厨师培训','餐饮品牌化','食材供应商对接','点餐系统']
-    },
-    {
-      icon:'🚢', title:'物流 & 供应链',
-      roles:['国际海运','国内物流','空运货代','报关 / 清关','保税仓储','冷链运输','供应链优化','最后一公里配送','跨境电商物流','逆向物流']
-    },
-    {
-      icon:'🛒', title:'跨境电商 & 贸易',
-      roles:['跨境电商运营','亚马逊 / TikTok Shop','独立站建设','外贸出口','进口贸易','海外仓管理','商品选品','定价策略','平台运营','贸易合规']
-    },
-    {
-      icon:'📣', title:'市场 & 广告',
-      roles:['品牌营销','数字广告','社交媒体运营','KOL / 网红营销','SEO / SEM','内容创作','公关 / 媒体','活动策划','平面设计','视频制作']
-    },
-    {
-      icon:'⚙️', title:'运营 & 管理',
-      roles:['总经理 / CEO','项目管理','人力资源 HR','行政管理','财务管理','风险管理','数据分析','质量控制','流程优化','ERP 系统']
-    },
-    {
-      icon:'🏛️', title:'政府 & 政策',
-      roles:['政府关系','政策研究','招商引资','移民政策','出口补贴申请','行业协会','海关合规','商业签证','标准认证','ESG / 可持续发展']
-    },
-    {
-      icon:'💻', title:'技术 & 数字化',
-      roles:['软件开发','IT 运维','AI / 大数据','电商系统','ERP / CRM','网络安全','小程序 / App','云计算','区块链','数字化转型']
-    },
-    {
-      icon:'🏗️', title:'工程 & 建设',
-      roles:['工程承包','装修施工','设备采购','厂房建设','机械设备','质检 / 认证','建筑设计','项目监理','水电安装','消防安全']
-    },
-    {
-      icon:'🌐', title:'其他',
-      roles:['翻译 / 口译','展会策划','教育培训','医疗健康','房地产','金融科技','能源 / 绿色','媒体 / 出版','体育娱乐','其他']
-    },
+  zh:[
+    {icon:'💰',title:'投资 & 融资',roles:['投资顾问','PE/VC 私募股权','并购顾问','股权融资','债务融资','项目评估','尽职调查','投后管理','家族办公室','融资路演']},
+    {icon:'🏦',title:'专业服务',roles:['律师 / 法务','会计师 CPA','财务审计','税务规划','合规顾问','移民顾问','公证 / 认证','知识产权','劳工法','信托 / 资产规划']},
+    {icon:'🏪',title:'门店 & 零售',roles:['门店拓展选址','装修 / 室内设计','店面采购','收银系统','门店运营','零售管理','加盟管理','连锁扩张','客户服务','保安 / 保洁']},
+    {icon:'🍜',title:'餐饮 & 中央厨房',roles:['餐厅运营','中央厨房管理','菜品研发','食材采购','食品安全合规','堂食 & 外卖运营','厨师培训','餐饮品牌化','食材供应商对接','点餐系统']},
+    {icon:'🚢',title:'物流 & 供应链',roles:['国际海运','国内物流','空运货代','报关 / 清关','保税仓储','冷链运输','供应链优化','最后一公里配送','跨境电商物流','逆向物流']},
+    {icon:'🛒',title:'跨境电商 & 贸易',roles:['跨境电商运营','亚马逊 / TikTok Shop','独立站建设','外贸出口','进口贸易','海外仓管理','商品选品','定价策略','平台运营','贸易合规']},
+    {icon:'📣',title:'市场 & 广告',roles:['品牌营销','数字广告','社交媒体运营','KOL / 网红营销','SEO / SEM','内容创作','公关 / 媒体','活动策划','平面设计','视频制作']},
+    {icon:'⚙️',title:'运营 & 管理',roles:['总经理 / CEO','项目管理','人力资源 HR','行政管理','财务管理','风险管理','数据分析','质量控制','流程优化','ERP 系统']},
+    {icon:'🏛️',title:'政府 & 政策',roles:['政府关系','政策研究','招商引资','移民政策','出口补贴申请','行业协会','海关合规','商业签证','标准认证','ESG / 可持续发展']},
+    {icon:'💻',title:'技术 & 数字化',roles:['软件开发','IT 运维','AI / 大数据','电商系统','ERP / CRM','网络安全','小程序 / App','云计算','区块链','数字化转型']},
+    {icon:'🏗️',title:'工程 & 建设',roles:['工程承包','装修施工','设备采购','厂房建设','机械设备','质检 / 认证','建筑设计','项目监理','水电安装','消防安全']},
+    {icon:'🌐',title:'其他',roles:['翻译 / 口译','展会策划','教育培训','医疗健康','房地产','金融科技','能源 / 绿色','媒体 / 出版','体育娱乐','其他']},
   ],
-  en: [
-    {
-      icon:'💰', title:'Investment & Finance',
-      roles:['Investment Advisor','PE/VC','M&A Advisor','Equity Financing','Debt Financing','Project Assessment','Due Diligence','Post-investment Mgmt','Family Office','Fundraising Roadshow']
-    },
-    {
-      icon:'🏦', title:'Professional Services',
-      roles:['Lawyer / Legal','Accountant CPA','Financial Audit','Tax Planning','Compliance','Immigration Consultant','Notarization','IP / Patent','Labour Law','Trust / Wealth Planning']
-    },
-    {
-      icon:'🏪', title:'Retail & Store Ops',
-      roles:['Site Selection','Interior Design','Store Procurement','POS System','Store Operations','Retail Management','Franchise Mgmt','Chain Expansion','Customer Service','Security / Cleaning']
-    },
-    {
-      icon:'🍜', title:'F&B & Central Kitchen',
-      roles:['Restaurant Operations','Central Kitchen Mgmt','Menu R&D','Ingredient Sourcing','Food Safety Compliance','Dine-in & Delivery','Kitchen Training','F&B Branding','Supplier Relations','POS / Ordering System']
-    },
-    {
-      icon:'🚢', title:'Logistics & Supply Chain',
-      roles:['International Shipping','Domestic Logistics','Air Freight','Customs Clearance','Bonded Warehouse','Cold Chain','Supply Chain Optimization','Last-Mile Delivery','Cross-border Logistics','Reverse Logistics']
-    },
-    {
-      icon:'🛒', title:'Cross-border E-commerce',
-      roles:['E-commerce Operations','Amazon / TikTok Shop','DTC Website','Export Trade','Import Trade','Overseas Warehouse','Product Selection','Pricing Strategy','Platform Ops','Trade Compliance']
-    },
-    {
-      icon:'📣', title:'Marketing & Advertising',
-      roles:['Brand Marketing','Digital Advertising','Social Media','KOL / Influencer','SEO / SEM','Content Creation','PR / Media','Event Planning','Graphic Design','Video Production']
-    },
-    {
-      icon:'⚙️', title:'Operations & Management',
-      roles:['CEO / GM','Project Management','HR','Administration','Finance Management','Risk Management','Data Analytics','Quality Control','Process Optimization','ERP System']
-    },
-    {
-      icon:'🏛️', title:'Government & Policy',
-      roles:['Government Relations','Policy Research','Investment Attraction','Immigration Policy','Export Subsidies','Industry Association','Customs Compliance','Business Visa','Certification','ESG / Sustainability']
-    },
-    {
-      icon:'💻', title:'Technology & Digital',
-      roles:['Software Development','IT Operations','AI / Big Data','E-commerce Systems','ERP / CRM','Cybersecurity','Mini-app / App Dev','Cloud Computing','Blockchain','Digital Transformation']
-    },
-    {
-      icon:'🏗️', title:'Engineering & Construction',
-      roles:['General Contracting','Renovation','Equipment Sourcing','Factory Construction','Machinery','Inspection / Certification','Architectural Design','Project Supervision','MEP Installation','Fire Safety']
-    },
-    {
-      icon:'🌐', title:'Others',
-      roles:['Translation / Interpretation','Trade Show Planning','Education & Training','Healthcare','Real Estate','Fintech','Energy / Green','Media / Publishing','Sports & Entertainment','Other']
-    },
+  en:[
+    {icon:'💰',title:'Investment & Finance',roles:['Investment Advisor','PE/VC','M&A Advisor','Equity Financing','Debt Financing','Project Assessment','Due Diligence','Post-investment Mgmt','Family Office','Fundraising Roadshow']},
+    {icon:'🏦',title:'Professional Services',roles:['Lawyer / Legal','Accountant CPA','Financial Audit','Tax Planning','Compliance','Immigration Consultant','Notarization','IP / Patent','Labour Law','Trust / Wealth Planning']},
+    {icon:'🏪',title:'Retail & Store Ops',roles:['Site Selection','Interior Design','Store Procurement','POS System','Store Operations','Retail Management','Franchise Mgmt','Chain Expansion','Customer Service','Security / Cleaning']},
+    {icon:'🍜',title:'F&B & Central Kitchen',roles:['Restaurant Operations','Central Kitchen Mgmt','Menu R&D','Ingredient Sourcing','Food Safety Compliance','Dine-in & Delivery','Kitchen Training','F&B Branding','Supplier Relations','POS / Ordering System']},
+    {icon:'🚢',title:'Logistics & Supply Chain',roles:['International Shipping','Domestic Logistics','Air Freight','Customs Clearance','Bonded Warehouse','Cold Chain','Supply Chain Optimization','Last-Mile Delivery','Cross-border Logistics','Reverse Logistics']},
+    {icon:'🛒',title:'Cross-border E-commerce',roles:['E-commerce Operations','Amazon / TikTok Shop','DTC Website','Export Trade','Import Trade','Overseas Warehouse','Product Selection','Pricing Strategy','Platform Ops','Trade Compliance']},
+    {icon:'📣',title:'Marketing & Advertising',roles:['Brand Marketing','Digital Advertising','Social Media','KOL / Influencer','SEO / SEM','Content Creation','PR / Media','Event Planning','Graphic Design','Video Production']},
+    {icon:'⚙️',title:'Operations & Management',roles:['CEO / GM','Project Management','HR','Administration','Finance Management','Risk Management','Data Analytics','Quality Control','Process Optimization','ERP System']},
+    {icon:'🏛️',title:'Government & Policy',roles:['Government Relations','Policy Research','Investment Attraction','Immigration Policy','Export Subsidies','Industry Association','Customs Compliance','Business Visa','Certification','ESG / Sustainability']},
+    {icon:'💻',title:'Technology & Digital',roles:['Software Development','IT Operations','AI / Big Data','E-commerce Systems','ERP / CRM','Cybersecurity','Mini-app / App Dev','Cloud Computing','Blockchain','Digital Transformation']},
+    {icon:'🏗️',title:'Engineering & Construction',roles:['General Contracting','Renovation','Equipment Sourcing','Factory Construction','Machinery','Inspection / Certification','Architectural Design','Project Supervision','MEP Installation','Fire Safety']},
+    {icon:'🌐',title:'Others',roles:['Translation / Interpretation','Trade Show Planning','Education & Training','Healthcare','Real Estate','Fintech','Energy / Green','Media / Publishing','Sports & Entertainment','Other']},
   ]
 };
 
@@ -318,43 +254,61 @@ const T = {
     badge:'中国餐饮企业出海加拿大', title:'团队信息汇总表', sub:'所有字段均为选填，填写越完整越好',
     photoTitle:'职业照片', photoSub:'上传清晰职业头像（JPG/PNG，选填）', photoCta:'点击上传',
     photoTips:'✅ 建议正式商务照<br>✅ 面部清晰，背景简洁<br>✅ 仅供内部使用',
-    basic:'基本信息', lCn:'姓名（中文）', lEn:'英文名', lEmail:'邮箱', lPhone:'电话/WhatsApp',
+    basic:'基本信息', lCn:'姓名（中文）', lEn:'英文名', lEmail:'邮箱', lPhone:'电话 / WhatsApp',
     lCity:'现居城市', lWechat:'微信号', lBio:'一句话介绍',
+    phCn:'张三', phCity:'多伦多 / Toronto', phBio:'核心专长或背景简介...',
+    phSkills:'例：拥有加拿大政府采购资质，有华人商会资源...',
     roles:'团队角色（可多选）', rolesSub:'请选择所有适用的角色',
     edu:'教育背景', lSchool:'毕业院校', lMajor:'专业', lDegree:'学位',
-    degPh:'请选择',
+    degPh:'请选择', deg1:'本科 / Bachelor', deg2:'硕士 / Master', deg3:'博士 / PhD', deg5:'其他 / Other',
     lYear:'毕业年份',
     exp:'职业经历', addExp:'＋ 添加工作经历', expNum:'经历',
-    expCompany:'公司名称', expTitle:'职位', expPeriod:'在职时间', expLoc:'城市/国家', expDesc:'主要职责与成就',
-    cases:'商业成就 / 案例', addCase:'＋ 添加案例', caseNum:'案例',
+    expCompany:'公司名称', expTitle:'职位', expPeriod:'在职时间', expLoc:'城市 / 国家', expDesc:'主要职责与成就',
+    phExpPeriod:'2020.03 – 2023.06',
+    cases:'商业成就 / 案例', casesSub:'主导或深度参与的项目案例',
+    addCase:'＋ 添加案例', caseNum:'案例',
     caseTitle:'案例标题', caseIndustry:'行业', caseDesc:'案例详情（成果、数据）',
+    refs:'项目参与记录', refsSub:'参与即可，无需担任主要成员',
+    addRef:'＋ 添加项目', refYear:'参与年份', refName:'项目 / 公司名称',
     extra:'补充信息', lCerts:'证书 / 执照', lLangs:'语言能力', lSkills:'特殊技能 / 资源', lLinkedin:'LinkedIn / 个人网站',
-    submit:'提交并下载档案', submitHint:'提交后生成 JSON 文件，请发送给团队负责人',
-    modTitle:'提交成功！', modDesc:'你的档案已生成。请点击下载，然后将文件发给团队负责人。',
-    dlTxt:'下载档案（JSON）', close:'关闭',
+    submit:'提交信息', submitHint:'信息将提交至后台数据库，同时生成备份文件',
+    submitting:'提交中...',
+    modTitle:'提交成功！', modDesc:'档案已保存至数据库。可下载 JSON 备份留存。',
+    modTitleOffline:'档案已生成', modDescOffline:'数据库未配置，档案已本地生成。请将文件发送给团队负责人。',
+    dlTxt:'下载备份（JSON）', close:'关闭',
+    errSize:'照片不能超过 5MB',
   },
   en:{
     badge:'Chinese F&B Going Global · Canada', title:'Team Information Form', sub:'All fields optional — the more you fill, the better',
-    photoTitle:'Profile Photo', photoSub:'Upload a professional headshot (JPG/PNG, optional)',photoCta:'Click to Upload',
+    photoTitle:'Profile Photo', photoSub:'Upload a professional headshot (JPG/PNG, optional)', photoCta:'Click to Upload',
     photoTips:'✅ Professional headshot preferred<br>✅ Clear face, clean background<br>✅ Internal use only',
     basic:'Basic Information', lCn:'Chinese Name', lEn:'English Name', lEmail:'Email', lPhone:'Phone / WhatsApp',
     lCity:'City of Residence', lWechat:'WeChat ID', lBio:'One-line Bio',
+    phCn:'Zhang San', phCity:'Toronto / Vancouver', phBio:'Core expertise or background...',
+    phSkills:'e.g. Canadian procurement qualification, chamber of commerce network...',
     roles:'Team Roles (multi-select)', rolesSub:'Select all that apply',
     edu:'Education', lSchool:'University / Institution', lMajor:'Field of Study', lDegree:'Degree',
-    degPh:'Select degree',
+    degPh:'Select degree', deg1:'Bachelor', deg2:'Master', deg3:'PhD', deg5:'Other',
     lYear:'Graduation Year',
     exp:'Work Experience', addExp:'＋ Add Experience', expNum:'Experience',
     expCompany:'Company / Organization', expTitle:'Title / Role', expPeriod:'Period', expLoc:'City / Country', expDesc:'Key responsibilities & achievements',
-    cases:'Business Cases / Achievements', addCase:'＋ Add Case', caseNum:'Case',
+    phExpPeriod:'2020.03 – 2023.06',
+    cases:'Business Cases / Achievements', casesSub:'Projects you led or deeply participated in',
+    addCase:'＋ Add Case', caseNum:'Case',
     caseTitle:'Case Title', caseIndustry:'Industry', caseDesc:'Details (outcomes, metrics)',
+    refs:'Project References', refsSub:'Participation only — no need to be the lead',
+    addRef:'＋ Add Project', refYear:'Year', refName:'Project / Company Name',
     extra:'Additional Info', lCerts:'Certifications / Licenses', lLangs:'Languages', lSkills:'Special Skills / Resources', lLinkedin:'LinkedIn / Personal Website',
-    submit:'Submit & Download Profile', submitHint:'A JSON file will be generated — send it to the team lead',
-    modTitle:'Submitted!', modDesc:'Your profile is ready. Download it and send to the team lead.',
-    dlTxt:'Download Profile (JSON)', close:'Close',
+    submit:'Submit Profile', submitHint:'Info saved to database with a local backup file',
+    submitting:'Submitting...',
+    modTitle:'Submitted!', modDesc:'Your profile has been saved to the database. Download a JSON backup if needed.',
+    modTitleOffline:'Profile Ready', modDescOffline:'Database not configured. Download and send this file to the team lead.',
+    dlTxt:'Download Backup (JSON)', close:'Close',
+    errSize:'Photo must be under 5MB',
   }
 };
 
-let lang='zh', photoB64='', expCount=0, caseCount=0, formData=null;
+let lang='zh', photoB64='', expCount=0, caseCount=0, refCount=0, formData=null;
 
 function setLang(l){
   lang=l;
@@ -368,31 +322,41 @@ function applyTranslations(){
   const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val};
   const setHTML=(id,val)=>{const el=document.getElementById(id);if(el)el.innerHTML=val};
   const setPH=(id,val)=>{const el=document.getElementById(id);if(el)el.placeholder=val};
-  set('hd-badge',t.badge);set('hd-title',t.title);set('hd-sub',t.sub);
-  set('c-photo-title',t.photoTitle);set('c-photo-sub',t.photoSub);set('ph-cta',t.photoCta);
+  // Header
+  set('hd-badge',t.badge); set('hd-title',t.title); set('hd-sub',t.sub);
+  // Photo
+  set('c-photo-title',t.photoTitle); set('c-photo-sub',t.photoSub); set('ph-cta',t.photoCta);
   setHTML('photo-tips',t.photoTips);
+  // Basic
   set('c-basic',t.basic);
-  set('l-cn',t.lCn);set('l-en',t.lEn);set('l-email',t.lEmail);set('l-phone',t.lPhone);
-  set('l-city',t.lCity);set('l-wechat',t.lWechat);set('l-bio',t.lBio);
-  setPH('name_cn',lang==='zh'?'张三':'Zhang San');setPH('name_en','Sam Zhang');
-  setPH('city',lang==='zh'?'多伦多 / Toronto':'Toronto / Shanghai');
-  setPH('bio',lang==='zh'?'核心专长或背景简介...':'Core expertise or background...');
-  setPH('skills',lang==='zh'?'例：拥有加拿大政府采购资质，有华人商会资源...':'e.g. Canadian procurement qualification, chamber of commerce network...');
-  set('c-roles',t.roles);set('c-roles-sub',t.rolesSub);
-  set('c-edu',t.edu);set('l-school',t.lSchool);set('l-major',t.lMajor);set('l-degree',t.lDegree);
-  set('l-year',t.lYear);set('deg-ph',t.degPh);
-  set('c-exp',t.exp);set('btn-addexp',t.addExp);
-  set('c-cases',t.cases);set('btn-addcase',t.addCase);
-  set('c-extra',t.extra);set('l-certs',t.lCerts);set('l-langs',t.lLangs);
-  set('l-skills',t.lSkills);set('l-linkedin',t.lLinkedin);
-  set('btn-sub-txt',t.submit);set('hint-sub',t.submitHint);
-  set('mod-title',t.modTitle);set('mod-desc',t.modDesc);set('dl-txt',t.dlTxt);set('mod-close',t.close);
+  set('l-cn',t.lCn); set('l-en',t.lEn); set('l-email',t.lEmail); set('l-phone',t.lPhone);
+  set('l-city',t.lCity); set('l-wechat',t.lWechat); set('l-bio',t.lBio);
+  setPH('name_cn',t.phCn); setPH('name_en','Sam Zhang'); setPH('city',t.phCity);
+  setPH('bio',t.phBio); setPH('skills',t.phSkills);
+  // Roles
+  set('c-roles',t.roles); set('c-roles-sub',t.rolesSub);
+  // Education
+  set('c-edu',t.edu); set('l-school',t.lSchool); set('l-major',t.lMajor);
+  set('l-degree',t.lDegree); set('l-year',t.lYear);
+  set('deg-ph',t.degPh); set('deg-1',t.deg1); set('deg-2',t.deg2); set('deg-3',t.deg3); set('deg-5',t.deg5);
+  // Experience
+  set('c-exp',t.exp); set('btn-addexp',t.addExp);
+  // Cases
+  set('c-cases',t.cases); set('c-cases-sub',t.casesSub); set('btn-addcase',t.addCase);
+  // Refs
+  set('c-refs',t.refs); set('c-refs-sub',t.refsSub); set('btn-addref',t.addRef);
+  // Extra
+  set('c-extra',t.extra); set('l-certs',t.lCerts); set('l-langs',t.lLangs);
+  set('l-skills',t.lSkills); set('l-linkedin',t.lLinkedin);
+  // Submit
+  set('btn-sub-txt',t.submit); set('hint-sub',t.submitHint);
+  // Modal
+  set('dl-txt',t.dlTxt); set('mod-close',t.close);
 }
 
 function renderRoles(){
   const cats=ROLE_CATS[lang];
   const body=document.getElementById('roles-body');
-  // remember selected values
   const selected=new Set(Array.from(document.querySelectorAll('.chip.on')).map(c=>c.dataset.value));
   body.innerHTML=cats.map(cat=>`
     <div class="role-category">
@@ -401,13 +365,12 @@ function renderRoles(){
     </div>
   `).join('');
 }
-
 function toggleChip(el){el.classList.toggle('on')}
 
 // Photo
 function handlePhoto(input){
-  const file=input.files[0];if(!file)return;
-  if(file.size>5*1024*1024){alert(lang==='zh'?'照片不能超过 5MB':'Photo must be under 5MB');return}
+  const file=input.files[0]; if(!file) return;
+  if(file.size>5*1024*1024){alert(T[lang].errSize); return}
   const r=new FileReader();
   r.onload=e=>{
     photoB64=e.target.result;
@@ -418,82 +381,162 @@ function handlePhoto(input){
   r.readAsDataURL(file);
 }
 function rmPhoto(e){
-  e.stopPropagation();
-  photoB64='';
+  e.stopPropagation(); photoB64='';
   document.getElementById('pimg').src='';
   document.getElementById('pph').style.display='';
   document.getElementById('ppv').style.display='none';
   document.getElementById('fi').value='';
 }
 
-// Dynamic
+// Dynamic — Experience
 function addExp(){
   expCount++;
   const t=T[lang];
   const div=document.createElement('div');
-  div.className='ditem';div.id=`exp-${expCount}`;
+  div.className='ditem'; div.id=`exp-${expCount}`;
   div.innerHTML=`<div class="dhead"><span class="dnum">${t.expNum} #${expCount}</span><button class="drm" onclick="rm('exp-${expCount}')">✕</button></div>
   <div class="g2" style="margin-bottom:10px">
-    <div class="field"><label class="fl">${t.expCompany}</label><input type="text" name="exp_company" placeholder=""/></div>
-    <div class="field"><label class="fl">${t.expTitle}</label><input type="text" name="exp_title" placeholder=""/></div>
-    <div class="field"><label class="fl">${t.expPeriod}</label><input type="text" name="exp_period" placeholder="2020.03 – 2023.06"/></div>
-    <div class="field"><label class="fl">${t.expLoc}</label><input type="text" name="exp_location" placeholder=""/></div>
+    <div class="field"><label class="fl">${t.expCompany}</label><input type="text" name="exp_company"/></div>
+    <div class="field"><label class="fl">${t.expTitle}</label><input type="text" name="exp_title"/></div>
+    <div class="field"><label class="fl">${t.expPeriod}</label><input type="text" name="exp_period" placeholder="${t.phExpPeriod}"/></div>
+    <div class="field"><label class="fl">${t.expLoc}</label><input type="text" name="exp_location"/></div>
   </div>
   <div class="field"><label class="fl">${t.expDesc}</label><textarea name="exp_desc"></textarea></div>`;
   document.getElementById('exp-list').appendChild(div);
 }
+
+// Dynamic — Cases
 function addCase(){
   caseCount++;
   const t=T[lang];
   const div=document.createElement('div');
-  div.className='ditem';div.id=`case-${caseCount}`;
+  div.className='ditem'; div.id=`case-${caseCount}`;
   div.innerHTML=`<div class="dhead"><span class="dnum">${t.caseNum} #${caseCount}</span><button class="drm" onclick="rm('case-${caseCount}')">✕</button></div>
   <div class="g2" style="margin-bottom:10px">
-    <div class="field"><label class="fl">${t.caseTitle}</label><input type="text" name="case_title" placeholder=""/></div>
-    <div class="field"><label class="fl">${t.caseIndustry}</label><input type="text" name="case_industry" placeholder=""/></div>
+    <div class="field"><label class="fl">${t.caseTitle}</label><input type="text" name="case_title"/></div>
+    <div class="field"><label class="fl">${t.caseIndustry}</label><input type="text" name="case_industry"/></div>
   </div>
   <div class="field"><label class="fl">${t.caseDesc}</label><textarea name="case_desc"></textarea></div>`;
   document.getElementById('case-list').appendChild(div);
 }
+
+// Dynamic — Project References (year + name)
+function addRef(){
+  refCount++;
+  const t=T[lang];
+  const div=document.createElement('div');
+  div.id=`ref-${refCount}`;
+  div.innerHTML=`<div class="ref-row">
+    <input type="number" name="ref_year" placeholder="${t.refYear === '参与年份' ? '2023' : 'Year'}" min="1990" max="2035" style="text-align:center"/>
+    <input type="text" name="ref_name" placeholder="${t.refName}"/>
+    <button class="ref-rm" onclick="rm('ref-${refCount}')">✕</button>
+  </div>`;
+  document.getElementById('ref-list').appendChild(div);
+}
+
 function rm(id){const el=document.getElementById(id);if(el)el.remove()}
 
-function getDyn(listId,fields){
+function getDyn(listId, fields){
   const items=[];
   document.querySelectorAll(`#${listId} .ditem`).forEach(item=>{
     const obj={};
     fields.forEach(f=>{const el=item.querySelector(`[name="${f}"]`);if(el)obj[f.replace(/^(exp_|case_)/,'')]=el.value.trim()});
-    if(Object.values(obj).some(v=>v))items.push(obj);
+    if(Object.values(obj).some(v=>v)) items.push(obj);
   });
   return items;
 }
+function getRefs(){
+  const refs=[];
+  document.querySelectorAll('#ref-list > div').forEach(row=>{
+    const yr=(row.querySelector('[name="ref_year"]')?.value||'').trim();
+    const nm=(row.querySelector('[name="ref_name"]')?.value||'').trim();
+    if(yr||nm) refs.push({year:yr, name:nm});
+  });
+  return refs;
+}
 function v(id){return(document.getElementById(id)?.value||'').trim()}
 
-function submitForm(){
+async function submitForm(){
+  const t=T[lang];
+  const btn=document.getElementById('btn-sub');
+  btn.disabled=true;
+  document.getElementById('btn-sub-txt').textContent=t.submitting;
+
   const selectedRoles=Array.from(document.querySelectorAll('.chip.on')).map(c=>c.dataset.value);
   formData={
-    meta:{submitted_at:new Date().toISOString(),lang,version:'2.0'},
+    meta:{submitted_at:new Date().toISOString(),lang,version:'2.1'},
     photo:photoB64||null,
     basic:{name_cn:v('name_cn'),name_en:v('name_en'),email:v('email'),phone:v('phone'),city:v('city'),wechat:v('wechat'),bio:v('bio')},
     roles:selectedRoles,
     education:{school:v('school'),major:v('major'),degree:v('degree'),grad_year:v('grad_year')},
     experience:getDyn('exp-list',['exp_company','exp_title','exp_period','exp_location','exp_desc']),
     cases:getDyn('case-list',['case_title','case_industry','case_desc']),
+    project_refs:getRefs(),
     extra:{certs:v('certs'),languages:v('languages'),skills:v('skills'),linkedin:v('linkedin')}
   };
+
+  let savedToDB=false;
+  // Try Supabase if configured
+  if(SUPABASE_URL && SUPABASE_ANON){
+    try{
+      const payload={
+        lang:formData.meta.lang,
+        name_cn:formData.basic.name_cn, name_en:formData.basic.name_en,
+        email:formData.basic.email, phone:formData.basic.phone,
+        city:formData.basic.city, wechat:formData.basic.wechat, bio:formData.basic.bio,
+        roles:formData.roles,
+        school:formData.education.school, major:formData.education.major,
+        degree:formData.education.degree, grad_year:formData.education.grad_year,
+        experience:formData.experience, cases:formData.cases,
+        project_refs:formData.project_refs,
+        certs:formData.extra.certs, languages:formData.extra.languages,
+        skills:formData.extra.skills, linkedin:formData.extra.linkedin,
+        photo:formData.photo
+      };
+      const res=await fetch(`${SUPABASE_URL}/rest/v1/team_members`,{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'apikey':SUPABASE_ANON,
+          'Authorization':`Bearer ${SUPABASE_ANON}`,
+          'Prefer':'return=minimal'
+        },
+        body:JSON.stringify(payload)
+      });
+      if(res.ok||res.status===201) savedToDB=true;
+    }catch(err){console.warn('Supabase error:',err)}
+  }
+
+  // Set up download button (always available as backup)
   const name=(v('name_en')||v('name_cn')||'member').replace(/\s+/g,'_');
   const fname=`binh-team_${name}_${new Date().toISOString().slice(0,10)}.json`;
   document.getElementById('dl-btn').onclick=()=>{
     const blob=new Blob([JSON.stringify(formData,null,2)],{type:'application/json'});
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;a.click();
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; a.click();
   };
+
+  // Show modal
+  if(savedToDB){
+    document.getElementById('mod-title').textContent=t.modTitle;
+    document.getElementById('mod-desc').textContent=t.modDesc;
+    document.getElementById('mod-icon').textContent='🎉';
+  }else{
+    document.getElementById('mod-title').textContent=t.modTitleOffline;
+    document.getElementById('mod-desc').textContent=t.modDescOffline;
+    document.getElementById('mod-icon').textContent='📄';
+  }
   document.getElementById('modal').classList.add('show');
+  btn.disabled=false;
+  document.getElementById('btn-sub-txt').textContent=t.submit;
 }
 function closeModal(){document.getElementById('modal').classList.remove('show')}
 
 // Init
 renderRoles();
 applyTranslations();
-addExp();addCase();
+addExp();
+addCase();
+addRef();
 </script>
 </body>
 </html>

@@ -24,13 +24,16 @@
   .btn-red{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
   .btn-red:hover{background:rgba(239,68,68,.3)}
 
+  .db-banner{background:rgba(5,150,105,.12);border-bottom:1px solid rgba(5,150,105,.2);padding:8px 32px;font-size:12px;color:#065f46;display:flex;align-items:center;gap:8px}
+  .db-banner.offline{background:rgba(148,163,184,.1);border-color:var(--s200);color:var(--s600)}
+
   .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px 32px}
   @media(max-width:700px){.stats-bar{grid-template-columns:1fr 1fr}}
   .stat-card{background:#fff;border:1px solid var(--s200);border-radius:16px;padding:20px}
   .stat-num{font-size:32px;font-weight:900;color:var(--primary);line-height:1;margin-bottom:4px}
   .stat-label{font-size:11px;font-weight:700;color:var(--s500);text-transform:uppercase;letter-spacing:.05em}
 
-  .upload-zone{margin:0 32px 24px;border:2px dashed var(--s200);border-radius:16px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:#fff}
+  .upload-zone{margin:0 32px 24px;border:2px dashed var(--s200);border-radius:16px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:#fff;display:block}
   .upload-zone:hover,.upload-zone.drag{border-color:var(--primary);background:var(--primary-light)}
   .upload-zone input{display:none}
   .upload-icon{font-size:32px;margin-bottom:8px}
@@ -45,8 +48,6 @@
   .member-card{background:#fff;border:1px solid var(--s200);border-radius:18px;overflow:hidden;cursor:pointer;transition:all .2s}
   .member-card:hover{border-color:var(--primary);box-shadow:0 8px 30px rgba(5,150,105,.12);transform:translateY(-2px)}
   .member-card-top{padding:20px 20px 14px;display:flex;align-items:flex-start;gap:14px}
-  .avatar{width:56px;height:56px;border-radius:14px;flex-shrink:0;object-fit:cover;background:linear-gradient(135deg,var(--primary),#10b981);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;overflow:hidden}
-  .avatar img{width:100%;height:100%;object-fit:cover}
   .member-info{flex:1;min-width:0}
   .member-name{font-size:16px;font-weight:800;color:var(--s900)}
   .member-name-en{font-size:12px;color:var(--s400);margin-bottom:5px}
@@ -81,29 +82,47 @@
   .dsec h3{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--primary);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--primary-light)}
   .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}
   .di label{font-size:10px;font-weight:700;color:var(--s400);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px}
-  .di p{font-size:14px;color:var(--s800,#1e293b);font-weight:500}
+  .di p{font-size:14px;color:var(--s900);font-weight:500}
   .exp-card,.case-card{background:var(--s50);border-radius:12px;padding:16px;margin-bottom:10px;border-left:3px solid var(--primary)}
   .exp-company{font-weight:800;font-size:15px;color:var(--s900)}
   .exp-meta{font-size:12px;color:var(--s500);margin:3px 0 8px}
   .exp-desc{font-size:13px;color:var(--s600);line-height:1.6}
+  .ref-list-display{display:flex;flex-wrap:wrap;gap:8px}
+  .ref-pill{background:var(--s100);border:1px solid var(--s200);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--s700);display:flex;align-items:center;gap:6px}
+  .ref-pill-year{font-weight:800;color:var(--primary);font-size:11px}
   .modal-footer{padding:18px 28px;border-top:1px solid var(--s100);display:flex;gap:10px;justify-content:flex-end}
 </style>
 </head>
 <body>
 
+<!-- ─── SUPABASE CONFIG ────────────────────────────────────────
+     Paste your anon key here to enable live DB reads.
+     Settings > API Keys > Legacy > anon public
+─────────────────────────────────────────────────────────────── -->
+<script>
+const SUPABASE_URL  = 'https://cqhpkcohkcwyrkwedsvn.supabase.co';
+const SUPABASE_ANON = ''; // ← paste your anon key here
+</script>
+
 <div class="header">
   <div class="header-left">
     <div class="logo">
       <img src="logo.png" alt="" onerror="this.style.display='none'">
-      <div><div class="logo-name">Binh Global</div><div class="header-sub">中国餐饮企业出海加拿大 · 团队档案</div></div></div>
+      <div>
+        <div class="logo-name">Binh Global</div>
+        <div class="header-sub">中国餐饮企业出海加拿大 · 团队档案</div>
+      </div>
     </div>
   </div>
   <div class="header-actions">
+    <button class="btn btn-ghost" onclick="loadFromDB()" id="btn-refresh">🔄 刷新数据库</button>
     <button class="btn btn-ghost" onclick="exportCSV()">📊 导出 CSV</button>
     <button class="btn btn-ghost" onclick="exportAllJSON()">💾 导出 JSON</button>
     <button class="btn btn-red" onclick="clearAll()">🗑 清空</button>
   </div>
 </div>
+
+<div class="db-banner offline" id="db-banner">⚡ 本地模式 — 请在上方导入 JSON 文件，或配置 Supabase 密钥后点击"刷新数据库"</div>
 
 <div class="stats-bar">
   <div class="stat-card"><div class="stat-num" id="s-members">0</div><div class="stat-label">团队成员</div></div>
@@ -115,8 +134,8 @@
 <label class="upload-zone" id="upload-zone">
   <input type="file" id="file-input" accept=".json" multiple onchange="handleFiles(this.files)">
   <div class="upload-icon">📂</div>
-  <h3>导入团队成员档案</h3>
-  <p>点击选择 JSON 文件，或拖拽到此处（支持批量导入）</p>
+  <h3>导入团队成员档案（JSON）</h3>
+  <p>点击选择文件，或拖拽到此处（支持批量导入）</p>
 </label>
 
 <div class="members-section">
@@ -127,7 +146,7 @@
     <div class="empty-state">
       <div class="empty-icon">👥</div>
       <h2>暂无成员档案</h2>
-      <p>让团队成员填写表单并下载 JSON<br>然后在上方导入即可查看</p>
+      <p>从 Supabase 数据库拉取，或导入 JSON 文件</p>
     </div>
   </div>
 </div>
@@ -151,8 +170,52 @@
 </div>
 
 <script>
-let members=JSON.parse(localStorage.getItem('binh_team_v2')||'[]');
+// Convert a Supabase DB row → the same shape as a JSON file submission
+function dbRowToMember(row){
+  return {
+    meta:{submitted_at:row.created_at, lang:row.lang, version:'2.1'},
+    photo:row.photo||null,
+    basic:{name_cn:row.name_cn||'',name_en:row.name_en||'',email:row.email||'',phone:row.phone||'',city:row.city||'',wechat:row.wechat||'',bio:row.bio||''},
+    roles:row.roles||[],
+    education:{school:row.school||'',major:row.major||'',degree:row.degree||'',grad_year:row.grad_year||''},
+    experience:row.experience||[],
+    cases:row.cases||[],
+    project_refs:row.project_refs||[],
+    extra:{certs:row.certs||'',languages:row.languages||'',skills:row.skills||'',linkedin:row.linkedin||''},
+    _db_id:row.id
+  };
+}
+
+let members = JSON.parse(localStorage.getItem('binh_team_v2')||'[]');
 function save(){localStorage.setItem('binh_team_v2',JSON.stringify(members))}
+
+async function loadFromDB(){
+  if(!SUPABASE_URL || !SUPABASE_ANON){
+    alert('请先在文件顶部填写 SUPABASE_ANON 密钥');
+    return;
+  }
+  document.getElementById('btn-refresh').textContent='⏳ 加载中...';
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/team_members?select=*&order=created_at.desc`,{
+      headers:{
+        'apikey':SUPABASE_ANON,
+        'Authorization':`Bearer ${SUPABASE_ANON}`
+      }
+    });
+    if(!res.ok) throw new Error(await res.text());
+    const rows = await res.json();
+    members = rows.map(dbRowToMember);
+    save();
+    render();
+    const banner = document.getElementById('db-banner');
+    banner.className='db-banner';
+    banner.textContent=`✅ 已从数据库加载 ${members.length} 位成员（${new Date().toLocaleTimeString('zh-CN')}）`;
+  }catch(err){
+    alert('数据库加载失败：'+err.message);
+  }finally{
+    document.getElementById('btn-refresh').textContent='🔄 刷新数据库';
+  }
+}
 
 function handleFiles(files){
   Array.from(files).forEach(file=>{
@@ -161,9 +224,10 @@ function handleFiles(files){
       try{
         const d=JSON.parse(e.target.result);
         if(d.basic||d.meta){
-          const idx=members.findIndex(m=>m.basic?.email&&m.basic.email===d.basic?.email);
-          if(idx>=0)members[idx]=d; else members.push(d);
-          save();render();
+          // Merge by email or push new
+          const idx=members.findIndex(m=>m.basic?.email&&m.basic.email===d.basic?.email&&d.basic?.email);
+          if(idx>=0) members[idx]=d; else members.push(d);
+          save(); render();
         }
       }catch(err){alert('文件格式有误：'+file.name)}
     };
@@ -203,7 +267,7 @@ function render(){
 
   const grid=document.getElementById('members-grid');
   if(!members.length){
-    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">👥</div><h2>暂无成员档案</h2><p>让团队成员填写表单并下载 JSON<br>然后在上方导入即可查看</p></div>`;
+    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">👥</div><h2>暂无成员档案</h2><p>从 Supabase 数据库拉取，或导入 JSON 文件</p></div>`;
     return;
   }
   grid.innerHTML=members.map((m,i)=>{
@@ -226,6 +290,7 @@ function render(){
         <div class="mini-stats">
           <div class="mini-stat">💼 <b>${m.experience?.length||0}</b></div>
           <div class="mini-stat">🏆 <b>${m.cases?.length||0}</b></div>
+          <div class="mini-stat">📋 <b>${m.project_refs?.length||0}</b></div>
         </div>
       </div>
     </div>`;
@@ -234,12 +299,11 @@ function render(){
 
 function openDetail(idx){
   const m=members[idx];
-  const b=m.basic||{},ed=m.education||{},ex=m.extra||{};
+  const b=m.basic||{}, ed=m.education||{}, ex=m.extra||{};
 
-  // photo
   const ph=document.getElementById('m-photo');
   if(m.photo){ph.innerHTML=`<img src="${m.photo}" style="width:100%;height:100%;object-fit:cover"/>`;}
-  else{ph.innerHTML=initials(b.name_en||b.name_cn);ph.style.display='flex';}
+  else{ph.textContent=initials(b.name_en||b.name_cn); ph.style.display='flex';}
 
   document.getElementById('m-name').textContent=b.name_cn||b.name_en||'-';
   document.getElementById('m-name-en').textContent=b.name_en||'';
@@ -252,28 +316,43 @@ function openDetail(idx){
   document.getElementById('m-contacts').innerHTML=contacts.map(c=>`<div class="contact-chip">${c}</div>`).join('');
 
   let html='';
-  if(b.bio)html+=`<div class="dsec"><h3>个人简介</h3><p style="font-size:14px;color:var(--s600);line-height:1.7">${b.bio}</p></div>`;
-  if((m.roles||[]).length)html+=`<div class="dsec"><h3>团队角色</h3><div style="display:flex;flex-wrap:wrap;gap:8px">${m.roles.map(r=>`<span class="role-tag" style="font-size:13px;padding:5px 14px">${r}</span>`).join('')}</div></div>`;
-  if(ed.school||ed.major)html+=`<div class="dsec"><h3>教育背景</h3><div class="detail-grid"><div class="di"><label>院校</label><p>${ed.school||'-'}</p></div><div class="di"><label>专业</label><p>${ed.major||'-'}</p></div><div class="di"><label>学位</label><p>${ed.degree||'-'}</p></div><div class="di"><label>毕业</label><p>${ed.grad_year||'-'}</p></div></div></div>`;
+
+  if(b.bio) html+=`<div class="dsec"><h3>个人简介</h3><p style="font-size:14px;color:var(--s600);line-height:1.7">${b.bio}</p></div>`;
+
+  if((m.roles||[]).length) html+=`<div class="dsec"><h3>团队角色</h3><div style="display:flex;flex-wrap:wrap;gap:8px">${m.roles.map(r=>`<span class="role-tag" style="font-size:13px;padding:5px 14px">${r}</span>`).join('')}</div></div>`;
+
+  if(ed.school||ed.major) html+=`<div class="dsec"><h3>教育背景</h3><div class="detail-grid"><div class="di"><label>院校</label><p>${ed.school||'-'}</p></div><div class="di"><label>专业</label><p>${ed.major||'-'}</p></div><div class="di"><label>学位</label><p>${ed.degree||'-'}</p></div><div class="di"><label>毕业年份</label><p>${ed.grad_year||'-'}</p></div></div></div>`;
+
   if((m.experience||[]).length){
     html+=`<div class="dsec"><h3>职业经历</h3>`;
     m.experience.forEach(e=>{html+=`<div class="exp-card"><div class="exp-company">${e.company||'—'}</div><div class="exp-meta">${[e.title,e.period,e.location].filter(Boolean).join(' · ')}</div>${e.desc?`<div class="exp-desc">${e.desc}</div>`:''}</div>`});
     html+=`</div>`;
   }
+
   if((m.cases||[]).length){
     html+=`<div class="dsec"><h3>商业案例</h3>`;
-    m.cases.forEach(c=>{html+=`<div class="case-card"><div class="exp-company">${c.title||'—'}</div>${c.industry?`<div class="exp-meta">${c.industry}</div>`:''} ${c.desc?`<div class="exp-desc">${c.desc}</div>`:''}</div>`});
+    m.cases.forEach(c=>{html+=`<div class="case-card"><div class="exp-company">${c.title||'—'}</div>${c.industry?`<div class="exp-meta">${c.industry}</div>`:''}${c.desc?`<div class="exp-desc">${c.desc}</div>`:''}</div>`});
     html+=`</div>`;
   }
+
+  if((m.project_refs||[]).length){
+    html+=`<div class="dsec"><h3>项目参与记录 · Project References</h3><div class="ref-list-display">`;
+    m.project_refs.forEach(r=>{
+      if(r.name||r.year) html+=`<div class="ref-pill">${r.year?`<span class="ref-pill-year">${r.year}</span>`:''}${r.name||''}</div>`;
+    });
+    html+=`</div></div>`;
+  }
+
   if(ex.certs||ex.languages||ex.skills||ex.linkedin){
     html+=`<div class="dsec"><h3>补充信息</h3><div class="detail-grid">`;
-    if(ex.certs)html+=`<div class="di"><label>证书</label><p>${ex.certs}</p></div>`;
-    if(ex.languages)html+=`<div class="di"><label>语言</label><p>${ex.languages}</p></div>`;
+    if(ex.certs) html+=`<div class="di"><label>证书 / 执照</label><p>${ex.certs}</p></div>`;
+    if(ex.languages) html+=`<div class="di"><label>语言能力</label><p>${ex.languages}</p></div>`;
     html+=`</div>`;
-    if(ex.skills)html+=`<p style="font-size:13px;color:var(--s600);line-height:1.6;margin-top:8px">${ex.skills}</p>`;
-    if(ex.linkedin)html+=`<p style="margin-top:8px"><a href="${ex.linkedin}" target="_blank" style="color:var(--primary);font-size:13px">${ex.linkedin}</a></p>`;
+    if(ex.skills) html+=`<p style="font-size:13px;color:var(--s600);line-height:1.6;margin-top:8px">${ex.skills}</p>`;
+    if(ex.linkedin) html+=`<p style="margin-top:8px"><a href="${ex.linkedin}" target="_blank" style="color:var(--primary);font-size:13px">${ex.linkedin}</a></p>`;
     html+=`</div>`;
   }
+
   document.getElementById('m-body').innerHTML=html;
   document.getElementById('detail-modal').classList.add('show');
 }
@@ -283,25 +362,38 @@ function closeModal(){document.getElementById('detail-modal').classList.remove('
 
 function exportCSV(){
   if(!members.length){alert('没有数据');return}
-  const rows=[['姓名','英文名','邮箱','电话','城市','微信','角色','院校','专业','学位','证书','语言','LinkedIn','经历数','案例数','有照片','提交时间']];
+  const rows=[['姓名','英文名','邮箱','电话','城市','微信','角色','院校','专业','学位','证书','语言','LinkedIn','经历数','案例数','项目参与数','有照片','提交时间']];
   members.forEach(m=>{
     const b=m.basic||{},ed=m.education||{},ex=m.extra||{};
-    rows.push([b.name_cn,b.name_en,b.email,b.phone,b.city,b.wechat,(m.roles||[]).join('|'),ed.school,ed.major,ed.degree,ex.certs,ex.languages,ex.linkedin,(m.experience||[]).length,(m.cases||[]).length,m.photo?'是':'否',m.meta?.submitted_at]);
+    rows.push([b.name_cn,b.name_en,b.email,b.phone,b.city,b.wechat,(m.roles||[]).join('|'),
+      ed.school,ed.major,ed.degree,ex.certs,ex.languages,ex.linkedin,
+      (m.experience||[]).length,(m.cases||[]).length,(m.project_refs||[]).length,
+      m.photo?'是':'否',m.meta?.submitted_at]);
   });
   const csv=rows.map(r=>r.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`binh-team-${new Date().toISOString().slice(0,10)}.csv`;a.click();
 }
+
 function exportAllJSON(){
   if(!members.length){alert('没有数据');return}
   const blob=new Blob([JSON.stringify(members,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`binh-team-all-${new Date().toISOString().slice(0,10)}.json`;a.click();
 }
+
 function clearAll(){
   if(!members.length||!confirm(`确定删除全部 ${members.length} 位成员数据？`))return;
   members=[];save();render();
 }
-render();
+
+// Auto-load from DB on open if configured
+(async()=>{
+  if(SUPABASE_URL && SUPABASE_ANON){
+    await loadFromDB();
+  } else {
+    render();
+  }
+})();
 </script>
 </body>
 </html>
