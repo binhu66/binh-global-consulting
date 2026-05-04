@@ -97,6 +97,29 @@ textarea{resize:vertical;min-height:76px}
 
 <div class="container">
 
+<!-- 草稿横幅 -->
+<div id="draft-banner" style="display:none;align-items:center;justify-content:space-between;background:#ecfdf5;border:1px solid #6ee7b7;border-radius:14px;padding:10px 18px;margin-bottom:14px;font-size:13px;color:#065f46">
+  <span>💾 <span id="draft-banner-txt">已恢复上次填写的草稿</span></span>
+  <button onclick="clearDraft()" style="background:none;border:1px solid #6ee7b7;border-radius:8px;padding:3px 10px;font-size:12px;color:#047857;cursor:pointer" id="draft-clear-btn">清除草稿</button>
+</div>
+
+<!-- 恢复码 -->
+<div class="card" id="restore-card">
+  <div class="card-body" style="padding:16px 22px">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-size:13px;font-weight:600;color:var(--s700);white-space:nowrap" id="restore-label">🔑 输入恢复码继续上次填写</span>
+      <input id="restore-input" type="text" placeholder="BG-XXXX" maxlength="10"
+        style="width:110px;text-align:center;font-weight:700;letter-spacing:.12em;font-family:monospace;text-transform:uppercase;flex-shrink:0"
+        oninput="this.value=this.value.toUpperCase()"/>
+      <button onclick="loadByCode()" id="restore-btn"
+        style="background:var(--p);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">
+        加载 / Load
+      </button>
+      <span id="restore-status" style="font-size:12px;color:var(--s400)"></span>
+    </div>
+  </div>
+</div>
+
 <!-- 照片 -->
 <div class="card">
   <div class="card-header">
@@ -205,6 +228,14 @@ textarea{resize:vertical;min-height:76px}
     <div class="mod-icon" id="mod-icon">🎉</div>
     <h2 id="mod-title">提交成功！</h2>
     <p id="mod-desc">你的档案已成功保存至数据库。</p>
+    <div id="mod-code-box" style="display:none;background:#f0fdf4;border:2px solid #6ee7b7;border-radius:14px;padding:16px;margin-bottom:18px">
+      <p id="mod-code-label" style="font-size:11px;font-weight:700;color:#065f46;letter-spacing:.05em;margin-bottom:8px">🔑 你的恢复码（请保存）</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px">
+        <span id="mod-code-val" style="font-size:28px;font-weight:900;color:#047857;letter-spacing:.15em;font-family:monospace"></span>
+        <button onclick="copyCode()" id="mod-copy-btn" style="background:var(--p);color:#fff;border:none;border-radius:8px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit">复制</button>
+      </div>
+      <p id="mod-code-hint" style="font-size:11px;color:#6b7280;margin-top:8px">下次打开表单，输入此码即可继续编辑</p>
+    </div>
     <button class="btn-dl" id="dl-btn">⬇️ <span id="dl-txt">下载备份（JSON）</span></button>
     <button class="btn-cls" onclick="closeModal()" id="mod-close">关闭</button>
   </div>
@@ -308,7 +339,7 @@ const T = {
   }
 };
 
-let lang='zh', photoB64='', expCount=0, caseCount=0, refCount=0, formData=null;
+let lang='zh', photoB64='', expCount=0, caseCount=0, refCount=0, formData=null, currentDbId=null;
 
 function setLang(l){
   lang=l;
@@ -493,17 +524,35 @@ async function submitForm(){
         skills:formData.extra.skills, linkedin:formData.extra.linkedin,
         photo:formData.photo
       };
-      const res=await fetch(`${SUPABASE_URL}/rest/v1/team_members`,{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json',
-          'apikey':SUPABASE_ANON,
-          'Authorization':`Bearer ${SUPABASE_ANON}`,
-          'Prefer':'return=minimal'
-        },
-        body:JSON.stringify(payload)
-      });
-      if(res.ok||res.status===201) savedToDB=true;
+
+      if(currentDbId){
+        // UPDATE existing record
+        const res=await fetch(`${SUPABASE_URL}/rest/v1/team_members?id=eq.${currentDbId}`,{
+          method:'PATCH',
+          headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON,'Authorization':`Bearer ${SUPABASE_ANON}`,'Prefer':'return=minimal'},
+          body:JSON.stringify(payload)
+        });
+        if(res.ok) savedToDB=true;
+      } else {
+        // INSERT new record, get back the ID
+        const res=await fetch(`${SUPABASE_URL}/rest/v1/team_members`,{
+          method:'POST',
+          headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON,'Authorization':`Bearer ${SUPABASE_ANON}`,'Prefer':'return=representation'},
+          body:JSON.stringify(payload)
+        });
+        if(res.ok||res.status===201){
+          const rows=await res.json();
+          if(rows && rows[0] && rows[0].id){
+            currentDbId=rows[0].id;
+            const code='BG-'+String(currentDbId).padStart(4,'0');
+            document.getElementById('mod-code-val').textContent=code;
+            document.getElementById('mod-code-box').style.display='block';
+            // also store in localStorage for convenience
+            try{ localStorage.setItem('binh_last_code', code); }catch(e){}
+          }
+          savedToDB=true;
+        }
+      }
     }catch(err){console.warn('Supabase error:',err)}
   }
 
@@ -514,6 +563,9 @@ async function submitForm(){
     const blob=new Blob([JSON.stringify(formData,null,2)],{type:'application/json'});
     const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; a.click();
   };
+
+  // Clear draft on success
+  if(savedToDB) clearDraft();
 
   // Show modal
   if(savedToDB){
@@ -531,12 +583,213 @@ async function submitForm(){
 }
 function closeModal(){document.getElementById('modal').classList.remove('show')}
 
+// ─── DRAFT (localStorage) ─────────────────────────────────────────────────────
+const DRAFT_KEY = 'binh_team_draft_v1';
+let saveTimer = null;
+
+function saveDraft(){
+  const draft = {
+    lang,
+    photo: photoB64 || null,
+    basic: {
+      name_cn:v('name_cn'), name_en:v('name_en'), email:v('email'), phone:v('phone'),
+      city:v('city'), wechat:v('wechat'), bio:v('bio')
+    },
+    roles: Array.from(document.querySelectorAll('.chip.on')).map(c=>c.dataset.value),
+    education: {
+      school:v('school'), major:v('major'),
+      degree: document.getElementById('degree')?.value||'',
+      grad_year:v('grad_year')
+    },
+    experience: getDyn('exp-list',['exp_company','exp_title','exp_period','exp_location','exp_desc']),
+    cases: getDyn('case-list',['case_title','case_industry','case_desc']),
+    project_refs: getRefs(),
+    extra: { certs:v('certs'), languages:v('languages'), skills:v('skills'), linkedin:v('linkedin') }
+  };
+  try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); }catch(e){}
+}
+
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveDraft, 800);
+}
+
+function restoreDraft(){
+  let draft;
+  try{ draft = JSON.parse(localStorage.getItem(DRAFT_KEY)); }catch(e){}
+  if(!draft) return;
+
+  // Language
+  if(draft.lang && draft.lang !== lang){
+    lang = draft.lang;
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
+    applyTranslations();
+    renderRoles();
+  }
+
+  // Photo
+  if(draft.photo){
+    photoB64 = draft.photo;
+    document.getElementById('pimg').src = photoB64;
+    document.getElementById('pph').style.display = 'none';
+    document.getElementById('ppv').style.display = 'block';
+  }
+
+  // Basic
+  const setVal=(id,val)=>{const el=document.getElementById(id);if(el&&val)el.value=val;};
+  if(draft.basic){
+    setVal('name_cn',draft.basic.name_cn); setVal('name_en',draft.basic.name_en);
+    setVal('email',draft.basic.email); setVal('phone',draft.basic.phone);
+    setVal('city',draft.basic.city); setVal('wechat',draft.basic.wechat);
+    setVal('bio',draft.basic.bio);
+  }
+
+  // Roles
+  if(draft.roles && draft.roles.length){
+    const rs = new Set(draft.roles);
+    document.querySelectorAll('.chip').forEach(c=>{ if(rs.has(c.dataset.value)) c.classList.add('on'); });
+  }
+
+  // Education
+  if(draft.education){
+    setVal('school',draft.education.school); setVal('major',draft.education.major);
+    setVal('grad_year',draft.education.grad_year);
+    const deg=document.getElementById('degree');
+    if(deg && draft.education.degree) deg.value=draft.education.degree;
+  }
+
+  // Experience
+  if(draft.experience && draft.experience.length){
+    document.getElementById('exp-list').innerHTML=''; expCount=0;
+    draft.experience.forEach(exp=>{
+      addExp();
+      const item=document.getElementById(`exp-${expCount}`); if(!item) return;
+      const sf=(nm,val)=>{const el=item.querySelector(`[name="${nm}"]`);if(el&&val)el.value=val;};
+      sf('exp_company',exp.company); sf('exp_title',exp.title);
+      sf('exp_period',exp.period); sf('exp_location',exp.location); sf('exp_desc',exp.desc);
+    });
+  }
+
+  // Cases
+  if(draft.cases && draft.cases.length){
+    document.getElementById('case-list').innerHTML=''; caseCount=0;
+    draft.cases.forEach(c=>{
+      addCase();
+      const item=document.getElementById(`case-${caseCount}`); if(!item) return;
+      const sf=(nm,val)=>{const el=item.querySelector(`[name="${nm}"]`);if(el&&val)el.value=val;};
+      sf('case_title',c.title); sf('case_industry',c.industry); sf('case_desc',c.desc);
+    });
+  }
+
+  // Project refs
+  if(draft.project_refs && draft.project_refs.length){
+    document.getElementById('ref-list').innerHTML=''; refCount=0;
+    draft.project_refs.forEach(r=>{
+      addRef();
+      const row=document.getElementById(`ref-${refCount}`); if(!row) return;
+      const yr=row.querySelector('[name="ref_year"]'); if(yr&&r.year) yr.value=r.year;
+      const nm=row.querySelector('[name="ref_name"]'); if(nm&&r.name) nm.value=r.name;
+    });
+  }
+
+  // Extra
+  if(draft.extra){
+    setVal('certs',draft.extra.certs); setVal('languages',draft.extra.languages);
+    setVal('skills',draft.extra.skills); setVal('linkedin',draft.extra.linkedin);
+  }
+
+  // Show banner
+  const b=document.getElementById('draft-banner'); if(b) b.style.display='flex';
+  const bt=document.getElementById('draft-banner-txt');
+  if(bt) bt.textContent = lang==='zh' ? '已恢复上次填写的草稿' : lang==='en' ? 'Draft restored from last session' : lang==='fr' ? 'Brouillon restauré' : 'Đã khôi phục bản nháp';
+  const cb=document.getElementById('draft-clear-btn');
+  if(cb) cb.textContent = lang==='zh' ? '清除草稿' : lang==='en' ? 'Clear draft' : lang==='fr' ? 'Effacer' : 'Xóa nháp';
+}
+
+function clearDraft(){
+  try{ localStorage.removeItem(DRAFT_KEY); }catch(e){}
+  const b=document.getElementById('draft-banner'); if(b) b.style.display='none';
+}
+
+// ─── 恢复码 ───────────────────────────────────────────────────────────────────
+async function loadByCode(){
+  const raw=document.getElementById('restore-input').value.trim().toUpperCase();
+  const status=document.getElementById('restore-status');
+  if(!raw){ status.textContent='请输入恢复码'; return; }
+  // Accept "BG-42", "BG-0042", or just "42"
+  const num=parseInt(raw.replace(/^BG-?/i,''),10);
+  if(!num||isNaN(num)){ status.textContent='格式不对，例如 BG-0042'; return; }
+  if(!SUPABASE_URL||!SUPABASE_ANON){ status.textContent='数据库未配置'; return; }
+  status.textContent='加载中…';
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/team_members?id=eq.${num}&select=*`,{
+      headers:{'apikey':SUPABASE_ANON,'Authorization':`Bearer ${SUPABASE_ANON}`}
+    });
+    const rows=await res.json();
+    if(!rows||!rows.length){ status.textContent='找不到记录，请检查恢复码'; return; }
+    populateFromRow(rows[0]);
+    currentDbId=rows[0].id;
+    status.textContent='✅ 已加载！可继续编辑后重新提交';
+    document.getElementById('restore-input').value='';
+  }catch(e){ status.textContent='加载失败，请重试'; console.warn(e); }
+}
+
+function populateFromRow(row){
+  // Reuse restoreDraft logic by constructing a draft object from DB row
+  const draft={
+    lang: row.lang||lang,
+    photo: row.photo||null,
+    basic:{ name_cn:row.name_cn||'', name_en:row.name_en||'', email:row.email||'',
+            phone:row.phone||'', city:row.city||'', wechat:row.wechat||'', bio:row.bio||'' },
+    roles: row.roles||[],
+    education:{ school:row.school||'', major:row.major||'', degree:row.degree||'', grad_year:row.grad_year||'' },
+    experience: (row.experience||[]).map(e=>({company:e.company,title:e.title,period:e.period,location:e.location,desc:e.desc})),
+    cases: (row.cases||[]).map(c=>({title:c.title,industry:c.industry,desc:c.desc})),
+    project_refs: row.project_refs||[],
+    extra:{ certs:row.certs||'', languages:row.languages||'', skills:row.skills||'', linkedin:row.linkedin||'' }
+  };
+  // Temporarily store and restore
+  try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); }catch(e){}
+  // Reset dynamic lists first
+  document.getElementById('exp-list').innerHTML=''; expCount=0;
+  document.getElementById('case-list').innerHTML=''; caseCount=0;
+  document.getElementById('ref-list').innerHTML=''; refCount=0;
+  addExp(); addCase(); addRef(); // defaults
+  restoreDraft();
+  // Show banner indicating edit mode
+  const bt=document.getElementById('draft-banner-txt');
+  if(bt) bt.textContent='✏️ 编辑模式 — 修改后点提交将更新记录';
+  const b=document.getElementById('draft-banner'); if(b) b.style.display='flex';
+}
+
+function copyCode(){
+  const code=document.getElementById('mod-code-val').textContent;
+  navigator.clipboard?.writeText(code).then(()=>{
+    const btn=document.getElementById('mod-copy-btn');
+    btn.textContent='已复制✓'; setTimeout(()=>btn.textContent='复制',2000);
+  });
+}
+
+function bindAutoSave(){
+  document.querySelectorAll('input,select,textarea').forEach(el=>{
+    el.addEventListener('input', scheduleSave);
+    el.addEventListener('change', scheduleSave);
+  });
+  // observe chips and dynamic lists for changes
+  new MutationObserver(scheduleSave).observe(document.getElementById('roles-body'),{childList:true,subtree:true,attributes:true});
+  new MutationObserver(scheduleSave).observe(document.getElementById('exp-list'),{childList:true,subtree:true});
+  new MutationObserver(scheduleSave).observe(document.getElementById('case-list'),{childList:true,subtree:true});
+  new MutationObserver(scheduleSave).observe(document.getElementById('ref-list'),{childList:true,subtree:true});
+}
+
 // Init
 renderRoles();
 applyTranslations();
 addExp();
 addCase();
 addRef();
+restoreDraft();
+bindAutoSave();
 </script>
 </body>
 </html>
